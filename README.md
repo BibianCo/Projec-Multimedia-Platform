@@ -13,7 +13,7 @@ This project aims to provide the functionality of a multimedia platform, specifi
 <h2 align="center" >  Authors </h2>
 
 - Bibian Corredor
-- Juan Riapita
+- Juan Fernandez
 - Fernanda Angarita
 - Daniel 
 
