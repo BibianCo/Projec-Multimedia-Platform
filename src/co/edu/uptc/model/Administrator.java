@@ -1,12 +1,21 @@
 package co.edu.uptc.model;
 
+import java.util.ArrayList;
+
 public class Administrator extends Person {
-    private UserCredentials userCredentials;
+    private int code;
 
-    public Administrator(String firstName, String lastName, short age, String email, String password) {
-        super(firstName, lastName, age);
-        this.userCredentials = new UserCredentials(email, password);
+    public Administrator(String name, String email, String password) {
+        super(name, email, password);
+        this.code = code;
+    }
 
+    public int getCode() {
+        return code;
+    }
+
+    public void setCode(int code) {
+        this.code = code;
     }
 
 }

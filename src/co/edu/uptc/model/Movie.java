@@ -1,15 +1,11 @@
 package co.edu.uptc.model;
 
-public class Movie {
+public class Movie extends Multimedia {
     private int duration;
-    private String director;
-    private Multimedia multimedia;
 
-    public Movie(int duration, String director, Multimedia multimedia, String title, String description,
-            String category) {
+    public Movie(String title, String description, String category, int publication, boolean reproduce, int duration) {
+        super(title, description, category, publication, reproduce);
         this.duration = duration;
-        this.director = director;
-        this.multimedia = new Multimedia(title, description, category);
     }
 
     public int getDuration() {
@@ -18,22 +14,6 @@ public class Movie {
 
     public void setDuration(int duration) {
         this.duration = duration;
-    }
-
-    public String getDirector() {
-        return director;
-    }
-
-    public void setDirector(String director) {
-        this.director = director;
-    }
-
-    public Multimedia getMultimedia() {
-        return multimedia;
-    }
-
-    public void setMultimedia(Multimedia multimedia) {
-        this.multimedia = multimedia;
     }
 
 }
