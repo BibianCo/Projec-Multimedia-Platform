@@ -1,14 +1,15 @@
 package co.edu.uptc.model;
 
-public abstract class Person {
-    private String firstName;
-    private String lastName;
-    private short age;
+public class Person {
 
-    public Person(String firstName, String lastName, short age) {
+    private String firstName;
+    private String email;
+    private String password;
+
+    public Person(String firstName, String email, String password) {
         this.firstName = firstName;
-        this.lastName = lastName;
-        this.age = age;
+        this.email = email;
+        this.password = password;
     }
 
     public String getFirstName() {
@@ -19,20 +20,20 @@ public abstract class Person {
         this.firstName = firstName;
     }
 
-    public String getLastName() {
-        return lastName;
+    public String getEmail() {
+        return email;
     }
 
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
+    public void setEmail(String email) {
+        this.email = email;
     }
 
-    public short getAge() {
-        return age;
+    public String getPassword() {
+        return password;
     }
 
-    public void setAge(short age) {
-        this.age = age;
+    public void setPassword(String password) {
+        this.password = password;
     }
 
 }
