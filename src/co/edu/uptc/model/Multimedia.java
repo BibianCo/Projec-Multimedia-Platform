@@ -1,13 +1,15 @@
 package co.edu.uptc.model;
 
+import java.time.LocalDate;
+
 public class Multimedia {
     private String title;
     private String description;
     private String category;
-    private int publication;
+    private LocalDate publication;
     private boolean reproduce;
 
-    public Multimedia(String title, String description, String category, int publication, boolean reproduce) {
+    public Multimedia(String title, String description, String category, LocalDate publication, boolean reproduce) {
         this.title = title;
         this.description = description;
         this.category = category;
@@ -39,20 +41,20 @@ public class Multimedia {
         this.category = category;
     }
 
-    public int getPublication() {
-        return publication;
-    }
-
-    public void setPublication(int publication) {
-        this.publication = publication;
-    }
-
     public boolean isReproduce() {
         return reproduce;
     }
 
     public void setReproduce(boolean reproduce) {
         this.reproduce = reproduce;
+    }
+
+    public LocalDate getPublication() {
+        return publication;
+    }
+
+    public void setPublication(LocalDate publication) {
+        this.publication = publication;
     }
 
 }
