@@ -7,12 +7,12 @@ public class Multimedia {
     private int publication;
     private boolean reproduce;
 
-    public Multimedia(String title, String description, String category, int publication, boolean reproduce) {
+    public Multimedia(String title, String description, String category, int publication) {
         this.title = title;
         this.description = description;
         this.category = category;
         this.publication = publication;
-        this.reproduce = reproduce;
+
     }
 
     public String getTitle() {
@@ -53,6 +53,12 @@ public class Multimedia {
 
     public void setReproduce(boolean reproduce) {
         this.reproduce = reproduce;
+    }
+
+    @Override
+    public String toString() {
+        return "Multimedia [title=" + title + ", description=" + description + ", category=" + category
+                + ", publication=" + publication + ", reproduce=" + reproduce + "]";
     }
 
 }

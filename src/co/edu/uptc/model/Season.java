@@ -1,23 +1,29 @@
 package co.edu.uptc.model;
 
+import java.util.ArrayList;
+
 public class Season {
-    private int numberOfChapters;
+    private ArrayList<Chapter> numberOfChapters;
     private String description;
     private String publicationSeason;
-    private Chapter chapter;
+    private String numberSeason;
 
-    public Season(int numberOfChapters, String description, String publicationSeason) {
-        this.numberOfChapters = numberOfChapters;
+    public Season(String description, String publicationSeason, String numberSeason) {
         this.description = description;
         this.publicationSeason = publicationSeason;
-        chapter = new Chapter(numberOfChapters, description, publicationSeason);
+        this.numberSeason = numberSeason;
+        this.numberOfChapters = new ArrayList<>();
     }
 
-    public int getNumberOfChapters() {
+    public void addChapter(Chapter chapter) {
+        numberOfChapters.add(chapter);
+    }
+
+    public ArrayList<Chapter> getNumberOfChapters() {
         return numberOfChapters;
     }
 
-    public void setNumberOfChapters(int numberOfChapters) {
+    public void setNumberOfChapters(ArrayList<Chapter> numberOfChapters) {
         this.numberOfChapters = numberOfChapters;
     }
 
@@ -35,6 +41,20 @@ public class Season {
 
     public void setPublicationSeason(String publicationSeason) {
         this.publicationSeason = publicationSeason;
+    }
+
+    @Override
+    public String toString() {
+        return "Season [numberOfChapters=" + numberOfChapters + ", description=" + description + ", publicationSeason="
+                + publicationSeason + "]";
+    }
+
+    public String getNumberSeason() {
+        return numberSeason;
+    }
+
+    public void setNumberSeason(String numberSeason) {
+        this.numberSeason = numberSeason;
     }
 
 }

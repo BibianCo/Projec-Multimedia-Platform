@@ -11,8 +11,8 @@ public class MultimediaGallery {
         return series;
     }
 
-    public void setSeries(ArrayList<Serie> series) {
-        this.series = series;
+    public void setSeries(Serie series) {
+        this.series.add(series);
     }
 
     public ArrayList<Movie> getMovies() {

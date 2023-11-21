@@ -33,6 +33,12 @@ public class Chapter {
 
     public void setTitle(String title) {
         this.title = title;
+
+    }
+
+    @Override
+    public String toString() {
+        return "Chapter [duration=" + duration + ", description=" + description + ", title=" + title + "]";
     }
 
 }
