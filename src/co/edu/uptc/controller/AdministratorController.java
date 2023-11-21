@@ -51,4 +51,18 @@ public class AdministratorController {
 
     }
 
+    public boolean deleteMovie(String title) {
+        Movie m1 = findMovie(title);
+
+        if (m1 != null) {
+            multimediaGallery.getMovies().remove(m1);
+            return true;
+        }
+        return false;
+    }
+
+    public ArrayList<Movie> showMovies() {
+        return multimediaGallery.getMovies();
+    }
+
 }
