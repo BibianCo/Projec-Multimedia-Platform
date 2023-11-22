@@ -6,15 +6,86 @@ import java.util.ArrayList;
 
 import javax.swing.event.ChangeEvent;
 
+import co.edu.uptc.model.Administrator;
 import co.edu.uptc.model.Chapter;
 import co.edu.uptc.model.Movie;
 import co.edu.uptc.model.MultimediaGallery;
 import co.edu.uptc.model.Season;
 import co.edu.uptc.model.Serie;
+import co.edu.uptc.model.User;
 
 public class AdministratorController {
     MultimediaGallery multimedia = new MultimediaGallery();
+    private ArrayList<User> userList;
+    private Administrator administrator;
 
+    public AdministratorController() {
+        userList = new ArrayList<User>();
+        administrator = new Administrator("admin1", "admin1@uptc.edu.co", "2244");
+    }
+
+    public ArrayList <User> showUserList() {
+        return userList;
+    }
+
+    public boolean updateAdministratorDetails(int option, String newDetails) {
+        switch (option) {
+            case 1:
+                administrator.setFirstName(newDetails);
+                return true;
+            case 2:
+                //emailValidation();
+                administrator.setEmail(newDetails);
+                return true;
+            case 3:
+                //passwordValidation
+                administrator.setPassword(newDetails);
+                return true;
+            default:
+                return false;
+
+        }
+    }
+
+
+    public boolean emailValidation(String email) {
+
+        ArrayList<String> listDominio = new ArrayList<>();
+        listDominio.add("@gmail.com");
+        listDominio.add("@uptc.edu.co");
+        listDominio.add("@outlook.es");
+        listDominio.add("@yahoo.com");
+        
+        for (String s : listDominio) {
+            if (email.contains(s)) {
+                int position = email.length() - s.length();
+                String aux = email.substring(0, position);
+
+                if (aux.contains("@") || aux.length() < 5) {
+                    return false;
+                } else {
+                    return true;
+                }
+            }
+
+        }
+        return false;
+    }
+
+    public boolean passwordValidation(String password) {
+
+        if (password.length() > 3 && password.length() < 20) { // >3 <20
+            if (!password.equals(password.toLowerCase())) { // min. una mayuscula
+                if (!password.equals(password.toUpperCase())) { // min. una miniscula
+                    if (password.matches(".*\\d.*\\d.*")) { // min. 2 numeros
+                        return true;
+                    }
+                }
+            }
+        }
+        return false;
+    }
+    
     public boolean addSerie(String title, String description, String category, LocalDate publication) {
         if (!title.isEmpty() && !description.isEmpty() && !category.isEmpty()) {
             multimedia.setSeries(new Serie(title, description, category, publication, false));
