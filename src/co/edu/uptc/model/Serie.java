@@ -1,17 +1,15 @@
 package co.edu.uptc.model;
 
-import java.lang.reflect.Array;
+import java.time.LocalDate;
 import java.util.ArrayList;
 
 public class Serie extends Multimedia {
     private int numberSeasons;
     private ArrayList<Season> seasons;
 
-    public Serie(String title, String description, String category, int publication) {
-        super(title, description, category, publication);
-        this.numberSeasons = numberSeasons;
+    public Serie(String title, String description, String category, LocalDate publication, boolean reproduce) {
+        super(title, description, category, publication, reproduce);
         seasons = new ArrayList<>();
-
     }
 
     public void addSeason(Season season) {

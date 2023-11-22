@@ -19,8 +19,8 @@ public class MultimediaGallery {
         return movies;
     }
 
-    public void setMovies(ArrayList<Movie> movies) {
-        this.movies = movies;
+    public void setMovies(Movie movie) {
+        this.movies.add(movie);
     }
 
 }
