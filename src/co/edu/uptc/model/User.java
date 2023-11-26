@@ -7,11 +7,12 @@ public class User extends Person {
     private String userName;
     private ArrayList<Multimedia> wishList = new ArrayList<>();
     private ArrayList<Multimedia> playlist = new ArrayList<>();
+    private Plan plan;
 
-    public User(String name, String email, String password, String userName) {
+    public User(String name, String email, String password, String userName, Plan plan) {
         super(name, email, password);
         this.userName = userName;
-
+        this.plan = plan;
     }
 
     public String getUserName() {
@@ -36,6 +37,14 @@ public class User extends Person {
 
     public void setPlaylist(ArrayList<Multimedia> playlist) {
         this.playlist = playlist;
+    }
+
+    public Plan getPlan() {
+        return plan;
+    }
+
+    public void setPlan(Plan plan) {
+        this.plan = plan;
     }
 
 }

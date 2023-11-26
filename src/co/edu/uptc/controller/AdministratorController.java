@@ -22,6 +22,7 @@ public class AdministratorController {
     public AdministratorController() {
         userList = new ArrayList<User>();
         administrator = new Administrator("admin1", "admin1@uptc.edu.co", "2244");
+        
     }
 
     public ArrayList <User> showUserList() {
@@ -94,10 +95,8 @@ public class AdministratorController {
         return false;
     }
 
-    public boolean addMovie(String title, String description, String category, LocalDate publication, int duration) {
-
+    public boolean addMovie(String title, String description, String category, LocalDate publication, int duration) {   
         multimedia.setMovies(new Movie(title, description, category, publication, false));
-
         if (multimedia.getMovies() != null) {
             return true;
         } else {
@@ -146,7 +145,7 @@ public class AdministratorController {
     }
 
     public Serie UpdateSerie(String titleSerie, String description, String category,
-            LocalDate publication) {
+        LocalDate publication) {
         Serie serie = findSerie(titleSerie);
         if (serie != null) {
             if (serie.getTitle().equals(titleSerie)) {
