@@ -47,4 +47,7 @@ public class User extends Person {
         this.plan = plan;
     }
 
+    public void addWishList(Multimedia multimedia) {
+        wishList.add(multimedia);
+    }
 }
