@@ -78,7 +78,6 @@ public class AdministratorController {
         Movie findMovie = findMovie(title);
 
         if (findMovie != null) {
-            findMovie.setTitle(title);
             findMovie.setDescription(description);
             findMovie.setCategory(category);
             findMovie.setPublication(publication);

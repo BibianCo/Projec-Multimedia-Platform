@@ -36,4 +36,16 @@ public class UserController {
         return false;
     }
 
+    public User findUser(String userName) {
+        if (!userName.isEmpty()) {
+            for (User user : administrator.getUsers()) {
+                if (user.getUserName().equals(userName)) {
+                    return user;
+                }
+
+            }
+        }
+        return null;
+    }
+
 }
