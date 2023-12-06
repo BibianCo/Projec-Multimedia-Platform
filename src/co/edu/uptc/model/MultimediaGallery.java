@@ -1,6 +1,5 @@
 package co.edu.uptc.model;
 
-import java.io.Serial;
 import java.util.ArrayList;
 
 public class MultimediaGallery {
