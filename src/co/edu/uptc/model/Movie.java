@@ -18,4 +18,10 @@ public class Movie extends Multimedia {
         this.duration = duration;
     }
 
+    @Override
+    public String toString() {
+        return "Movie [duration=" + duration + "]" + super.toString();
+    }
+    
+
 }
