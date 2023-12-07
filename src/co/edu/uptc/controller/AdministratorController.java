@@ -22,10 +22,10 @@ public class AdministratorController {
     public AdministratorController() {
         userList = new ArrayList<User>();
         administrator = new Administrator("admin1", "admin1@uptc.edu.co", "2244");
-        
+
     }
 
-    public ArrayList <User> showUserList() {
+    public ArrayList<User> showUserList() {
         return userList;
     }
 
@@ -35,11 +35,11 @@ public class AdministratorController {
                 administrator.setFirstName(newDetails);
                 return true;
             case 2:
-                //emailValidation();
+                // emailValidation();
                 administrator.setEmail(newDetails);
                 return true;
             case 3:
-                //passwordValidation
+                // passwordValidation
                 administrator.setPassword(newDetails);
                 return true;
             default:
@@ -48,7 +48,6 @@ public class AdministratorController {
         }
     }
 
-
     public boolean emailValidation(String email) {
 
         ArrayList<String> listDominio = new ArrayList<>();
@@ -56,7 +55,7 @@ public class AdministratorController {
         listDominio.add("@uptc.edu.co");
         listDominio.add("@outlook.es");
         listDominio.add("@yahoo.com");
-        
+
         for (String s : listDominio) {
             if (email.contains(s)) {
                 int position = email.length() - s.length();
@@ -86,7 +85,7 @@ public class AdministratorController {
         }
         return false;
     }
-    
+
     public boolean addSerie(String title, String description, String category, LocalDate publication) {
         if (!title.isEmpty() && !description.isEmpty() && !category.isEmpty()) {
             multimedia.setSeries(new Serie(title, description, category, publication, false));
@@ -95,7 +94,7 @@ public class AdministratorController {
         return false;
     }
 
-    public boolean addMovie(String title, String description, String category, LocalDate publication, int duration) {   
+    public boolean addMovie(String title, String description, String category, LocalDate publication, int duration) {
         multimedia.setMovies(new Movie(title, description, category, publication, false));
         if (multimedia.getMovies() != null) {
             return true;
@@ -145,7 +144,7 @@ public class AdministratorController {
     }
 
     public Serie UpdateSerie(String titleSerie, String description, String category,
-        LocalDate publication) {
+            LocalDate publication) {
         Serie serie = findSerie(titleSerie);
         if (serie != null) {
             if (serie.getTitle().equals(titleSerie)) {
