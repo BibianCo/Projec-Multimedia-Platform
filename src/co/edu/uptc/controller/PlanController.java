@@ -30,17 +30,18 @@ public class PlanController {
         return code;
     }
 
-    public Plan assignTypePlan(int option){
-        plan = getListPlans().get(option-1);
+    public Plan assignTypePlan(int option) {
+        plan = getListPlans().get(option - 1);
         return plan;
     }
 
-    public Plan assignUser(String userName){
-        if(plan.getUserList().size() < plan.getNumberUsers()){
+    public Plan assignUser(String userName) {
+        if (plan.getUserList().size() < plan.getNumberUsers()) {
             plan.getUserList().add(userName);
         }
         return plan;
     }
+
     public ArrayList<Plan> getListPlans() {
         return listPlans;
     }

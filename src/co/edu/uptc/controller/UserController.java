@@ -28,8 +28,9 @@ public class UserController {
     ArrayList<User> users = new ArrayList<>();
 
     public boolean addUser(String name, String email, String password, String userName, Plan plan) {
-        user = new User(name, email, password, userName, plan);
-        if (user != null) {
+        User user = new User(name, email, password, userName, plan);
+        if (user.getFirstName().isEmpty() && user.getEmail().isEmpty() && user.getPassword().isEmpty()
+                && user.getPlan() != null) {
             users.add(user);
             administrator.setUsers(users);
             return true;
@@ -37,13 +38,21 @@ public class UserController {
         return false;
     }
 
-    public User findUser(String userName) {
-        if (!userName.isEmpty()) {
-            for (User user : administrator.getUsers()) {
-                if (user.getUserName().equals(userName)) {
-                    return user;
-                }
+    public boolean authentication(String email, String password) {
 
+        User user = findUser(email);
+        if (user != null) {
+            if (user.getEmail().equals(email) && user.getPassword().equals(password)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public User findUser(String email) {
+        for (User user : users) {
+            if (user.getEmail().equals(email)) {
+                return user;
             }
         }
         return null;

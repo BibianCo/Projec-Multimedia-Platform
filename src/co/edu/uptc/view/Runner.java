@@ -1,15 +1,11 @@
 package co.edu.uptc.view;
 
-import java.util.Scanner;
-
-import co.edu.uptc.controller.AdministratorController;
-import co.edu.uptc.model.Administrator;
-
 public class Runner {
+
+    private static InterfazVisitor interfazVisitor;
+
     public static void main(String[] args) {
-
-        System.out.println("hola ");
-
+        interfazVisitor.interfaz();
     }
 
 }

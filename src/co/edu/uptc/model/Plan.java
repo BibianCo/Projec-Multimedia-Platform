@@ -6,8 +6,11 @@ public class Plan {
     private String description;
     private int value;
     private int numberUsers;
-    private ArrayList <String> userList;
+    private ArrayList<String> userList;
     private String invitationCode;
+
+    public Plan() {
+    }
 
     public Plan(String description, int value, int numberUsers) {
         this.description = description;
@@ -47,8 +50,6 @@ public class Plan {
         this.numberUsers = numberUsers;
     }
 
-    
-
     public String getInvitationCode() {
         return invitationCode;
     }
@@ -63,6 +64,12 @@ public class Plan {
 
     public void setUserList(ArrayList<String> userList) {
         this.userList = userList;
+    }
+
+    @Override
+    public String toString() {
+        return "Plan [description=" + description + ", value=" + value + ", numberUsers=" + numberUsers + ", userList="
+                + userList + ", invitationCode=" + invitationCode + "]";
     }
 
 }
