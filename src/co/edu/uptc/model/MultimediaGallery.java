@@ -1,26 +1,34 @@
 package co.edu.uptc.model;
 
-import java.io.Serial;
-import java.util.ArrayList;
+import java.util.HashMap;
 
 public class MultimediaGallery {
-    private ArrayList<Serie> series = new ArrayList<>();
-    private ArrayList<Movie> movies = new ArrayList<>();
 
-    public ArrayList<Serie> getSeries() {
+    private HashMap<Integer, Serie> series;
+    private HashMap<Integer,Movie> movies ;
+
+    public MultimediaGallery(){
+        series = new HashMap<>();
+        movies = new HashMap<>();
+    }
+
+    public HashMap<Integer, Serie> getSeries() {
         return series;
     }
 
-    public void setSeries(Serie series) {
-        this.series.add(series);
+    public void setSeries(Integer key, Serie value) {
+        series.put(key, value);    
     }
 
-    public ArrayList<Movie> getMovies() {
+    public HashMap<Integer, Movie> getMovies() {
         return movies;
     }
 
-    public void setMovies(Movie movie) {
-        this.movies.add(movie);
+    public void setMovies(Integer key, Movie value) {
+        movies.put(key, value);
     }
+
+    
+    
 
 }

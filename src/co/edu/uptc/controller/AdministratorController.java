@@ -12,9 +12,10 @@ import co.edu.uptc.model.Serie;
 import co.edu.uptc.model.User;
 
 public class AdministratorController {
-    MultimediaGallery multimediaGallety = new MultimediaGallery();
+    //MultimediaGallery multimediaGallery = new MultimediaGallery();
     private ArrayList<User> userList;
     private Administrator administrator;
+    private MultimediaGalleryController mgc = new MultimediaGalleryController();
 
     public AdministratorController() {
         userList = new ArrayList<User>();
@@ -45,71 +46,25 @@ public class AdministratorController {
         }
     }
 
-<<<<<<< HEAD
-=======
-    public boolean emailValidation(String email) {
-
-        ArrayList<String> listDominio = new ArrayList<>();
-        listDominio.add("@gmail.com");
-        listDominio.add("@uptc.edu.co");
-        listDominio.add("@outlook.es");
-        listDominio.add("@yahoo.com");
-
-        for (String s : listDominio) {
-            if (email.contains(s)) {
-                int position = email.length() - s.length();
-                String aux = email.substring(0, position);
-
-                if (aux.contains("@") || aux.length() < 5) {
-                    return false;
-                } else {
-                    return true;
-                }
-            }
-
-        }
-        return false;
-    }
-
-    public boolean passwordValidation(String password) {
-
-        if (password.length() > 3 && password.length() < 20) { // >3 <20
-            if (!password.equals(password.toLowerCase())) { // min. una mayuscula
-                if (!password.equals(password.toUpperCase())) { // min. una miniscula
-                    if (password.matches(".*\\d.*\\d.*")) { // min. 2 numeros
-                        return true;
-                    }
-                }
-            }
-        }
-        return false;
-    }
-
->>>>>>> b4e568569c91b05806a585a545d6439d43cf1063
     public boolean addSerie(String title, String description, String category, LocalDate publication) {
         if (!title.isEmpty() && !description.isEmpty() && !category.isEmpty()) {
-            multimediaGallety.setSeries(new Serie(title, description, category, publication, false));
+            mgc.multimedia.setSeries(mgc.GenerateKey(true), new Serie(title, description, category, publication, false));
             return true;
         }
         return false;
     }
 
     public boolean addMovie(String title, String description, String category, LocalDate publication, int duration) {
-<<<<<<< HEAD
         Movie m1 = new Movie(title, description, category, publication, false);
         if (m1 != null) {
-            multimediaGallety.setMovies(m1);
-=======
-        multimedia.setMovies(new Movie(title, description, category, publication, false));
-        if (multimedia.getMovies() != null) {
->>>>>>> b4e568569c91b05806a585a545d6439d43cf1063
+            multimediaGallery.setMovies(m1);
             return true;
         }
         return false;
     }
 
     public Movie findMovie(String title) {
-        ArrayList<Movie> movies = multimediaGallety.getMovies();
+        ArrayList<Movie> movies = multimediaGallery.getMovies();
 
         for (int i = 0; i < movies.size(); i++)
 
@@ -120,7 +75,7 @@ public class AdministratorController {
         return null;
     }
 
-    public Movie upDateMovie(String title, String description, String category, LocalDate publication, int diration) {
+    public Movie updateMovie(String title, String description, String category, LocalDate publication, int diration) {
         Movie findMovie = findMovie(title);
 
         if (findMovie != null) {
@@ -141,7 +96,7 @@ public class AdministratorController {
         Movie m1 = findMovie(title);
 
         if (m1 != null) {
-            multimediaGallety.getMovies().remove(m1);
+            multimediaGallery.getMovies().remove(m1);
             return true;
         }
         return false;
@@ -166,7 +121,7 @@ public class AdministratorController {
 
     public Serie findSerie(String title) {
         if (!title.isEmpty()) {// title.equals("");
-            for (Serie serie : multimediaGallety.getSeries()) {
+            for (Serie serie : multimediaGallery.getSeries()) {
                 if (serie.getTitle().equals(title)) {
                     return serie;
                 }
@@ -179,14 +134,14 @@ public class AdministratorController {
 
         if (title != null) {
             Serie serie = findSerie(title);
-            multimediaGallety.getSeries().remove(findSerie(title));
+            multimediaGallery.getSeries().remove(findSerie(title));
             return serie;
         }
         return null;
     }
 
     public ArrayList<Movie> showMovies() {
-        return multimediaGallety.getMovies();
+        return multimediaGallery.getMovies();
     }
 
 }

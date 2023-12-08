@@ -25,7 +25,9 @@ public class UserController {
 
     ArrayList<User> users = new ArrayList<>();
 
-    public boolean addUser(String name, String email, String password, String userName, Plan plan) {
+    // comentareado momentaneamente
+
+    /*public boolean addUser(String name, String email, String password, String userName, Plan plan) {
         User user = new User(name, email, password, userName, plan);
         if (user.getFirstName().isEmpty() && user.getEmail().isEmpty() && user.getPassword().isEmpty()
                 && user.getPlan() != null) {
@@ -34,7 +36,7 @@ public class UserController {
             return true;
         }
         return false;
-    }
+    }*/
 
     public boolean authentication(String email, String password) {
 

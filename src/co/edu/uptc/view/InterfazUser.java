@@ -4,8 +4,6 @@ import java.util.ArrayList;
 
 public class InterfazUser {
 
-}
-
     public static boolean emailValidation(String email) {
 
         ArrayList<String> listDominio = new ArrayList<>();
@@ -43,3 +41,4 @@ public class InterfazUser {
         }
         return false;
     }
+}
