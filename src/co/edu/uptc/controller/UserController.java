@@ -11,7 +11,6 @@ public class UserController {
     private User user;
     private Administrator administrator;
     private ArrayList<Multimedia> playMultimedias = new ArrayList<>();
-    private ArrayList<User> users = new ArrayList<>();
 
     public boolean addListHistory(Multimedia multimedia) {
         if (multimedia.isReproduce()) {
@@ -25,6 +24,8 @@ public class UserController {
     public ArrayList<Multimedia> showListHistory() {
         return user.getPlaylist();
     }
+
+    ArrayList<User> users = new ArrayList<>();
 
     public boolean addUser(String name, String email, String password, String userName, Plan plan) {
         user = new User(name, email, password, userName, plan);
@@ -47,5 +48,4 @@ public class UserController {
         }
         return null;
     }
-
 }

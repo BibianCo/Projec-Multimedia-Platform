@@ -7,15 +7,16 @@ import java.util.Scanner;
 import co.edu.uptc.model.Plan;
 
 public class InterfazVisitor {
+    private static String name = "";
+    private static String email = "";
+    private static String password = "";
+    private static String userName = "";
+    private static Plan plan = null;
+    private static boolean flag = false;
+    private static int option = 0;
+    private static Scanner sc = new Scanner(System.in);
+
     public static void interfaz() {
-        String name = "";
-        String email = "";
-        String password = "";
-        String userName = "";
-        Plan plan = null;
-        boolean flag = false;
-        int option = 0;
-        Scanner sc = new Scanner(System.in);
 
         System.out.println("--------- WELCOME ---------\n");
         do {
