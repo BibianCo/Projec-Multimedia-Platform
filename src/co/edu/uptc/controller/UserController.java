@@ -32,7 +32,7 @@ public class UserController {
 
     public boolean addUser(String name, String email, String password, String userName, Plan plan) {
         User user = new User(name, email, password, userName, plan);
-        if (user.getFirstName().isEmpty() && user.getEmail().isEmpty() && user.getPassword().isEmpty()
+        if (!user.getFirstName().isEmpty() && !user.getEmail().isEmpty() && !user.getPassword().isEmpty()
                 && user.getPlan() != null) {
             users.add(user);
             administrator.setUsers(users);

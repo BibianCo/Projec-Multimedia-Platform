@@ -1,44 +1,47 @@
 package co.edu.uptc.view;
 
-import java.util.ArrayList;
+import java.util.Scanner;
+
+import co.edu.uptc.controller.UserController;
+import co.edu.uptc.model.User;
 
 public class InterfazUser {
+    private static InterfazVisitor interfazVisitor;
+    private static UserController userController = new UserController();
+    private static Scanner sc = new Scanner(System.in);
+    private static int option = 0;
 
-    public static boolean emailValidation(String email) {
+    public static void interfaz(User user) {
+        System.out.printf("\n------ Hello %s ------\n", user.getUserName() + "Look\n");
 
-        ArrayList<String> listDominio = new ArrayList<>();
-        listDominio.add("@gmail.com");
-        listDominio.add("@uptc.edu.co");
-        listDominio.add("@outlook.es");
-        listDominio.add("@yahoo.com");
+        userController.showListHistory().forEach(System.out::println);
 
-        for (String s : listDominio) {
-            if (email.contains(s)) {
-                int position = email.length() - s.length();
-                String aux = email.substring(0, position);
+        System.out.println("[ You can choose the functionality you want  ]\n" + "1. Watch available movies and series\n"
+                + "2. Search\n"
+                + "3. Search by category\n"
+                + "4. Favorites\n"
+                + "5. Leave");
+        option = sc.nextInt();
+        switch (option) {
+            case 1:
 
-                if (aux.contains("@") || aux.length() < 5) {
-                    return false;
-                } else {
-                    return true;
-                }
-            }
+                break;
+            case 2:
+                break;
+            case 3:
+                break;
+            case 4:
+                break;
+            case 5:
+                break;
 
+            default:
+                break;
         }
-        return false;
     }
 
-    public static boolean passwordValidation(String password) {
-
-        if (password.length() > 3 && password.length() < 20) { // >3 <20
-            if (!password.equals(password.toLowerCase())) { // min. una mayuscula
-                if (!password.equals(password.toUpperCase())) { // min. una miniscula
-                    if (password.matches(".*\\d.*\\d.*")) { // min. 2 numeros
-                        return true;
-                    }
-                }
-            }
-        }
-        return false;
+    private static void valUser() {
+        interfazVisitor.singIn();
     }
+
 }
