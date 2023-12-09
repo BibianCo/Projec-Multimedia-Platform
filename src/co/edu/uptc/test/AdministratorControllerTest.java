@@ -3,6 +3,8 @@ package co.edu.uptc.test;
 import static org.junit.Assert.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+import java.time.LocalDate;
+
 import org.junit.Before;
 import org.junit.Test;
 
@@ -19,17 +21,17 @@ public class AdministratorControllerTest {
     public void setOne() {
         administrator = new AdministratorController();
     }
-/* 
+ 
     @Before
     public void setTwo() {
         setOne();
-        administrator.addSerie("merlina", "s sdsdsd", "asdads", 2019);
+        administrator.addSerie("merlina", "s sdsdsd", "asdads", LocalDate.of(2004, 6, 14));
 
     }
 
     @Test
     public void addSerie() {
-        assertTrue(administrator.addSerie("merlina", "s sdsdsd", "asdads", 2019));
+        assertTrue(administrator.addSerie("merlina", "s sdsdsd", "asdads", LocalDate.of(2004, 6, 14)));
     }
 
     @Test
@@ -43,7 +45,7 @@ public class AdministratorControllerTest {
     @Test
     public void UpdateSerie() {
         addSerie();
-        Serie serie = administrator.UpdateSerie("merlina", "asdasd", "romantica", 2000);
+        Serie serie = administrator.UpdateSerie("merlina", "asdasd", "romantica", LocalDate.of(2004, 6, 14));
         assertEquals(2000, serie.getPublication());
     }
 
@@ -54,5 +56,10 @@ public class AdministratorControllerTest {
         Serie serie2 = administrator.deleteSerie("merlina");
         assertEquals(serie, serie2);
     }
-*/
+    @Test
+    public void addMovie(){
+        assertTrue(administrator.addMovie("up", "animada", "animada", LocalDate.of(2004, 6, 14), 12));
+        assertTrue(administrator.addMovie(null, null, null, null, 0));
+    }
+
 }

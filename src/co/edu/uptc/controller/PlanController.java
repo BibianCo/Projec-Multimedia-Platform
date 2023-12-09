@@ -14,7 +14,6 @@ public class PlanController {
         listPlans.add(new Plan("Basic plan", 10000, 1));
         listPlans.add(new Plan("Standard Plan ", 15000, 2));
         listPlans.add(new Plan("Premium Plan ", 35000, 4));
-
     }
 
     public String generateInvitationCode() {

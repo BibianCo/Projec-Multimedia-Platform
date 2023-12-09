@@ -1,10 +1,7 @@
 package co.edu.uptc.controller;
 
-import java.lang.reflect.Array;
 import java.time.LocalDate;
 import java.util.ArrayList;
-
-import javax.swing.event.ChangeEvent;
 
 import co.edu.uptc.model.Administrator;
 import co.edu.uptc.model.Chapter;
@@ -15,9 +12,10 @@ import co.edu.uptc.model.Serie;
 import co.edu.uptc.model.User;
 
 public class AdministratorController {
-    private MultimediaGallery multimedia = new MultimediaGallery();
+    private // MultimediaGallery multimediaGallery = new MultimediaGallery();
     private ArrayList<User> userList;
     private Administrator administrator;
+    private MultimediaGalleryController mgc = new MultimediaGalleryController();
 
     public AdministratorController() {
         userList = new ArrayList<User>();
@@ -88,24 +86,24 @@ public class AdministratorController {
 
     public boolean addSerie(String title, String description, String category, LocalDate publication) {
         if (!title.isEmpty() && !description.isEmpty() && !category.isEmpty()) {
-            multimedia.setSeries(new Serie(title, description, category, publication, false));
+            mgc.multimedia.setSeries(mgc.GenerateKey(true),
+                    new Serie(title, description, category, publication, false));
             return true;
         }
         return false;
     }
 
     public boolean addMovie(String title, String description, String category, LocalDate publication, int duration) {
-        multimedia.setMovies(new Movie(title, description, category, publication, false));
-        if (multimedia.getMovies() != null) {
+        Movie m1 = new Movie(title, description, category, publication, false);
+        if (m1 != null) {
+            multimediaGallery.setMovies(m1);
             return true;
-        } else {
-            return false;
         }
-
+        return false;
     }
 
     public Movie findMovie(String title) {
-        ArrayList<Movie> movies = multimedia.getMovies();
+        ArrayList<Movie> movies = multimediaGallery.getMovies();
 
         for (int i = 0; i < movies.size(); i++)
 
@@ -116,7 +114,7 @@ public class AdministratorController {
         return null;
     }
 
-    public Movie upDate(String title, String description, String category, LocalDate publication, int diration) {
+    public Movie updateMovie(String title, String description, String category, LocalDate publication, int diration) {
         Movie findMovie = findMovie(title);
 
         if (findMovie != null) {
@@ -137,7 +135,7 @@ public class AdministratorController {
         Movie m1 = findMovie(title);
 
         if (m1 != null) {
-            multimedia.getMovies().remove(m1);
+            multimediaGallery.getMovies().remove(m1);
             return true;
         }
         return false;
@@ -162,7 +160,7 @@ public class AdministratorController {
 
     public Serie findSerie(String title) {
         if (!title.isEmpty()) {// title.equals("");
-            for (Serie serie : multimedia.getSeries()) {
+            for (Serie serie : multimediaGallery.getSeries()) {
                 if (serie.getTitle().equals(title)) {
                     return serie;
                 }
@@ -175,14 +173,14 @@ public class AdministratorController {
 
         if (title != null) {
             Serie serie = findSerie(title);
-            multimedia.getSeries().remove(findSerie(title));
+            multimediaGallery.getSeries().remove(findSerie(title));
             return serie;
         }
         return null;
     }
 
     public ArrayList<Movie> showMovies() {
-        return multimedia.getMovies();
+        return multimediaGallery.getMovies();
     }
 
 }
