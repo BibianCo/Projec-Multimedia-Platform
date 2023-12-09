@@ -2,6 +2,7 @@ package co.edu.uptc.controller;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import co.edu.uptc.model.Administrator;
 import co.edu.uptc.model.Chapter;
@@ -12,7 +13,7 @@ import co.edu.uptc.model.Serie;
 import co.edu.uptc.model.User;
 
 public class AdministratorController {
-    //MultimediaGallery multimediaGallery = new MultimediaGallery();
+    // MultimediaGallery multimediaGallery = new MultimediaGallery();
     private ArrayList<User> userList;
     private Administrator administrator;
     private MultimediaGalleryController mgc = new MultimediaGalleryController();
@@ -48,7 +49,8 @@ public class AdministratorController {
 
     public boolean addSerie(String title, String description, String category, LocalDate publication) {
         if (!title.isEmpty() && !description.isEmpty() && !category.isEmpty()) {
-            mgc.multimedia.setSeries(mgc.GenerateKey(true), new Serie(title, description, category, publication, false));
+            mgc.multimedia.setSeries(mgc.GenerateKey(true),
+                    new Serie(title, description, category, publication, false));
             return true;
         }
         return false;
@@ -57,46 +59,57 @@ public class AdministratorController {
     public boolean addMovie(String title, String description, String category, LocalDate publication, int duration) {
         Movie m1 = new Movie(title, description, category, publication, false);
         if (m1 != null) {
-            multimediaGallery.setMovies(m1);
+            mgc.multimedia.setMovies(mgc.GenerateKey(false), m1);
             return true;
         }
         return false;
     }
 
-    public Movie findMovie(String title) {
-        ArrayList<Movie> movies = multimediaGallery.getMovies();
+    public Integer findMovie(String title) {
+        HashMap<Integer, Movie> movies = mgc.multimedia.getMovies();
 
-        for (int i = 0; i < movies.size(); i++)
+        for (Integer movieId : movies.keySet()) {
+            Movie movie = movies.get(movieId);
 
-            if (title.equals(movies.get(i).getTitle())) {
-
-                return movies.get(i);
+            if (title.equals(movie.getTitle())) {
+                // se llama el metodo de showMonie para imprimir la pelicula encontrada
+                return movieId;
             }
+        }
         return null;
     }
 
-    public Movie updateMovie(String title, String description, String category, LocalDate publication, int diration) {
-        Movie findMovie = findMovie(title);
+    public Movie updateMovie(int options, String title, String dataUpdate, LocalDate publication) {
+        Movie movie = showMovie(title);
+        if (movie != null) {
+            switch (options) {
+                case 1:
+                    movie.setTitle(title);
+                    break;
+                case 2:
+                    movie.setDescription(dataUpdate);
+                    break;
+                case 3:
+                    movie.setCategory(dataUpdate);
+                    break;
+                case 4:
+                    movie.setPublication(publication);
+                    break;
 
-        if (findMovie != null) {
-            findMovie.setTitle(title);
-            findMovie.setDescription(description);
-            findMovie.setCategory(category);
-            findMovie.setPublication(publication);
-            findMovie.setDuration(diration);
-
-            return findMovie;
-        } else {
-            return null;
+                default:
+                    break;
+            }
+            return movie;
         }
+        return null;
 
     }
 
     public boolean deleteMovie(String title) {
-        Movie m1 = findMovie(title);
+        Integer keyMovie = findMovie(title);
 
-        if (m1 != null) {
-            multimediaGallery.getMovies().remove(m1);
+        if (keyMovie != null) {
+            mgc.multimedia.getMovies().remove(keyMovie);
             return true;
         }
         return false;
@@ -140,8 +153,13 @@ public class AdministratorController {
         return null;
     }
 
-    public ArrayList<Movie> showMovies() {
-        return multimediaGallery.getMovies();
+    public Movie showMovie(String titleMovieFind) {
+        Integer key = findMovie(titleMovieFind);
+        if (key != null) {
+            Movie movie = mgc.multimedia.getMovies().get(key);
+            return movie;
+        }
+        return null;
     }
 
 }
