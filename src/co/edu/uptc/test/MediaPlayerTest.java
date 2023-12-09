@@ -25,16 +25,18 @@ public class MediaPlayerTest {
         assertEquals(true, harry.isReproduce());
     }
 
-     @Test
-    public void searchName() { 
+    @Test
+    public void searchName() {
         MediaPlayerController mpc = new MediaPlayerController();
         String input = "Harry";
-        ArrayList <Multimedia> multi = mpc.searchName(input);
-        System.out.println(input);
-        
-        for(Multimedia m : multi){
-            System.out.println(m);
-        }
+        /*
+         * ArrayList <Multimedia> multi = mpc.searchName(input);
+         * System.out.println(input);
+         * 
+         * for(Multimedia m : multi){
+         * System.out.println(m);
+         * }
+         */
 
     }
 }

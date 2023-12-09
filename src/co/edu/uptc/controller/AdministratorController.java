@@ -12,7 +12,7 @@ import co.edu.uptc.model.Serie;
 import co.edu.uptc.model.User;
 
 public class AdministratorController {
-    //MultimediaGallery multimediaGallery = new MultimediaGallery();
+    // MultimediaGallery multimediaGallery = new MultimediaGallery();
     private ArrayList<User> userList;
     private Administrator administrator;
     private MultimediaGalleryController mgc = new MultimediaGalleryController();
@@ -48,7 +48,8 @@ public class AdministratorController {
 
     public boolean addSerie(String title, String description, String category, LocalDate publication) {
         if (!title.isEmpty() && !description.isEmpty() && !category.isEmpty()) {
-            mgc.multimedia.setSeries(mgc.GenerateKey(true), new Serie(title, description, category, publication, false));
+            mgc.multimedia.setSeries(mgc.GenerateKey(true),
+                    new Serie(title, description, category, publication, false));
             return true;
         }
         return false;

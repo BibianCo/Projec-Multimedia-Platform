@@ -2,13 +2,16 @@ package co.edu.uptc.controller;
 
 import java.util.ArrayList;
 
+import co.edu.uptc.model.Administrator;
 import co.edu.uptc.model.Multimedia;
+import co.edu.uptc.model.Plan;
 import co.edu.uptc.model.User;
 
 public class UserController {
     private User user;
 
     private ArrayList<Multimedia> playMultimedias = new ArrayList<>();
+    private Administrator administrator;
 
     public boolean addListHistory(Multimedia multimedia) {
         if (multimedia.isReproduce()) {
@@ -27,7 +30,7 @@ public class UserController {
 
     // comentareado momentaneamente
 
-    /*public boolean addUser(String name, String email, String password, String userName, Plan plan) {
+    public boolean addUser(String name, String email, String password, String userName, Plan plan) {
         User user = new User(name, email, password, userName, plan);
         if (user.getFirstName().isEmpty() && user.getEmail().isEmpty() && user.getPassword().isEmpty()
                 && user.getPlan() != null) {
@@ -36,7 +39,7 @@ public class UserController {
             return true;
         }
         return false;
-    }*/
+    }
 
     public boolean authentication(String email, String password) {
 
