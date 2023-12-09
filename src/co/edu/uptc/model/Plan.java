@@ -47,8 +47,6 @@ public class Plan {
         this.numberUsers = numberUsers;
     }
 
-    
-
     public String getInvitationCode() {
         return invitationCode;
     }
