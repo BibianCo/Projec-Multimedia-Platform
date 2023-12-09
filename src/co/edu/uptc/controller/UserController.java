@@ -25,7 +25,6 @@ public class UserController {
     }
 
     ArrayList<User> users = new ArrayList<>();
-
     // comentareado momentaneamente
 
     /*
