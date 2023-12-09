@@ -12,7 +12,7 @@ import co.edu.uptc.model.Serie;
 import co.edu.uptc.model.User;
 
 public class AdministratorController {
-    private // MultimediaGallery multimediaGallery = new MultimediaGallery();
+    // MultimediaGallery multimediaGallery = new MultimediaGallery();
     private ArrayList<User> userList;
     private Administrator administrator;
     private MultimediaGalleryController mgc = new MultimediaGalleryController();

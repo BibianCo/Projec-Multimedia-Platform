@@ -1,7 +1,10 @@
 package co.edu.uptc.controller;
 
 import java.util.ArrayList;
+
+import co.edu.uptc.model.Administrator;
 import co.edu.uptc.model.Multimedia;
+import co.edu.uptc.model.Plan;
 import co.edu.uptc.model.User;
 import co.edu.uptc.model.Movie;
 import co.edu.uptc.model.Serie;
@@ -10,6 +13,7 @@ public class UserController {
     private User user;
     private AdministratorController administratorController;
     private ArrayList<Multimedia> playMultimedias = new ArrayList<>();
+    private Administrator administrator;
 
     public boolean addListHistory(Multimedia multimedia) {
         if (multimedia.isReproduce()) {
@@ -27,20 +31,16 @@ public class UserController {
     ArrayList<User> users = new ArrayList<>();
     // comentareado momentaneamente
 
-    /*
-     * public boolean addUser(String name, String email, String password, String
-     * userName, Plan plan) {
-     * User user = new User(name, email, password, userName, plan);
-     * if (user.getFirstName().isEmpty() && user.getEmail().isEmpty() &&
-     * user.getPassword().isEmpty()
-     * && user.getPlan() != null) {
-     * users.add(user);
-     * administrator.setUsers(users);
-     * return true;
-     * }
-     * return false;
-     * }
-     */
+    public boolean addUser(String name, String email, String password, String userName, Plan plan) {
+        User user = new User(name, email, password, userName, plan);
+        if (user.getFirstName().isEmpty() && user.getEmail().isEmpty() && user.getPassword().isEmpty()
+                && user.getPlan() != null) {
+            users.add(user);
+            administrator.setUsers(users);
+            return true;
+        }
+        return false;
+    }
 
     public boolean authentication(String email, String password) {
 
@@ -78,6 +78,24 @@ public class UserController {
         Serie serie = administratorController.findSerie(title);
         if (administratorController.findSerie(title) != null) {
             user.addWishList(serie);
+            return true;
+        }
+        return false;
+    }
+
+    public boolean deleteWish(String title) {
+        for (int i = 0; i < user.getWishList().size(); i++) {
+            if (user.getWishList().get(i).getTitle().equals(title)) {
+                user.getWishList().remove(i);
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public boolean deleteAll() {
+        user.getWishList().clear();
+        if (user.getWishList().isEmpty()) {
             return true;
         }
         return false;

@@ -6,8 +6,12 @@ public class Plan {
     private String description;
     private int value;
     private int numberUsers;
-    private ArrayList <String> userList;
+    private ArrayList<String> userList;
     private String invitationCode;
+
+    public Plan() {
+
+    }
 
     public Plan(String description, int value, int numberUsers) {
         this.description = description;
@@ -46,8 +50,6 @@ public class Plan {
     public void setNumberUsers(int numberUsers) {
         this.numberUsers = numberUsers;
     }
-
-    
 
     public String getInvitationCode() {
         return invitationCode;
