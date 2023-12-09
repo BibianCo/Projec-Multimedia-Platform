@@ -16,6 +16,8 @@ public class Plan {
         this.description = description;
         this.value = value;
         this.numberUsers = numberUsers;
+        userList = new ArrayList<>();
+
     }
 
     public Plan(String description, int value, int numberUsers, String invitationCode) {
@@ -23,7 +25,6 @@ public class Plan {
         this.value = value;
         this.numberUsers = numberUsers;
         this.invitationCode = invitationCode;
-        userList = new ArrayList<>();
     }
 
     public String getDescription() {
@@ -68,8 +69,7 @@ public class Plan {
 
     @Override
     public String toString() {
-        return "Plan [description=" + description + ", value=" + value + ", numberUsers=" + numberUsers + ", userList="
-                + userList + ", invitationCode=" + invitationCode + "]";
+        return "Plan [description=" + description + ", value=" + value + "]";
     }
 
 }

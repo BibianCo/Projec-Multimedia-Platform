@@ -4,19 +4,21 @@ import java.util.ArrayList;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
+import co.edu.uptc.controller.PlanController;
 import co.edu.uptc.controller.UserController;
 import co.edu.uptc.model.Plan;
 
 public class InterfazVisitor {
 
-    private static UserController userController;
-    private static InterfazUser interfazUser;
-    private static Runner runner;
+    private static UserController userController = new UserController();
+    private static InterfazUser interfazUser = new InterfazUser();
+    private static Runner runner = new Runner();
     private static String name = "";
     private static String email = "";
     private static String password = "";
     private static String userName = "";
-    private static Plan plan;
+    private static PlanController planController = new PlanController();
+    private static Plan plan = new Plan();
     private static boolean flag = false;
     private static int option = -1;
     private static Scanner sc = new Scanner(System.in);
@@ -25,8 +27,6 @@ public class InterfazVisitor {
     public static void interfaz() {
         messErrorInt[0] = "............ Error, no characters accepted, please enter a correct answer ............\\n";
         messErrorInt[1] = " ............ Invalid option ............";
-        userController = new UserController();
-
         // inicia interaccion con el visitante
         System.out.println(
                 "\n---------------------------  WELCOME YOUR TRUSTED MILTIMEDIA  ---------------------------\n\n"
@@ -48,7 +48,7 @@ public class InterfazVisitor {
                     break;
                 case 2:
                     // muestra una lista de planes que ofrese la multimedia
-                    System.out.println(plan.getUserList());
+                    planController.getListPlans().forEach(System.out::println);
                     break;
             }
         }
@@ -77,12 +77,11 @@ public class InterfazVisitor {
                 singIn();
                 break;
             case 2:
-                plan = new Plan();
                 singUp();
                 break;
             case 3:
                 // llamar a la clase del runner o menu principal
-                runner.main(messErrorInt);
+                // runner.main(messErrorInt);
                 break;
         }
 
@@ -151,6 +150,7 @@ public class InterfazVisitor {
 
     // medoto de registrarse
     public static void singUp() {
+
         do {
             System.out.println("\nEnter your name");
             name = sc.nextLine();
@@ -181,13 +181,32 @@ public class InterfazVisitor {
         } while (!flag);
 
         // se muestra el plan y el cliente lo escoge
-        // plan = null?
-        System.out.println(plan.getUserList());
-        option = sc.nextInt();
 
+        do {
+            try {
+                System.out.println("\nChoose the plan you want to use");
+                planController.getListPlans().forEach(System.out::println);
+                option = sc.nextInt();
+                sc.nextLine();
+                if (option > 0 && option < 4) {
+                    flag = true;
+                } else {
+                    System.out.println(messErrorInt[1]);
+                    flag = false;
+                }
+
+            } catch (InputMismatchException e) {
+                System.out.println(messErrorInt[0]);
+                flag = false;
+                sc.nextLine();
+            }
+        } while (!flag);
+
+        Plan p1 = planController.assignTypePlan(option);
+        planController.assignUser(userName);
         // se crea el usuarios y se valida si ya existe
-        boolean valAddUser = userController.addUser(name, email, password, userName, plan);
-        if (valAddUser) {
+        boolean valAddUser = userController.addUser(name, email, password, userName, p1);
+        if (valAddUser == true) {
             System.out.println(" \n---- Hey, you have been successfully registered ----");
             interfazUser.interfaz();
         } else {
