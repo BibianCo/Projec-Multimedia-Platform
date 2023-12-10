@@ -60,4 +60,24 @@ public class UserController {
         }
         return null;
     }
+    
+    public boolean updateUser(String email, String newName, String newEmail, String newPassword) {
+        User userToUpdate = findUser(email);
+        if (userToUpdate != null) {
+            userToUpdate.setFirstName(newName);
+            userToUpdate.setEmail(newEmail);
+            userToUpdate.setPassword(newPassword);
+            return true;
+        }
+        return false;
+    }
+
+    public boolean deleteUser(String email) {
+        User userToDelete = findUser(email);
+        if (userToDelete != null) {
+            multimediaGallery.getUsers().remove(userToDelete);
+            return true;
+        }
+        return false;
+    }
 }

@@ -26,6 +26,13 @@ public class AdministratorController {
     public ArrayList<User> showUserList() {
         return userList;
     }
+    
+    public boolean validateAdminCredentials(String adminName, String adminEmail, String adminPassword) {
+        return administrator.getFirstName().equals(adminName) &&
+                administrator.getEmail().equals(adminEmail) &&
+                administrator.getPassword().equals(adminPassword);
+    }
+
 
     public boolean updateAdministratorDetails(int option, String newDetails) {
         switch (option) {
