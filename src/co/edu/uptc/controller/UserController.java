@@ -60,7 +60,7 @@ public class UserController {
         }
         return null;
     }
-    
+
     public boolean updateUser(String email, String newName, String newEmail, String newPassword) {
         User userToUpdate = findUser(email);
         if (userToUpdate != null) {
@@ -75,7 +75,7 @@ public class UserController {
     public boolean deleteUser(String email) {
         User userToDelete = findUser(email);
         if (userToDelete != null) {
-            multimediaGallery.getUsers().remove(userToDelete);
+            administrator.getUsers().remove(userToDelete);
             return true;
         }
         return false;

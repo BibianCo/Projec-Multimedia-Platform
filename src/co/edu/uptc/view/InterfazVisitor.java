@@ -18,7 +18,7 @@ public class InterfazVisitor {
     private static String password = "";
     private static String userName = "";
     private static PlanController planController = new PlanController();
-    private static Plan plan = new Plan();
+    // private static Plan plan = new Plan();
     private static boolean flag = false;
     private static int option = -1;
     private static Scanner sc = new Scanner(System.in);
@@ -80,8 +80,6 @@ public class InterfazVisitor {
                 singUp();
                 break;
             case 3:
-                // llamar a la clase del runner o menu principal
-                // runner.main(messErrorInt);
                 break;
         }
 
@@ -117,7 +115,7 @@ public class InterfazVisitor {
             validationEmeilandPass();
             boolean valAuthen = userController.authentication(email, password);
             if (valAuthen) {
-                // interfazUser.interfaz();
+                interfazUser.interfaz(userController.findUser(email));
 
             } else {
                 System.out.println(" ..... Your email or password are not correct .....\n");
@@ -153,7 +151,8 @@ public class InterfazVisitor {
 
         do {
             System.out.println("\nEnter your name");
-            name = sc.nextLine();
+            name = sc.next();
+            sc.next();
             if (name.matches("[a-zA-z]+")) {
                 flag = true;
             } else {
@@ -169,7 +168,7 @@ public class InterfazVisitor {
 
         do {
             System.out.println("\nEnter your username");
-            userName = sc.nextLine();
+            userName = sc.next();
             if (userName.matches("[a-zA-z]+")) {
                 flag = true;
             } else {
@@ -203,13 +202,12 @@ public class InterfazVisitor {
         } while (!flag);
 
         Plan p1 = planController.assignTypePlan(option);
-        planController.assignUser(userName);
+        //
         // se crea el usuarios y se valida si ya existe
         boolean valAddUser = userController.addUser(name, email, password, userName, p1);
         if (valAddUser) {
             System.out.println(" \n---- Hey, you have been successfully registered ----");
-            // interfazUser.interfaz();
-            interfaz();
+            interfazUser.interfaz(userController.findUser(email));
         } else {
             System.out.println("\n..... There is already a registered person with the same data entered .....");
             interfaz();
@@ -219,7 +217,7 @@ public class InterfazVisitor {
     public static void validationEmeilandPass() {
         do {
             System.out.println("\nEnter your email");
-            email = sc.nextLine();
+            email = sc.next();
             if (!emailValidation(email)) {
                 System.out.println("............ Invalid email ............\n");
                 flag = false;
@@ -230,7 +228,7 @@ public class InterfazVisitor {
         do {
             System.out.println("\nEnter your password\n"
                     + "[Minimum three characters, maximum twenty, minimum one uppercase letter, one lowercase letter and two numbers]");
-            password = sc.nextLine();
+            password = sc.next();
             if (passwordValidation(password)) {
                 flag = true;
             } else {
