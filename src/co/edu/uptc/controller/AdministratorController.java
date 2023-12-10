@@ -2,6 +2,7 @@ package co.edu.uptc.controller;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import co.edu.uptc.model.Administrator;
 import co.edu.uptc.model.Chapter;
@@ -25,6 +26,12 @@ public class AdministratorController {
 
     public ArrayList<User> showUserList() {
         return userList;
+    }
+
+    public boolean validateAdminCredentials(String adminName, String adminEmail, String adminPassword) {
+        return administrator.getFirstName().equals(adminName) &&
+                administrator.getEmail().equals(adminEmail) &&
+                administrator.getPassword().equals(adminPassword);
     }
 
     public boolean updateAdministratorDetails(int option, String newDetails) {
@@ -58,71 +65,90 @@ public class AdministratorController {
     public boolean addMovie(String title, String description, String category, LocalDate publication, int duration) {
         Movie m1 = new Movie(title, description, category, publication, false);
         if (m1 != null) {
-            multimediaGallery.setMovies(m1);
+            mgc.multimedia.setMovies(mgc.GenerateKey(false), m1);
             return true;
         }
         return false;
     }
 
     public Movie findMovie(String title) {
-        ArrayList<Movie> movies = multimediaGallery.getMovies();
+        HashMap<Integer, Movie> movies = mgc.multimedia.getMovies();
 
-        for (int i = 0; i < movies.size(); i++)
+        for (Integer movieId : movies.keySet()) {
+            Movie movie = movies.get(movieId);
 
-            if (title.equals(movies.get(i).getTitle())) {
-
-                return movies.get(i);
+            if (title.equals(movie.getTitle())) {
+                // se llama el metodo de showMonie para imprimir la pelicula encontrada
+                return movie;
             }
+        }
         return null;
     }
 
-    public Movie updateMovie(String title, String description, String category, LocalDate publication, int diration) {
-        Movie findMovie = findMovie(title);
+    public Movie updateMovie(int options, String title, String dataUpdate, LocalDate publication) {
+        Movie movie = findMovie(title);
+        if (movie != null) {
+            switch (options) {
+                case 1:
+                    movie.setTitle(title);
+                    break;
+                case 2:
+                    movie.setDescription(dataUpdate);
+                    break;
+                case 3:
+                    movie.setCategory(dataUpdate);
+                    break;
+                case 4:
+                    movie.setPublication(publication);
+                    break;
 
-        if (findMovie != null) {
-            findMovie.setTitle(title);
-            findMovie.setDescription(description);
-            findMovie.setCategory(category);
-            findMovie.setPublication(publication);
-            findMovie.setDuration(diration);
-
-            return findMovie;
-        } else {
-            return null;
+                default:
+                    break;
+            }
+            return movie;
         }
+        return null;
 
     }
 
     public boolean deleteMovie(String title) {
-        Movie m1 = findMovie(title);
+        Movie mov = findMovie(title);
 
-        if (m1 != null) {
-            multimediaGallery.getMovies().remove(m1);
+        if (mov != null) {
+            mgc.multimedia.getMovies().remove(mov);
             return true;
         }
         return false;
     }
 
-    public Serie UpdateSerie(String titleSerie, String description, String category,
-            LocalDate publication) {
+    public Serie updateSerie(int option, String titleSerie, String newD, LocalDate newPublication, int newSeason) {
         Serie serie = findSerie(titleSerie);
-        if (serie != null) {
-            if (serie.getTitle().equals(titleSerie)) {
 
-                serie.setCategory(category);
-                serie.setDescription(description);
-                serie.setPublication(publication);
+        if (!titleSerie.isEmpty()) {
+            switch (option) {
+                case 1:
+                    serie.setDescription(newD);
+                    return serie;
+                case 2:
+                    serie.setCategory(newD);
+                    return serie;
+                case 3:
+                    serie.setPublication(newPublication);
+                    return serie;
+                case 4:
+                    serie.setNumberSeasons(newSeason);
 
-                return serie;
+                    return serie;
+                default:
+                    return null;
             }
         }
-
         return null;
     }
 
     public Serie findSerie(String title) {
         if (!title.isEmpty()) {// title.equals("");
-            for (Serie serie : multimediaGallery.getSeries()) {
+            for (Serie serie : mgc.multimedia.getSeries().values()) {
                 if (serie.getTitle().equals(title)) {
                     return serie;
                 }
@@ -135,14 +161,18 @@ public class AdministratorController {
 
         if (title != null) {
             Serie serie = findSerie(title);
-            multimediaGallery.getSeries().remove(findSerie(title));
+            mgc.multimedia.getSeries().remove(findSerie(title));
             return serie;
         }
         return null;
     }
 
-    public ArrayList<Movie> showMovies() {
-        return multimediaGallery.getMovies();
+    public HashMap<Integer, Movie> showMovie() {
+        return mgc.multimedia.getMovies();
+    }
+
+    public HashMap<Integer, Serie> showSeries() {
+        return mgc.multimedia.getSeries();
     }
 
 }

@@ -1,29 +1,12 @@
 package co.edu.uptc.model;
 
-import java.time.Period;
-
-public class Person {
-
-    private String firstName;
+public class UserCredentials {
     private String email;
     private String password;
 
-    public Person(String firstName, String email, String password) {
-        this.firstName = firstName;
+    public UserCredentials(String email, String password) {
         this.email = email;
         this.password = password;
-    }
-
-    public Person() {
-
-    }
-
-    public String getFirstName() {
-        return firstName;
-    }
-
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
     }
 
     public String getEmail() {
