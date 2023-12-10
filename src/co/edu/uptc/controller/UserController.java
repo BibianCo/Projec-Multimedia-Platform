@@ -1,9 +1,8 @@
 package co.edu.uptc.controller;
-
 import java.util.ArrayList;
-
 import co.edu.uptc.model.Administrator;
 import co.edu.uptc.model.Multimedia;
+import co.edu.uptc.model.MultimediaGallery;
 import co.edu.uptc.model.Plan;
 import co.edu.uptc.model.User;
 import co.edu.uptc.model.Movie;
@@ -83,7 +82,12 @@ public class UserController {
             return true;
         }
         return false;
+<<<<<<< HEAD
     }    
+=======
+    }
+    
+>>>>>>> feature/58-updateUser
 
     public UserController(AdministratorController administratorController) {
         this.administratorController = administratorController;

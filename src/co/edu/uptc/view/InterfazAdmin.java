@@ -1,5 +1,4 @@
 package co.edu.uptc.view;
-
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -61,7 +60,6 @@ public class InterfazAdmin {
             switch (opc2) {
                 case 1:
                     HashMap<Integer, Movie> movies = administratorController.showMovie();
-                    // ArrayList<Movie> movies = administratorController.showMovies();
                     if (movies.isEmpty()) {
                         System.out.println("There are not movies to show.");
                     } else {
@@ -77,7 +75,6 @@ public class InterfazAdmin {
                     }
 
                     HashMap<Integer, Serie> series = administratorController.showSeries();
-                    // ArrayList<Serie> series = administratorController.showSeries();
                     if (series.isEmpty()) {
                         System.out.println("There are not series to show");
                     } else {
@@ -162,7 +159,6 @@ public class InterfazAdmin {
                         switch (opc4) {
                             case 1:
                                 HashMap<Integer, Movie> moviesToDelete = administratorController.showMovie();
-                                // ArrayList<Movie> moviesToDelete = administratorController.showMovies();
                                 if (moviesToDelete.isEmpty()) {
                                     System.out.println("No hay películas para mostrar.");
                                 } else {
@@ -189,7 +185,6 @@ public class InterfazAdmin {
                                 break;
                             case 2:
                                 HashMap<Integer, Serie> seriesToDelete = administratorController.showSeries();
-                                // ArrayList<Serie> seriesToDelete = administratorController.showSeries();
                                 if (seriesToDelete.isEmpty()) {
                                     System.out.println("No hay series para mostrar.");
                                 } else {
