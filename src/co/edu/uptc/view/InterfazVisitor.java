@@ -12,7 +12,7 @@ public class InterfazVisitor {
 
     private static UserController userController = new UserController();
     private static InterfazUser interfazUser = new InterfazUser();
-    private static Runner runner = new Runner();
+    // private static Runner runner = new Runner();
     private static String name = "";
     private static String email = "";
     private static String password = "";
@@ -209,6 +209,7 @@ public class InterfazVisitor {
         if (valAddUser) {
             System.out.println(" \n---- Hey, you have been successfully registered ----");
             // interfazUser.interfaz();
+            interfaz();
         } else {
             System.out.println("\n..... There is already a registered person with the same data entered .....");
             interfaz();

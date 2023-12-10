@@ -27,13 +27,12 @@ public class AdministratorController {
     public ArrayList<User> showUserList() {
         return userList;
     }
-    
+
     public boolean validateAdminCredentials(String adminName, String adminEmail, String adminPassword) {
         return administrator.getFirstName().equals(adminName) &&
                 administrator.getEmail().equals(adminEmail) &&
                 administrator.getPassword().equals(adminPassword);
     }
-
 
     public boolean updateAdministratorDetails(int option, String newDetails) {
         switch (option) {
@@ -72,7 +71,7 @@ public class AdministratorController {
         return false;
     }
 
-    public Integer findMovie(String title) {
+    public Movie findMovie(String title) {
         HashMap<Integer, Movie> movies = mgc.multimedia.getMovies();
 
         for (Integer movieId : movies.keySet()) {
@@ -80,14 +79,14 @@ public class AdministratorController {
 
             if (title.equals(movie.getTitle())) {
                 // se llama el metodo de showMonie para imprimir la pelicula encontrada
-                return movieId;
+                return movie;
             }
         }
         return null;
     }
 
     public Movie updateMovie(int options, String title, String dataUpdate, LocalDate publication) {
-        Movie movie = showMovie(title);
+        Movie movie = findMovie(title);
         if (movie != null) {
             switch (options) {
                 case 1:
@@ -113,35 +112,43 @@ public class AdministratorController {
     }
 
     public boolean deleteMovie(String title) {
-        Integer keyMovie = findMovie(title);
+        Movie mov = findMovie(title);
 
-        if (keyMovie != null) {
-            mgc.multimedia.getMovies().remove(keyMovie);
+        if (mov != null) {
+            mgc.multimedia.getMovies().remove(mov);
             return true;
         }
         return false;
     }
 
-    public Serie UpdateSerie(String titleSerie, String description, String category,
-            LocalDate publication) {
+    public Serie updateSerie(int option, String titleSerie, String newD, LocalDate newPublication, int newSeason) {
         Serie serie = findSerie(titleSerie);
-        if (serie != null) {
-            if (serie.getTitle().equals(titleSerie)) {
 
-                serie.setCategory(category);
-                serie.setDescription(description);
-                serie.setPublication(publication);
+        if (!titleSerie.isEmpty()) {
+            switch (option) {
+                case 1:
+                    serie.setDescription(newD);
+                    return serie;
+                case 2:
+                    serie.setCategory(newD);
+                    return serie;
+                case 3:
+                    serie.setPublication(newPublication);
+                    return serie;
+                case 4:
+                    serie.setNumberSeasons(newSeason);
 
-                return serie;
+                    return serie;
+                default:
+                    return null;
             }
         }
-
         return null;
     }
 
     public Serie findSerie(String title) {
         if (!title.isEmpty()) {// title.equals("");
-            for (Serie serie : multimediaGallery.getSeries()) {
+            for (Serie serie : mgc.multimedia.getSeries().values()) {
                 if (serie.getTitle().equals(title)) {
                     return serie;
                 }
@@ -154,19 +161,18 @@ public class AdministratorController {
 
         if (title != null) {
             Serie serie = findSerie(title);
-            multimediaGallery.getSeries().remove(findSerie(title));
+            mgc.multimedia.getSeries().remove(findSerie(title));
             return serie;
         }
         return null;
     }
 
-    public Movie showMovie(String titleMovieFind) {
-        Integer key = findMovie(titleMovieFind);
-        if (key != null) {
-            Movie movie = mgc.multimedia.getMovies().get(key);
-            return movie;
-        }
-        return null;
+    public HashMap<Integer, Movie> showMovie() {
+        return mgc.multimedia.getMovies();
+    }
+
+    public HashMap<Integer, Serie> showSeries() {
+        return mgc.multimedia.getSeries();
     }
 
 }
