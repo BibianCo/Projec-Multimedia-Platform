@@ -1,5 +1,7 @@
 package co.edu.uptc.model;
 
+import java.time.Period;
+
 public class Person {
 
     private String firstName;
@@ -10,6 +12,10 @@ public class Person {
         this.firstName = firstName;
         this.email = email;
         this.password = password;
+    }
+
+    public Person() {
+
     }
 
     public String getFirstName() {

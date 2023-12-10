@@ -17,6 +17,7 @@ public class Plan {
         this.description = description;
         this.value = value;
         this.numberUsers = numberUsers;
+        userList = new ArrayList<>();
     }
 
     public Plan(String description, int value, int numberUsers, String invitationCode) {
