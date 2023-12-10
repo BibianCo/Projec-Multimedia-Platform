@@ -79,11 +79,11 @@ public class UserController {
     public boolean deleteUser(String email) {
         User userToDelete = findUser(email);
         if (userToDelete != null) {
-            multimediaGallery.getUsers().remove(userToDelete);
+            users.remove(userToDelete);
             return true;
         }
         return false;
-    }
+    }    
 
     public UserController(AdministratorController administratorController) {
         this.administratorController = administratorController;
