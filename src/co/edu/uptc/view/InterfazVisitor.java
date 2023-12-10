@@ -12,7 +12,7 @@ public class InterfazVisitor {
 
     private static UserController userController = new UserController();
     private static InterfazUser interfazUser = new InterfazUser();
-    private static Runner runner = new Runner();
+    // private static Runner runner = new Runner();
     private static String name = "";
     private static String email = "";
     private static String password = "";
@@ -117,7 +117,7 @@ public class InterfazVisitor {
             validationEmeilandPass();
             boolean valAuthen = userController.authentication(email, password);
             if (valAuthen) {
-                interfazUser.interfaz();
+                // interfazUser.interfaz();
 
             } else {
                 System.out.println(" ..... Your email or password are not correct .....\n");
@@ -208,7 +208,8 @@ public class InterfazVisitor {
         boolean valAddUser = userController.addUser(name, email, password, userName, p1);
         if (valAddUser) {
             System.out.println(" \n---- Hey, you have been successfully registered ----");
-            interfazUser.interfaz();
+            // interfazUser.interfaz();
+            interfaz();
         } else {
             System.out.println("\n..... There is already a registered person with the same data entered .....");
             interfaz();

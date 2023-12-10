@@ -13,7 +13,10 @@ public class UserController {
     private User user;
     private AdministratorController administratorController;
     private ArrayList<Multimedia> playMultimedias = new ArrayList<>();
-    private Administrator administrator;
+    private Administrator administrator = new Administrator();
+
+    public UserController() {
+    }
 
     public boolean addListHistory(Multimedia multimedia) {
         if (multimedia.isReproduce()) {
@@ -33,7 +36,7 @@ public class UserController {
 
     public boolean addUser(String name, String email, String password, String userName, Plan plan) {
         User user = new User(name, email, password, userName, plan);
-        if (user.getFirstName().isEmpty() && user.getEmail().isEmpty() && user.getPassword().isEmpty()
+        if (!user.getFirstName().isEmpty() && !user.getEmail().isEmpty() && !user.getPassword().isEmpty()
                 && user.getPlan() != null) {
             users.add(user);
             administrator.setUsers(users);
@@ -60,6 +63,26 @@ public class UserController {
             }
         }
         return null;
+    }
+
+    public boolean updateUser(String email, String newName, String newEmail, String newPassword) {
+        User userToUpdate = findUser(email);
+        if (userToUpdate != null) {
+            userToUpdate.setFirstName(newName);
+            userToUpdate.setEmail(newEmail);
+            userToUpdate.setPassword(newPassword);
+            return true;
+        }
+        return false;
+    }
+
+    public boolean deleteUser(String email) {
+        User userToDelete = findUser(email);
+        if (userToDelete != null) {
+            multimediaGallery.getUsers().remove(userToDelete);
+            return true;
+        }
+        return false;
     }
 
     public UserController(AdministratorController administratorController) {
