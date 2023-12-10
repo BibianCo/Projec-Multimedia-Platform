@@ -12,6 +12,10 @@ public class Administrator extends Person {
         this.code = code;
     }
 
+    public Administrator() {
+
+    }
+
     public int getCode() {
         return code;
     }
