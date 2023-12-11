@@ -68,4 +68,9 @@ public class Plan {
         this.userList = userList;
     }
 
+    @Override
+    public String toString() {
+        return "Plan [description=" + description + ", value=" + value + "]";
+    }
+
 }

@@ -10,7 +10,7 @@ import co.edu.uptc.model.Movie;
 import co.edu.uptc.model.Serie;
 
 public class UserController {
-    private User user;
+    private User user = new User();
     private AdministratorController administratorController;
     private ArrayList<Multimedia> playMultimedias = new ArrayList<>();
     private Administrator administrator = new Administrator();

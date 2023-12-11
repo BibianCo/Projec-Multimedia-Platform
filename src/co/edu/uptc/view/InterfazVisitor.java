@@ -12,7 +12,6 @@ public class InterfazVisitor {
 
     private static UserController userController = new UserController();
     private static InterfazUser interfazUser = new InterfazUser();
-    // private static Runner runner = new Runner();
     private static String name = "";
     private static String email = "";
     private static String password = "";
@@ -25,8 +24,8 @@ public class InterfazVisitor {
     private static String[] messErrorInt = new String[2];
 
     public static void interfaz() {
-        messErrorInt[0] = "............ Error, no characters accepted, please enter a correct answer ............\\n";
-        messErrorInt[1] = " ............ Invalid option ............";
+        messErrorInt[0] = "............ Error, no characters accepted, please enter a correct answer ............\n";
+        messErrorInt[1] = " ............ Invalid option ............\n";
         // inicia interaccion con el visitante
         System.out.println(
                 "\n---------------------------  WELCOME YOUR TRUSTED MILTIMEDIA  ---------------------------\n\n"
@@ -80,6 +79,7 @@ public class InterfazVisitor {
                 singUp();
                 break;
             case 3:
+                Runner.main(new String[] {});
                 break;
         }
 
@@ -152,7 +152,6 @@ public class InterfazVisitor {
         do {
             System.out.println("\nEnter your name");
             name = sc.next();
-            sc.next();
             if (name.matches("[a-zA-z]+")) {
                 flag = true;
             } else {
@@ -218,8 +217,10 @@ public class InterfazVisitor {
         do {
             System.out.println("\nEnter your email");
             email = sc.next();
+            sc.nextLine();
             if (!emailValidation(email)) {
                 System.out.println("............ Invalid email ............\n");
+
                 flag = false;
             } else {
                 flag = true;
