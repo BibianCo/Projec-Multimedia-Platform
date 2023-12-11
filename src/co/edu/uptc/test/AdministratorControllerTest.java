@@ -163,4 +163,19 @@ public class AdministratorControllerTest {
         // Nonexistent Season
         assertFalse(administrator.addChapter("Prueba1", 4, 120, "DescriptionChapter1", "Chapter1"));
     }
+
+    @Test
+    public void updateChapter() {
+        setSeries();
+        administrator.addChapter("Prueba1", 1, 20, "DescriptionChapter1", "Chapter1");
+
+        assertTrue(administrator.updateChapter("Prueba1", 1, "Chapter1", 1, "New Description 1", 0));
+        assertTrue(administrator.updateChapter("Prueba1", 1, "Chapter1", 2, "New Description 1", 333));
+        assertTrue(administrator.updateChapter("Prueba1", 1, "Chapter1", 3, "New Title 1", 0));
+
+        assertFalse(administrator.updateChapter("Prueba22", 1, "Chapter1", 3, "New Title 1", 0));
+        assertFalse(administrator.updateChapter("Prueba1", 4, "Chapter1", 3, "New Title 1", 0));
+        assertFalse(administrator.updateChapter("Prueba1", 1, "Chapter100", 3, "New Title 1", 0));
+        assertFalse(administrator.updateChapter("Prueba1", 1, "Chapter1", 4, "New Title 1", 0));
+    }
 }

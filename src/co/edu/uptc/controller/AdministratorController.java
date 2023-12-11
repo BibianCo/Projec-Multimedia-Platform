@@ -301,4 +301,42 @@ public class AdministratorController {
         }
         return false;
     }
+
+    // newValue puede ser para la nueva Description o para el nuevo Title.
+    // ChapterTitle es para verificar la existencia del capítulo
+    // Option 1, actualiza Description; 2, actualiza Duration; 3, actualiza Title
+    public boolean updateChapter(String seriesTitle, int numberSeason, String chapterTitle, int option, String newValue,
+            int duration) {
+        for (HashMap.Entry<Integer, Serie> serie : mgc.multimedia.getSeries().entrySet()) {
+            if (serie.getValue().getTitle().equals(seriesTitle)) {
+                for (int i = 0; i < serie.getValue().getSeasons().size(); i++) {
+                    if (serie.getValue().getSeasons().get(i).getNumberSeason() == numberSeason) {
+                        for (int j = 0; j < serie.getValue().getSeasons().get(i).getNumberOfChapters().size(); j++) {
+                            if (serie.getValue().getSeasons().get(i).getNumberOfChapters().get(j)
+                                    .getTitle() == chapterTitle) {
+                                switch (option) {
+                                    case 1:
+                                        serie.getValue().getSeasons().get(i).getNumberOfChapters().get(j)
+                                                .setDescription(newValue);
+                                        return true;
+                                    case 2:
+                                        serie.getValue().getSeasons().get(i).getNumberOfChapters().get(j)
+                                                .setDuration(duration);
+                                        return true;
+                                    case 3:
+                                        serie.getValue().getSeasons().get(i).getNumberOfChapters().get(j)
+                                                .setTitle(newValue);
+                                        return true;
+                                    default:
+                                        return false;
+                                }
+                            }
+                        }
+                    }
+                }
+
+            }
+        }
+        return false;
+    }
 }
