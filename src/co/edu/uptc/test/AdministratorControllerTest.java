@@ -26,13 +26,13 @@ public class AdministratorControllerTest {
     @Before
     public void setTwo() {
         setOne();
-        administrator.addSerie("merlina", "s sdsdsd", new Category("Action"), LocalDate.of(2004, 6, 14));
+        administrator.addSerie("merlina", "s sdsdsd", 1, LocalDate.of(2004, 6, 14));
 
     }
 
     @Test
     public void addSerie() {
-        assertTrue(administrator.addSerie("merlina", "s sdsdsd", new Category("Action"), LocalDate.of(2004, 6, 14)));
+        assertTrue(administrator.addSerie("merlina", "s sdsdsd", 1, LocalDate.of(2004, 6, 14)));
     }
 
     @Test
@@ -61,25 +61,80 @@ public class AdministratorControllerTest {
 
     @Test
     public void addMovie() {
-        assertTrue(administrator.addMovie("up", "animada", new Category("Animated"), LocalDate.of(2004, 6, 14), 12));
-        assertTrue(administrator.addMovie(null, null, null, null, 0));
+        assertTrue(administrator.addMovie("up", "animada", 2, LocalDate.of(2004, 6, 14), 12));
+        assertTrue(administrator.addMovie(null, null, 1, null, 0));
     }
 
     @Test
     public void addCategory() {
-        assertEquals("[Action, Animated, Comedy, Romance, Terror]", administrator.showCategories());
+        assertEquals("\n1. Action\n"
+                + "2. Animated\n"
+                + "3. Comedy\n"
+                + "4. Romance\n"
+                + "5. Terror", administrator.showCategories());
         administrator.addCategory("Suspense");
-        assertEquals("[Action, Animated, Comedy, Romance, Terror, Suspense]", administrator.showCategories());
+        assertEquals("\n1. Action\n"
+                + "2. Animated\n"
+                + "3. Comedy\n"
+                + "4. Romance\n"
+                + "5. Terror\n"
+                + "6. Suspense", administrator.showCategories());
         administrator.addCategory("Terror");
-        assertEquals("[Action, Animated, Comedy, Romance, Terror, Suspense]", administrator.showCategories());
+        assertEquals("\n1. Action\n"
+                + "2. Animated\n"
+                + "3. Comedy\n"
+                + "4. Romance\n"
+                + "5. Terror\n"
+                + "6. Suspense", administrator.showCategories());
     }
 
     @Test
     public void findCategory() {
-        assertEquals("Action", administrator.findCategory(1));
-        assertEquals("Animated", administrator.findCategory(2));
-        assertEquals("Terror", administrator.findCategory(5));
+        assertEquals("Action", administrator.findCategory(1).toString());
+        assertEquals("Animated", administrator.findCategory(2).toString());
+        assertEquals("Terror", administrator.findCategory(5).toString());
         administrator.addCategory("Suspense");
-        assertEquals("Suspense", administrator.findCategory(6));
+        assertEquals("Suspense", administrator.findCategory(6).toString());
+    }
+
+    @Test
+    public void moviesCategory() {
+        administrator.addMovie("Movie1", "Description1", 1, LocalDate.of(2020, 02, 02), 0);
+        administrator.addMovie("Movie3", "Description3", 3, LocalDate.of(2020, 02, 02), 0);
+        administrator.addMovie("Movie2", "Description2", 2, LocalDate.of(2020, 02, 02), 0);
+
+        assertEquals(
+                "[Movie [duration=0]Multimedia [title=Movie1, description=Description1, category=Action, publication=2020-02-02, reproduce=false]]",
+                administrator.showMoviesCategory(1));
+        assertEquals(
+                "[Movie [duration=0]Multimedia [title=Movie2, description=Description2, category=Animated, publication=2020-02-02, reproduce=false]]",
+                administrator.showMoviesCategory(2));
+        assertEquals(
+                "[Movie [duration=0]Multimedia [title=Movie3, description=Description3, category=Comedy, publication=2020-02-02, reproduce=false]]",
+                administrator.showMoviesCategory(3));
+
+        administrator.addMovie("Movie2.1", "Description2.1", 2, LocalDate.of(2020, 02, 02), 0);
+        assertEquals(
+                "[Movie [duration=0]Multimedia [title=Movie2, description=Description2, category=Animated, publication=2020-02-02, reproduce=false], Movie [duration=0]Multimedia [title=Movie2.1, description=Description2.1, category=Animated, publication=2020-02-02, reproduce=false]]",
+                administrator.showMoviesCategory(2));
+    }
+
+    @Test
+    public void seriesCategory() {
+        administrator.addSerie("Serie1", "Description1", 4, LocalDate.of(2004, 6, 14));
+        administrator.addSerie("Serie2", "Description2", 5, LocalDate.of(2004, 6, 14));
+
+        assertEquals(
+                "[Serie [numberSeasons=0, seasons=[]]Multimedia [title=Serie1, description=Description1, category=Romance, publication=2004-06-14, reproduce=false]]",
+                administrator.showSeriesCategory(4));
+        assertEquals(
+                "[Serie [numberSeasons=0, seasons=[]]Multimedia [title=Serie2, description=Description2, category=Terror, publication=2004-06-14, reproduce=false]]",
+                administrator.showSeriesCategory(5));
+
+        administrator.addSerie("Serie2.1", "Description2.1", 5, LocalDate.of(2004, 6, 14));
+
+        assertEquals(
+                "[Serie [numberSeasons=0, seasons=[]]Multimedia [title=Serie2, description=Description2, category=Terror, publication=2004-06-14, reproduce=false], Serie [numberSeasons=0, seasons=[]]Multimedia [title=Serie2.1, description=Description2.1, category=Terror, publication=2004-06-14, reproduce=false]]",
+                administrator.showSeriesCategory(5));
     }
 }

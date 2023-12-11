@@ -6,6 +6,7 @@ import java.util.Scanner;
 
 import javax.print.attribute.standard.Media;
 
+import co.edu.uptc.model.Category;
 import co.edu.uptc.model.Movie;
 import co.edu.uptc.model.Multimedia;
 
@@ -15,7 +16,7 @@ public class MediaPlayerApp {
     public static void main(String[] args) {
 
         MediaPlayerApp mApp = new MediaPlayerApp();
-        Movie harry = new Movie("harry", "en la aldea", "suspenso", LocalDate.of(2023, 2, 12), false);
+        Movie harry = new Movie("harry", "en la aldea", new Category("Suspense"), LocalDate.of(2023, 2, 12), false);
         mApp.reproduce(harry);
 
     }

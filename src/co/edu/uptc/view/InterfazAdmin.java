@@ -1,4 +1,5 @@
 package co.edu.uptc.view;
+
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -7,6 +8,7 @@ import java.util.List;
 import java.util.Scanner;
 import co.edu.uptc.controller.AdministratorController;
 import co.edu.uptc.model.Administrator;
+import co.edu.uptc.model.Category;
 import co.edu.uptc.model.Movie;
 import co.edu.uptc.model.Serie;
 
@@ -104,15 +106,24 @@ public class InterfazAdmin {
                                 String title = sc.nextLine();
                                 System.out.println("Description: ");
                                 String description = sc.nextLine();
-                                System.out.println("Category: ");
+                                System.out.println("Category: "
+                                        + administratorController.showCategories());
                                 String category = sc.nextLine();
+                                int numCategory = validation(category);
+                                while (numCategory == 0) {
+                                    System.out.println("Enter a correct value");
+                                    System.out.println("Category: "
+                                            + administratorController.showCategories());
+                                    category = sc.nextLine();
+                                    numCategory = validation(category);
+                                }
                                 System.out.println("Publication Date (YYYY-MM-DD): ");
                                 String publicationDateStr = sc.nextLine();
 
                                 System.out.println("Duration: ");
                                 int duration = sc.nextInt();
 
-                                if (administratorController.addMovie(title, description, category,
+                                if (administratorController.addMovie(title, description, numCategory,
                                         LocalDate.parse(publicationDateStr), duration)) {
                                     System.out.println("Movie added successfully!");
                                 } else {
@@ -127,12 +138,21 @@ public class InterfazAdmin {
                                 String serieTitle = sc.nextLine();
                                 System.out.print("Description: ");
                                 String serieDescription = sc.nextLine();
-                                System.out.print("Category: ");
+                                System.out.println("Category: "
+                                        + administratorController.showCategories());
                                 String serieCategory = sc.nextLine();
+                                int numSerieCategory = validation(serieCategory);
+                                while (numSerieCategory == 0) {
+                                    System.out.println("Enter a correct value");
+                                    System.out.println("Category: "
+                                            + administratorController.showCategories());
+                                    serieCategory = sc.nextLine();
+                                    numSerieCategory = validation(serieCategory);
+                                }
                                 System.out.print("Publication Date (YYYY-MM-DD): ");
                                 String seriePublicationDateStr = sc.nextLine();
 
-                                if (administratorController.addSerie(serieTitle, serieDescription, serieCategory,
+                                if (administratorController.addSerie(serieTitle, serieDescription, numSerieCategory,
                                         LocalDate.parse(seriePublicationDateStr))) {
                                     System.out.println("Serie added successfully!");
                                 } else {
@@ -239,7 +259,7 @@ public class InterfazAdmin {
                                     System.out.print("Description: ");
                                     movieToUpdate.setDescription(sc.nextLine());
                                     System.out.print("Category: ");
-                                    movieToUpdate.setCategory(sc.nextLine());
+                                    movieToUpdate.setCategory(new Category(sc.nextLine()));
                                     System.out.print("Publication Date (YYYY-MM-DD): ");
                                     String updatedPublicationDateStr = sc.nextLine();
                                     movieToUpdate.setPublication(LocalDate.parse(updatedPublicationDateStr));
@@ -264,7 +284,7 @@ public class InterfazAdmin {
                                     System.out.print("Description: ");
                                     serieToUpdate.setDescription(sc.nextLine());
                                     System.out.print("Category: ");
-                                    serieToUpdate.setCategory(sc.nextLine());
+                                    serieToUpdate.setCategory(new Category(sc.nextLine()));
                                     System.out.print("Publication Date (YYYY-MM-DD): ");
                                     String updatedSeriePublicationDateStr = sc.nextLine();
                                     serieToUpdate.setPublication(LocalDate.parse(updatedSeriePublicationDateStr));
@@ -299,4 +319,16 @@ public class InterfazAdmin {
 
     }
 
+    public static int validation(String numString) {
+        int result = 0;
+        try {
+            result = Integer.parseInt(numString);
+            if (result >= 0) {
+                return result;
+            }
+            return 0;
+        } catch (Exception e) {
+            return 0;
+        }
+    }
 }

@@ -13,12 +13,12 @@ public class UserControllerTest {
     UserController userController = new UserController(administratorController);
 
     public void addMultimedia() {
-        administratorController.addMovie("Movie1", "Description1", new Category("Terror"), LocalDate.of(2020, 2, 2), 0);
+        administratorController.addMovie("Movie1", "Description1", 2, LocalDate.of(2020, 2, 2), 0);
 
-        administratorController.addMovie("Movie2", "Description2", new Category("Terror"), LocalDate.of(2222, 12, 22),
+        administratorController.addMovie("Movie2", "Description2", 2, LocalDate.of(2222, 12, 22),
                 0);
 
-        administratorController.addSerie("Serie1", "Description1", new Category("Terror"), LocalDate.of(2020, 2, 2));
+        administratorController.addSerie("Serie1", "Description1", 2, LocalDate.of(2020, 2, 2));
     }
 
     @Test

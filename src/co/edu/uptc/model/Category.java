@@ -10,6 +10,8 @@ public class Category {
 
     public Category(String category) {
         this.category = category;
+        movies = new ArrayList<>();
+        series = new ArrayList<>();
     }
 
     public String getCategory() {
@@ -24,16 +26,16 @@ public class Category {
         return movies;
     }
 
-    public void setMovies(ArrayList<Movie> movies) {
-        this.movies = movies;
+    public void setMovies(Movie movie) {
+        this.movies.add(movie);
     }
 
     public ArrayList<Serie> getSeries() {
         return series;
     }
 
-    public void setSeries(ArrayList<Serie> series) {
-        this.series = series;
+    public void setSeries(Serie serie) {
+        this.series.add(serie);
     }
 
     @Override
