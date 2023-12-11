@@ -9,6 +9,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 import co.edu.uptc.controller.AdministratorController;
+import co.edu.uptc.model.Category;
 import co.edu.uptc.model.Chapter;
 import co.edu.uptc.model.Season;
 import co.edu.uptc.model.Serie;
@@ -25,13 +26,13 @@ public class AdministratorControllerTest {
     @Before
     public void setTwo() {
         setOne();
-        administrator.addSerie("merlina", "s sdsdsd", "asdads", LocalDate.of(2004, 6, 14));
+        administrator.addSerie("merlina", "s sdsdsd", new Category("Action"), LocalDate.of(2004, 6, 14));
 
     }
 
     @Test
     public void addSerie() {
-        assertTrue(administrator.addSerie("merlina", "s sdsdsd", "asdads", LocalDate.of(2004, 6, 14)));
+        assertTrue(administrator.addSerie("merlina", "s sdsdsd", new Category("Action"), LocalDate.of(2004, 6, 14)));
     }
 
     @Test
@@ -60,8 +61,25 @@ public class AdministratorControllerTest {
 
     @Test
     public void addMovie() {
-        assertTrue(administrator.addMovie("up", "animada", "animada", LocalDate.of(2004, 6, 14), 12));
+        assertTrue(administrator.addMovie("up", "animada", new Category("Animated"), LocalDate.of(2004, 6, 14), 12));
         assertTrue(administrator.addMovie(null, null, null, null, 0));
     }
 
+    @Test
+    public void addCategory() {
+        assertEquals("[Action, Animated, Comedy, Romance, Terror]", administrator.showCategories());
+        administrator.addCategory("Suspense");
+        assertEquals("[Action, Animated, Comedy, Romance, Terror, Suspense]", administrator.showCategories());
+        administrator.addCategory("Terror");
+        assertEquals("[Action, Animated, Comedy, Romance, Terror, Suspense]", administrator.showCategories());
+    }
+
+    @Test
+    public void findCategory() {
+        assertEquals("Action", administrator.findCategory(1));
+        assertEquals("Animated", administrator.findCategory(2));
+        assertEquals("Terror", administrator.findCategory(5));
+        administrator.addCategory("Suspense");
+        assertEquals("Suspense", administrator.findCategory(6));
+    }
 }

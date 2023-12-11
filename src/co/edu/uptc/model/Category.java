@@ -35,4 +35,9 @@ public class Category {
     public void setSeries(ArrayList<Serie> series) {
         this.series = series;
     }
+
+    @Override
+    public String toString() {
+        return category;
+    }
 }

@@ -8,7 +8,7 @@ public class Serie extends Multimedia {
     private ArrayList<Season> seasons;
     int curretChapter;
 
-    public Serie(String title, String description, String category, LocalDate publication, boolean reproduce) {
+    public Serie(String title, String description, Category category, LocalDate publication, boolean reproduce) {
         super(title, description, category, publication, reproduce);
         seasons = new ArrayList<>();
         curretChapter = 0;

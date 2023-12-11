@@ -5,6 +5,7 @@ import java.time.LocalDate;
 import org.junit.jupiter.api.Test;
 import co.edu.uptc.controller.AdministratorController;
 import co.edu.uptc.controller.UserController;
+import co.edu.uptc.model.Category;
 
 public class UserControllerTest {
 
@@ -12,11 +13,12 @@ public class UserControllerTest {
     UserController userController = new UserController(administratorController);
 
     public void addMultimedia() {
-        administratorController.addMovie("Movie1", "Description1", "Category1", LocalDate.of(2020, 2, 2), 0);
+        administratorController.addMovie("Movie1", "Description1", new Category("Terror"), LocalDate.of(2020, 2, 2), 0);
 
-        administratorController.addMovie("Movie2", "Description2", "Category2", LocalDate.of(2222, 12, 22), 0);
+        administratorController.addMovie("Movie2", "Description2", new Category("Terror"), LocalDate.of(2222, 12, 22),
+                0);
 
-        administratorController.addSerie("Serie1", "Description1", "Category1", LocalDate.of(2020, 2, 2));
+        administratorController.addSerie("Serie1", "Description1", new Category("Terror"), LocalDate.of(2020, 2, 2));
     }
 
     @Test

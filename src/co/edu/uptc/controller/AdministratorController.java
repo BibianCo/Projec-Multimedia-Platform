@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 import co.edu.uptc.model.Administrator;
+import co.edu.uptc.model.Category;
 import co.edu.uptc.model.Chapter;
 import co.edu.uptc.model.Movie;
 import co.edu.uptc.model.MultimediaGallery;
@@ -17,11 +18,17 @@ public class AdministratorController {
     private ArrayList<User> userList;
     private Administrator administrator;
     private MultimediaGalleryController mgc = new MultimediaGalleryController();
+    private ArrayList<Category> categories = new ArrayList<>();
 
     public AdministratorController() {
         userList = new ArrayList<User>();
         administrator = new Administrator("admin1", "admin1@uptc.edu.co", "2244");
-
+        administrator = new Administrator("admin1", "admin1@uptc.edu.co", "2244");
+        categories.add(new Category("Action"));
+        categories.add(new Category("Animated"));
+        categories.add(new Category("Comedy"));
+        categories.add(new Category("Romance"));
+        categories.add(new Category("Terror"));
     }
 
     public ArrayList<User> showUserList() {
@@ -91,8 +98,8 @@ public class AdministratorController {
         return false;
     }
 
-    public boolean addSerie(String title, String description, String category, LocalDate publication) {
-        if (!title.isEmpty() && !description.isEmpty() && !category.isEmpty()) {
+    public boolean addSerie(String title, String description, Category category, LocalDate publication) {
+        if (!title.isEmpty() && !description.isEmpty() && !category.getCategory().isEmpty()) {
             mgc.multimedia.setSeries(mgc.GenerateKey(true),
                     new Serie(title, description, category, publication, false));
             return true;
@@ -100,7 +107,7 @@ public class AdministratorController {
         return false;
     }
 
-    public boolean addMovie(String title, String description, String category, LocalDate publication, int duration) {
+    public boolean addMovie(String title, String description, Category category, LocalDate publication, int duration) {
         Movie m1 = new Movie(title, description, category, publication, false);
         if (m1 != null) {
             mgc.multimedia.setMovies(mgc.GenerateKey(false), m1);
@@ -134,7 +141,7 @@ public class AdministratorController {
                     movie.setDescription(dataUpdate);
                     break;
                 case 3:
-                    movie.setCategory(dataUpdate);
+                    movie.setCategory(new Category(dataUpdate));
                     break;
                 case 4:
                     movie.setPublication(publication);
@@ -168,7 +175,7 @@ public class AdministratorController {
                     serie.setDescription(newD);
                     return serie;
                 case 2:
-                    serie.setCategory(newD);
+                    serie.setCategory(new Category(newD));
                     return serie;
                 case 3:
                     serie.setPublication(newPublication);
@@ -213,4 +220,21 @@ public class AdministratorController {
         return mgc.multimedia.getSeries();
     }
 
+    public boolean addCategory(String newCategory) {
+        for (Category category : categories) {
+            if (category.getCategory().equals(newCategory)) {
+                return false;
+            }
+        }
+        categories.add(new Category(newCategory));
+        return false;
+    }
+
+    public String findCategory(int numCategory) { // 1. Action, 2. Animated, 3. Comedy, 4. Romance, 5. Terror...
+        return categories.get(numCategory - 1).toString();
+    }
+
+    public String showCategories() {
+        return categories.toString();
+    }
 }

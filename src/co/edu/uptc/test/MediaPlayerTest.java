@@ -9,6 +9,7 @@ import java.util.Scanner;
 import org.junit.Test;
 
 import co.edu.uptc.controller.MediaPlayerController;
+import co.edu.uptc.model.Category;
 import co.edu.uptc.model.Movie;
 import co.edu.uptc.model.Multimedia;
 import co.edu.uptc.model.MultimediaGallery;
@@ -20,7 +21,7 @@ public class MediaPlayerTest {
     @Test
     public void reproduce() {
         MediaPlayerApp mp = new MediaPlayerApp();
-        Movie harry = new Movie("harry", "en la aldea", "suspenso", LocalDate.of(2023, 2, 12), false);
+        Movie harry = new Movie("harry", "en la aldea", new Category("Action"), LocalDate.of(2023, 2, 12), false);
         mp.reproduce(harry);
         assertEquals(true, harry.isReproduce());
     }
