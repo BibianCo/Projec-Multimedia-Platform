@@ -1,17 +1,22 @@
 package co.edu.uptc.controller;
 
 import java.util.ArrayList;
-
 import co.edu.uptc.model.Administrator;
 import co.edu.uptc.model.Multimedia;
+import co.edu.uptc.model.MultimediaGallery;
 import co.edu.uptc.model.Plan;
 import co.edu.uptc.model.User;
+import co.edu.uptc.model.Movie;
+import co.edu.uptc.model.Serie;
 
 public class UserController {
     private User user;
-
+    private AdministratorController administratorController;
     private ArrayList<Multimedia> playMultimedias = new ArrayList<>();
     private Administrator administrator = new Administrator();
+
+    public UserController() {
+    }
 
     public boolean addListHistory(Multimedia multimedia) {
         if (multimedia.isReproduce()) {
@@ -27,7 +32,6 @@ public class UserController {
     }
 
     ArrayList<User> users = new ArrayList<>();
-
     // comentareado momentaneamente
 
     public boolean addUser(String name, String email, String password, String userName, Plan plan) {
@@ -75,9 +79,54 @@ public class UserController {
     public boolean deleteUser(String email) {
         User userToDelete = findUser(email);
         if (userToDelete != null) {
+
             administrator.getUsers().remove(userToDelete);
+            users.remove(userToDelete);
             return true;
         }
         return false;
+    }
+
+    public UserController(AdministratorController administratorController) {
+        this.administratorController = administratorController;
+        user = new User(null, null, null, null, null);
+    }
+
+    public boolean addWishList(String title) {
+
+        Movie movie = administratorController.findMovie(title);
+        if (administratorController.findMovie(title) != null) {
+            user.addWishList(movie);
+            return true;
+        }
+
+        Serie serie = administratorController.findSerie(title);
+        if (administratorController.findSerie(title) != null) {
+            user.addWishList(serie);
+            return true;
+        }
+        return false;
+    }
+
+    public boolean deleteWish(String title) {
+        for (int i = 0; i < user.getWishList().size(); i++) {
+            if (user.getWishList().get(i).getTitle().equals(title)) {
+                user.getWishList().remove(i);
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public boolean deleteAll() {
+        user.getWishList().clear();
+        if (user.getWishList().isEmpty()) {
+            return true;
+        }
+        return false;
+    }
+
+    public String showWishList() {
+        return user.getWishList().toString();
     }
 }
