@@ -13,7 +13,7 @@ public class InterfazUser {
     private static UserController userController = new UserController();
     private static AdministratorController administratorController = new AdministratorController();
     private static MediaPlayerApp mediaPlayerApp = new MediaPlayerApp();
-    private static MultimediaGalleryController mgc = new MultimediaGalleryController();
+    private static MultimediaGalleryController mgc = MultimediaGalleryController.getInstance();
     private static Scanner sc = new Scanner(System.in);
     private static int option = 0;
     private static boolean flag = false;
