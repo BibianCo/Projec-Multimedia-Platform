@@ -1,6 +1,7 @@
 package co.edu.uptc.test;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.time.LocalDate;
@@ -147,24 +148,19 @@ public class AdministratorControllerTest {
     @Test
     public void addSeason() {
         setSeries();
-        // Se genera un código distinto, por lo que no se puede comparar, pero sirve
-        /*
-         * assertEquals(
-         * "{815796=Serie [numberSeasons=1, seasons=[Season [numberOfChapters=[], description=Description1, publicationSeason=1010-10-10]]]Multimedia [title=Prueba1, description=Description1, category=Action, publication=2020-12-12, reproduce=false]}"
-         * ,
-         * administrator.showSeries());
-         */
+        assertEquals(true, administrator.addSeason("Prueba1", "SeasonDescription2", LocalDate.of(2020, 02, 02)));
+        // Same description
+        assertEquals(false, administrator.addSeason("Prueba1", "SeasonDescription2", LocalDate.of(2020, 02, 02)));
+    }
 
-        administrator.addSeason("Prueba1", "SeasonDescription2", LocalDate.of(2020, 02, 02));
-
-        // Ocurre lo mismo
-        /*
-         * assertEquals(
-         * "{827565=Serie [numberSeasons=2, seasons=[Season [numberOfChapters=[], description=Description1, publicationSeason=1010-10-10], Season [numberOfChapters=[], description=SeasonDescription2, publicationSeason=2020-02-02]]]Multimedia [title=Prueba1, description=Description1, category=Action, publication=2020-12-12, reproduce=false]}"
-         * ,
-         * administrator.showSeries());
-         */
-        // No resive con la misma descripción
-        administrator.addSeason("Prueba1", "SeasonDescription2", LocalDate.of(2020, 02, 02));
+    @Test
+    public void addChapter() {
+        setSeries();
+        assertTrue(administrator.addChapter("Prueba1", 1, 120, "DescriptionChapter1", "Chapter1"));
+        assertTrue(administrator.addChapter("Prueba1", 1, 120, "DescriptionChapter", "Chapter2"));
+        // Same title
+        assertFalse(administrator.addChapter("Prueba1", 1, 120, "DescriptionChapter1", "Chapter1"));
+        // Nonexistent Season
+        assertFalse(administrator.addChapter("Prueba1", 4, 120, "DescriptionChapter1", "Chapter1"));
     }
 }

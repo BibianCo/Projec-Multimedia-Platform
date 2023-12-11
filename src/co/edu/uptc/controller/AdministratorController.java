@@ -267,12 +267,36 @@ public class AdministratorController {
     public boolean addSeason(String serieTitle, String description, LocalDate publicationSeason) {
 
         for (HashMap.Entry<Integer, Serie> serie : mgc.multimedia.getSeries().entrySet()) {
-            if (serie.getValue().getTitle().equals(serieTitle)
-                    && !serie.getValue().getDescription().equals(description)) {
+            if (serie.getValue().getTitle().equals(serieTitle)) {
+                for (int index = 0; index < serie.getValue().getSeasons().size(); index++) {
+                    if (serie.getValue().getSeasons().get(index).getDescription().equals(description)) {
+                        return false;
+                    }
+                }
                 serie.getValue()
                         .addSeason(
                                 new Season(description, publicationSeason));
                 return true;
+            }
+        }
+        return false;
+    }
+
+    public boolean addChapter(String serieTitle, int numberSeason, int duration, String description, String title) {
+        for (HashMap.Entry<Integer, Serie> serie : mgc.multimedia.getSeries().entrySet()) {
+            if (serie.getValue().getTitle().equals(serieTitle)) {
+                for (int i = 0; i < serie.getValue().getSeasons().size(); i++) {
+                    if (serie.getValue().getSeasons().get(i).getNumberSeason() == numberSeason) {
+                        for (int j = 0; j < serie.getValue().getSeasons().get(i).getNumberOfChapters().size(); j++) {
+                            if (serie.getValue().getSeasons().get(i).getNumberOfChapters().get(i).getTitle()
+                                    .equals(title)) {
+                                return false;
+                            }
+                        }
+                        serie.getValue().getSeasons().get(i).addChapter(new Chapter(duration, description, title));
+                        return true;
+                    }
+                }
             }
         }
         return false;

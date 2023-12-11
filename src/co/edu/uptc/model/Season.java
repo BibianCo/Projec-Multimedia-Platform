@@ -43,17 +43,17 @@ public class Season {
         this.publicationSeason = publicationSeason;
     }
 
-    @Override
-    public String toString() {
-        return "Season [numberOfChapters=" + numberOfChapters + ", description=" + description + ", publicationSeason="
-                + publicationSeason + "]";
-    }
-
     public int getNumberSeason() {
         return numberSeason;
     }
 
     public void setNumberSeason(int numberSeason) {
         this.numberSeason = numberSeason;
+    }
+
+    @Override
+    public String toString() {
+        return "Season [numberOfChapters=" + numberOfChapters + ", description=" + description + ", publicationSeason="
+                + publicationSeason + ", numberSeason=" + numberSeason + "]";
     }
 }
