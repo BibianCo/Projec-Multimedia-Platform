@@ -7,9 +7,9 @@ public class Season {
     private ArrayList<Chapter> numberOfChapters;
     private String description;
     private LocalDate publicationSeason;
-    private String numberSeason;
+    private int numberSeason;
 
-    public Season(String description, LocalDate publicationSeason, String numberSeason) {
+    public Season(String description, LocalDate publicationSeason, int numberSeason) {
         this.description = description;
         this.publicationSeason = publicationSeason;
         this.numberSeason = numberSeason;
@@ -50,11 +50,11 @@ public class Season {
                 + publicationSeason + "]";
     }
 
-    public String getNumberSeason() {
+    public int getNumberSeason() {
         return numberSeason;
     }
 
-    public void setNumberSeason(String numberSeason) {
+    public void setNumberSeason(int numberSeason) {
         this.numberSeason = numberSeason;
     }
 }
