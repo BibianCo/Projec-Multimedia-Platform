@@ -12,10 +12,6 @@ public class InterfazVisitor {
 
     private static UserController userController = new UserController();
     private static InterfazUser interfazUser = new InterfazUser();
-<<<<<<< HEAD
-=======
-    // private static Runner runner = new Runner();
->>>>>>> 50c6468fe9fb492d8456ae25252ae00382a03fb0
     private static String name = "";
     private static String email = "";
     private static String password = "";
@@ -28,8 +24,8 @@ public class InterfazVisitor {
     private static String[] messErrorInt = new String[2];
 
     public static void interfaz() {
-        messErrorInt[0] = "............ Error, no characters accepted, please enter a correct answer ............\\n";
-        messErrorInt[1] = " ............ Invalid option ............";
+        messErrorInt[0] = "............ Error, no characters accepted, please enter a correct answer ............\n";
+        messErrorInt[1] = " ............ Invalid option ............\n";
         // inicia interaccion con el visitante
         System.out.println(
                 "\n---------------------------  WELCOME YOUR TRUSTED MILTIMEDIA  ---------------------------\n\n"
@@ -83,6 +79,7 @@ public class InterfazVisitor {
                 singUp();
                 break;
             case 3:
+                Runner.main(new String[] {});
                 break;
         }
 
@@ -118,11 +115,7 @@ public class InterfazVisitor {
             validationEmeilandPass();
             boolean valAuthen = userController.authentication(email, password);
             if (valAuthen) {
-<<<<<<< HEAD
                 interfazUser.interfaz(userController.findUser(email));
-=======
-                // interfazUser.interfaz();
->>>>>>> 50c6468fe9fb492d8456ae25252ae00382a03fb0
 
             } else {
                 System.out.println(" ..... Your email or password are not correct .....\n");
@@ -159,7 +152,6 @@ public class InterfazVisitor {
         do {
             System.out.println("\nEnter your name");
             name = sc.next();
-            sc.next();
             if (name.matches("[a-zA-z]+")) {
                 flag = true;
             } else {
@@ -214,12 +206,7 @@ public class InterfazVisitor {
         boolean valAddUser = userController.addUser(name, email, password, userName, p1);
         if (valAddUser) {
             System.out.println(" \n---- Hey, you have been successfully registered ----");
-<<<<<<< HEAD
             interfazUser.interfaz(userController.findUser(email));
-=======
-            // interfazUser.interfaz();
-            interfaz();
->>>>>>> 50c6468fe9fb492d8456ae25252ae00382a03fb0
         } else {
             System.out.println("\n..... There is already a registered person with the same data entered .....");
             interfaz();
@@ -230,8 +217,10 @@ public class InterfazVisitor {
         do {
             System.out.println("\nEnter your email");
             email = sc.next();
+            sc.nextLine();
             if (!emailValidation(email)) {
                 System.out.println("............ Invalid email ............\n");
+
                 flag = false;
             } else {
                 flag = true;

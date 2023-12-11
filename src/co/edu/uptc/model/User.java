@@ -15,6 +15,10 @@ public class User extends Person {
         this.plan = plan;
     }
 
+    public User() {
+
+    }
+
     public String getUserName() {
         return userName;
     }

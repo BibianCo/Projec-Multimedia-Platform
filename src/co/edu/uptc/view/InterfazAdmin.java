@@ -55,7 +55,8 @@ public class InterfazAdmin {
             System.out.println("2.Add Media");
             System.out.println("3.Delete Media");
             System.out.println("4.Update Media");
-            System.out.println("5.Return to previous menu");
+            System.out.println("5.Return to previous menu\n" +
+                    "6. main");
             opc2 = sc.nextInt();
 
             switch (opc2) {
@@ -291,10 +292,13 @@ public class InterfazAdmin {
                 case 5:
                     System.out.println("Regresando al menu anterior");
                     break;
-
+                case 6:
+                    Runner.main(new String[] {});
+                    break;
                 default:
                     System.out.println("Elija una opcion valida");
                     break;
+
             }
         } while (opc2 != 5);
 

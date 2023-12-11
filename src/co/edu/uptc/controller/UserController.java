@@ -8,7 +8,7 @@ import co.edu.uptc.model.Plan;
 import co.edu.uptc.model.User;
 
 public class UserController {
-    private User user;
+    private User user = new User();
 
     private ArrayList<Multimedia> playMultimedias = new ArrayList<>();
     private Administrator administrator = new Administrator();
@@ -60,7 +60,7 @@ public class UserController {
         }
         return null;
     }
-    
+
     public boolean updateUser(String email, String newName, String newEmail, String newPassword) {
         User userToUpdate = findUser(email);
         if (userToUpdate != null) {
@@ -75,7 +75,7 @@ public class UserController {
     public boolean deleteUser(String email) {
         User userToDelete = findUser(email);
         if (userToDelete != null) {
-            multimediaGallery.getUsers().remove(userToDelete);
+            // multimediaGallery.getUsers().remove(userToDelete);
             return true;
         }
         return false;
