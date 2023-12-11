@@ -19,6 +19,7 @@ public class AdministratorController {
     private Administrator administrator;
     private MultimediaGalleryController mgc = new MultimediaGalleryController();
     private ArrayList<Category> categories = new ArrayList<>();
+    private MultimediaGallery multimedia;
 
     public AdministratorController() {
         userList = new ArrayList<User>();
