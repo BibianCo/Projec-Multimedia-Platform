@@ -263,4 +263,18 @@ public class AdministratorController {
     public String showSeriesCategory(int numCategory) {
         return categories.get(numCategory - 1).getSeries().toString();
     }
+
+    public boolean addSeason(String serieTitle, String description, LocalDate publicationSeason) {
+
+        for (HashMap.Entry<Integer, Serie> serie : mgc.multimedia.getSeries().entrySet()) {
+            if (serie.getValue().getTitle().equals(serieTitle)
+                    && !serie.getValue().getDescription().equals(description)) {
+                serie.getValue()
+                        .addSeason(
+                                new Season(description, publicationSeason));
+                return true;
+            }
+        }
+        return false;
+    }
 }

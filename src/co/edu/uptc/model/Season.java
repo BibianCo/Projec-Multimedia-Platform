@@ -9,10 +9,9 @@ public class Season {
     private LocalDate publicationSeason;
     private int numberSeason;
 
-    public Season(String description, LocalDate publicationSeason, int numberSeason) {
+    public Season(String description, LocalDate publicationSeason) {
         this.description = description;
         this.publicationSeason = publicationSeason;
-        this.numberSeason = numberSeason;
         this.numberOfChapters = new ArrayList<>();
     }
 

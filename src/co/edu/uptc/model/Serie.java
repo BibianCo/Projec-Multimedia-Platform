@@ -16,6 +16,7 @@ public class Serie extends Multimedia {
 
     public void addSeason(Season season) {
         seasons.add(season);
+        numberSeasons = seasons.size();
     }
 
     public int getNumberSeasons() {

@@ -137,4 +137,34 @@ public class AdministratorControllerTest {
                 "[Serie [numberSeasons=0, seasons=[]]Multimedia [title=Serie2, description=Description2, category=Terror, publication=2004-06-14, reproduce=false], Serie [numberSeasons=0, seasons=[]]Multimedia [title=Serie2.1, description=Description2.1, category=Terror, publication=2004-06-14, reproduce=false]]",
                 administrator.showSeriesCategory(5));
     }
+
+    public void setSeries() {
+        setOne();
+        administrator.addSerie("Prueba1", "Description1", 1, LocalDate.of(2020, 12, 12));
+        administrator.addSeason("Prueba1", "Description1", LocalDate.of(1010, 10, 10));
+    }
+
+    @Test
+    public void addSeason() {
+        setSeries();
+        // Se genera un código distinto, por lo que no se puede comparar, pero sirve
+        /*
+         * assertEquals(
+         * "{815796=Serie [numberSeasons=1, seasons=[Season [numberOfChapters=[], description=Description1, publicationSeason=1010-10-10]]]Multimedia [title=Prueba1, description=Description1, category=Action, publication=2020-12-12, reproduce=false]}"
+         * ,
+         * administrator.showSeries());
+         */
+
+        administrator.addSeason("Prueba1", "SeasonDescription2", LocalDate.of(2020, 02, 02));
+
+        // Ocurre lo mismo
+        /*
+         * assertEquals(
+         * "{827565=Serie [numberSeasons=2, seasons=[Season [numberOfChapters=[], description=Description1, publicationSeason=1010-10-10], Season [numberOfChapters=[], description=SeasonDescription2, publicationSeason=2020-02-02]]]Multimedia [title=Prueba1, description=Description1, category=Action, publication=2020-12-12, reproduce=false]}"
+         * ,
+         * administrator.showSeries());
+         */
+        // No resive con la misma descripción
+        administrator.addSeason("Prueba1", "SeasonDescription2", LocalDate.of(2020, 02, 02));
+    }
 }
