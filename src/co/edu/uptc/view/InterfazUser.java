@@ -1,6 +1,7 @@
 package co.edu.uptc.view;
 
 import java.util.InputMismatchException;
+import java.util.NoSuchElementException;
 import java.util.Scanner;
 
 import co.edu.uptc.controller.AdministratorController;
@@ -29,18 +30,15 @@ public class InterfazUser {
         messErrorInt[1] = " ............ Invalid option ............\n";
         messErrorInt[2] = "Sorry " + user.getUserName() + " ,but what you are looking for does not exist\n";
 
-        System.out.printf("\n------------------ Hello %s ", user.getUserName() + " ------------------\n" + "  Look \n");
+        System.out.printf("\n------------------ Hello %s ", user.getUserName() + " ------------------\n");
 
-        userController.showListHistory().forEach(System.out::println);
         do {
             try {
                 System.out.println("\n[ You can choose the functionality you want  ]\n"
                         + "1. Watch available movies and series\n"
                         + "2. Search\n"
-                        + "3. Search by category\n"
-                        + "4. Favorites\n"
-                        + "5. Your prefile\n"
-                        + "6. Leave");
+                        + "3. Favorites\n"
+                        + "4. Leave");
                 option = sc.nextInt();
                 if (option > 0 && option <= 6) {
                     flag = true;
@@ -50,10 +48,15 @@ public class InterfazUser {
                     sc.nextLine();
                 }
 
-            } catch (InputMismatchException e) {
-                System.out.println(messErrorInt[0]);
+            } catch (Exception e) {
+                if (e instanceof InputMismatchException) {
+                    System.out.println(messErrorInt[0]);
+                } else if (e instanceof NoSuchElementException) {
+                    if (sc.hasNextLine()) {
+                        sc.nextLine();
+                    }
+                }
                 flag = false;
-                sc.nextLine();
             }
         } while (!flag);
         switch (option) {
@@ -68,11 +71,6 @@ public class InterfazUser {
             case 3:
                 break;
             case 4:
-                break;
-            case 5:
-
-                break;
-            case 6:
                 Runner.main(new String[] {});
                 break;
             default:
@@ -125,19 +123,20 @@ public class InterfazUser {
     }
 
     public static void searchName(User user) {
-        name = sc.next();
-        sc.nextLine();
-
+        name = sc.nextLine();
         if (mgc.searchName(name) != null) {
-            mgc.searchName(name).forEach(System.out::println);
+            for (Multimedia multimedia : mgc.searchName(name)) {
+                System.out.println("Name: " + multimedia.getTitle());
+            }
             System.out.println("To confirm your search, enter the full name: ");
-            name = sc.next();
+            name = sc.nextLine();
 
             Movie movie = administratorController.findMovie(name);
             Serie serie = administratorController.findSerie(name);
 
             if (movie != null) {
-                System.out.println("The movie: " + movie);
+                System.out.println("The movie: " + movie.getTitle());
+
                 play(movie, user);
             } else if (serie != null) {
                 System.out.println("The serie: " + serie);
@@ -174,18 +173,34 @@ public class InterfazUser {
         } while (!flag);
         switch (option) {
             case 1:
-                mediaPlayerApp.reproduce(multimedia);
                 if (multimedia instanceof Serie) {
-                    userController.addListHistory(multimedia, user);
-                    mpc.currentChapter(multimedia instanceof Serie);
-                    System.out.println("");
-                }
-                if (multimedia instanceof Movie)
-                    userController.addListHistory(multimedia, user);
 
+                    Serie serie = (Serie) multimedia;
+                    mediaPlayerApp.reproduce(multimedia);
+                    System.out.println("1 to see next chapter or 2. to see previous chapter");
+                    option = sc.nextInt();
+                    if (option == 1) {
+
+                        boolean nextChapter = mpc.nextChapter(serie);
+                        if (!nextChapter) {
+                            System.out.println("there is no next chapter");
+                        }
+                    } else {
+                        boolean previousChapter = mpc.previousChapter(serie);
+                        if (!previousChapter) {
+                            System.out.println("there is no previous chapter");
+
+                        }
+                    }
+                } else if (multimedia instanceof Movie) {
+                    mediaPlayerApp.reproduce(multimedia);
+                    interfaz(user);
+                    break;
+                }
                 break;
 
             case 2:
+                interfaz(user);
                 break;
         }
 

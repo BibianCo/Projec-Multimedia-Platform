@@ -220,10 +220,11 @@ public class InterfazVisitor {
             sc.nextLine();
             if (!emailValidation(email)) {
                 System.out.println("............ Invalid email ............\n");
-
                 flag = false;
+                sc.nextLine();
             } else {
                 flag = true;
+
             }
         } while (!flag);
         do {

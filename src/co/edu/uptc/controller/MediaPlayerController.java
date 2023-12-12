@@ -10,7 +10,6 @@ import co.edu.uptc.view.MediaPlayerApp;
 public class MediaPlayerController {
     MultimediaGallery multimedia = new MultimediaGallery();
     MediaPlayerApp mApp = new MediaPlayerApp();
-    
 
     public boolean nextChapter(Serie serie) {
         if (serie.getCurretChapter() < findChapters(serie).size() - 1) {
@@ -51,8 +50,5 @@ public class MediaPlayerController {
     public MultimediaGallery getMultimedia() {
         return multimedia;
     }
-
-    
-
 
 }
