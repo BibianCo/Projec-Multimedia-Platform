@@ -15,23 +15,17 @@ import co.edu.uptc.model.User;
 
 public class AdministratorController {
     // MultimediaGallery multimediaGallery = new MultimediaGallery();
-    private ArrayList<User> userList;
     private Administrator administrator;
     private MultimediaGalleryController mgc = MultimediaGalleryController.getInstance();
     private ArrayList<Category> categories = new ArrayList<>();
 
     public AdministratorController() {
-        userList = new ArrayList<User>();
         administrator = new Administrator("admin1", "admin1@uptc.edu.co", "2244");
         categories.add(new Category("Action"));
         categories.add(new Category("Animated"));
         categories.add(new Category("Comedy"));
         categories.add(new Category("Romance"));
         categories.add(new Category("Terror"));
-    }
-
-    public ArrayList<User> showUserList() {
-        return userList;
     }
 
     public boolean validateAdminCredentials(String adminName, String adminEmail, String adminPassword) {
