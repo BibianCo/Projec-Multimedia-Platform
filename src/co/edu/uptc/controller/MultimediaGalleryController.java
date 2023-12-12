@@ -12,29 +12,35 @@ import co.edu.uptc.model.Serie;
 
 public class MultimediaGalleryController {
 
-    MultimediaGallery multimedia;
+    public MultimediaGallery multimediaGallery;
+    private static MultimediaGalleryController instance;
 
-    public MultimediaGalleryController() {
-        multimedia = new MultimediaGallery();
+    private MultimediaGalleryController() {
+        this.multimediaGallery = new MultimediaGallery();
     }
 
-    
+    public static MultimediaGalleryController getInstance() {
+        if (instance == null) {
+            instance = new MultimediaGalleryController();
+        }
+        return instance;
+    }
 
-
-    // metodo para buscar el nombre de una serie y/o pelicula a partir del ingreso de parcial de su nombre
+    // metodo para buscar el nombre de una serie y/o pelicula a partir del ingreso
+    // de parcial de su nombre
     public ArrayList<Multimedia> searchName(String input) {
         String aux = "";
         ArrayList<Multimedia> listOptions = new ArrayList<>();
 
         // recorrido para listMovies
-        for (HashMap.Entry<Integer,Movie> movies : multimedia.getMovies().entrySet()) {
+        for (HashMap.Entry<Integer, Movie> movies : multimediaGallery.getMovies().entrySet()) {
             aux = movies.getValue().getTitle().substring(0, input.length());
             if (movies.getValue().getTitle().contains(aux) && aux.equals(input)) {
                 listOptions.add(movies.getValue());
             }
         }
         // recorrido para listSeries
-        for (HashMap.Entry<Integer,Serie> series : multimedia.getSeries().entrySet()) {
+        for (HashMap.Entry<Integer, Serie> series : multimediaGallery.getSeries().entrySet()) {
             aux = series.getValue().getTitle().substring(0, input.length());
             if (series.getValue().getTitle().contains(aux) && aux.equals(input)) {
                 listOptions.add(series.getValue());
@@ -56,6 +62,5 @@ public class MultimediaGalleryController {
         }
         return Integer.parseInt(aux);
     }
-
 
 }

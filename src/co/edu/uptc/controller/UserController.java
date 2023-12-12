@@ -12,16 +12,17 @@ import co.edu.uptc.model.Serie;
 public class UserController {
     private User user = new User();
     private AdministratorController administratorController;
-    private ArrayList<Multimedia> playMultimedias = new ArrayList<>();
+    // private ArrayList<Multimedia> playMultimedias = new ArrayList<>();
     private Administrator administrator = new Administrator();
+    private ArrayList<User> users = new ArrayList<>();
 
     public UserController() {
     }
 
-    public boolean addListHistory(Multimedia multimedia) {
+    public boolean addListHistory(Multimedia multimedia, User user) {
+
         if (multimedia.isReproduce()) {
-            playMultimedias.add(multimedia);
-            user.setPlaylist(playMultimedias);
+            user.setPlaylist(multimedia);
             return true;
         }
         return false;
@@ -30,8 +31,6 @@ public class UserController {
     public ArrayList<Multimedia> showListHistory() {
         return user.getPlaylist();
     }
-
-    ArrayList<User> users = new ArrayList<>();
     // comentareado momentaneamente
 
     public boolean addUser(String name, String email, String password, String userName, Plan plan) {

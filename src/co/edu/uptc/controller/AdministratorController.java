@@ -15,24 +15,18 @@ import co.edu.uptc.model.User;
 
 public class AdministratorController {
     // MultimediaGallery multimediaGallery = new MultimediaGallery();
-    private ArrayList<User> userList;
     private Administrator administrator;
-    private MultimediaGalleryController mgc = new MultimediaGalleryController();
+    private MultimediaGalleryController mgc = MultimediaGalleryController.getInstance();
     private ArrayList<Category> categories = new ArrayList<>();
     // private MultimediaGallery multimedia;
 
     public AdministratorController() {
-        userList = new ArrayList<User>();
         administrator = new Administrator("admin1", "admin1@uptc.edu.co", "2244");
         categories.add(new Category("Action"));
         categories.add(new Category("Animated"));
         categories.add(new Category("Comedy"));
         categories.add(new Category("Romance"));
         categories.add(new Category("Terror"));
-    }
-
-    public ArrayList<User> showUserList() {
-        return userList;
     }
 
     public boolean validateAdminCredentials(String adminName, String adminEmail, String adminPassword) {
@@ -60,48 +54,10 @@ public class AdministratorController {
         }
     }
 
-    public boolean emailValidation(String email) {
-
-        ArrayList<String> listDominio = new ArrayList<>();
-        listDominio.add("@gmail.com");
-        listDominio.add("@uptc.edu.co");
-        listDominio.add("@outlook.es");
-        listDominio.add("@yahoo.com");
-
-        for (String s : listDominio) {
-            if (email.contains(s)) {
-                int position = email.length() - s.length();
-                String aux = email.substring(0, position);
-
-                if (aux.contains("@") || aux.length() < 5) {
-                    return false;
-                } else {
-                    return true;
-                }
-            }
-
-        }
-        return false;
-    }
-
-    public boolean passwordValidation(String password) {
-
-        if (password.length() > 3 && password.length() < 20) { // >3 <20
-            if (!password.equals(password.toLowerCase())) { // min. una mayuscula
-                if (!password.equals(password.toUpperCase())) { // min. una miniscula
-                    if (password.matches(".*\\d.*\\d.*")) { // min. 2 numeros
-                        return true;
-                    }
-                }
-            }
-        }
-        return false;
-    }
-
     public boolean addSerie(String title, String description, int numCategory, LocalDate publication) {
         Serie serie = new Serie(title, description, findCategory(numCategory), publication, false);
         if (!title.isEmpty() && !description.isEmpty() && numCategory > 0) {
-            mgc.multimedia.setSeries(mgc.GenerateKey(true),
+            this.mgc.getInstance().multimediaGallery.setSeries(mgc.GenerateKey(true),
                     serie);
             categories.get(numCategory - 1).setSeries(serie);
             return true;
@@ -113,7 +69,7 @@ public class AdministratorController {
         if (validationCategory(numCategory)) {
             Movie m1 = new Movie(title, description, findCategory(numCategory), publication, false);
             if (m1 != null) {
-                mgc.multimedia.setMovies(mgc.GenerateKey(false), m1);
+                this.mgc.getInstance().multimediaGallery.setMovies(mgc.GenerateKey(false), m1);
                 categories.get(numCategory - 1).setMovies(m1);
                 return true;
             }
@@ -122,7 +78,7 @@ public class AdministratorController {
     }
 
     public Movie findMovie(String title) {
-        HashMap<Integer, Movie> movies = mgc.multimedia.getMovies();
+        HashMap<Integer, Movie> movies = mgc.getInstance().multimediaGallery.getMovies();
 
         for (Integer movieId : movies.keySet()) {
             Movie movie = movies.get(movieId);
@@ -165,7 +121,7 @@ public class AdministratorController {
         Movie mov = findMovie(title);
 
         if (mov != null) {
-            mgc.multimedia.getMovies().remove(mov);
+            this.mgc.multimediaGallery.getMovies().remove(mov);
             return true;
         }
         return false;
@@ -198,7 +154,7 @@ public class AdministratorController {
 
     public Serie findSerie(String title) {
         if (!title.isEmpty()) {// title.equals("");
-            for (Serie serie : mgc.multimedia.getSeries().values()) {
+            for (Serie serie : this.mgc.getInstance().multimediaGallery.getSeries().values()) {
                 if (serie.getTitle().equals(title)) {
                     return serie;
                 }
@@ -211,18 +167,18 @@ public class AdministratorController {
 
         if (title != null) {
             Serie serie = findSerie(title);
-            mgc.multimedia.getSeries().remove(findSerie(title));
+            this.mgc.getInstance().multimediaGallery.getSeries().remove(findSerie(title));
             return serie;
         }
         return null;
     }
 
     public HashMap<Integer, Movie> showMovie() {
-        return mgc.multimedia.getMovies();
+        return this.mgc.getInstance().multimediaGallery.getMovies();
     }
 
     public HashMap<Integer, Serie> showSeries() {
-        return mgc.multimedia.getSeries();
+        return this.mgc.getInstance().multimediaGallery.getSeries();
     }
 
     public boolean addCategory(String newCategory) {

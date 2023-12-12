@@ -13,14 +13,6 @@ import co.edu.uptc.model.Multimedia;
 public class MediaPlayerApp {
     private static boolean paused = false;
 
-    public static void main(String[] args) {
-
-        MediaPlayerApp mApp = new MediaPlayerApp();
-        Movie harry = new Movie("harry", "en la aldea", new Category("Suspense"), LocalDate.of(2023, 2, 12), false);
-        mApp.reproduce(harry);
-
-    }
-
     public void printReproductor() {
         int numberOfSpaces = 50;
         String input;

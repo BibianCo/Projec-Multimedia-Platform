@@ -5,9 +5,9 @@ import java.util.HashMap;
 public class MultimediaGallery {
 
     private HashMap<Integer, Serie> series;
-    private HashMap<Integer,Movie> movies ;
+    private HashMap<Integer, Movie> movies;
 
-    public MultimediaGallery(){
+    public MultimediaGallery() {
         series = new HashMap<>();
         movies = new HashMap<>();
     }
@@ -17,7 +17,7 @@ public class MultimediaGallery {
     }
 
     public void setSeries(Integer key, Serie value) {
-        series.put(key, value);    
+        series.put(key, value);
     }
 
     public HashMap<Integer, Movie> getMovies() {
@@ -27,8 +27,5 @@ public class MultimediaGallery {
     public void setMovies(Integer key, Movie value) {
         movies.put(key, value);
     }
-
-    
-    
 
 }
