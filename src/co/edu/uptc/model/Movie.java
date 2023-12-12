@@ -20,7 +20,7 @@ public class Movie extends Multimedia {
 
     @Override
     public String toString() {
-        return "Movie [duration=" + duration + "]" + super.toString();
+        return "Movie [duration=" + duration + super.toString();
     }
 
 }

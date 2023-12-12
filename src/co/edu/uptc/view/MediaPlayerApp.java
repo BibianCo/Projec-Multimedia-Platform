@@ -55,8 +55,6 @@ public class MediaPlayerApp {
         System.out.println("");
         System.out.println("finished reproduction");
 
-        sc.close();
-
     }
 
     public void reproduce(Multimedia multimedia) {
