@@ -17,6 +17,7 @@ public class UserController {
     private ArrayList<User> users = new ArrayList<>();
 
     public UserController() {
+        administratorController = new AdministratorController();
     }
 
     // public boolean addListHistory(Multimedia multimedia, User user) {
@@ -91,18 +92,25 @@ public class UserController {
         user = new User(null, null, null, null, null);
     }
 
-    public boolean addWishList(String title) {
+    public boolean addWishList(String title, int option) { // 1. Movie, 2. Serie
+        switch (option) {
+            case 1:
+                Movie movie = administratorController.findMovie(title);
+                if (administratorController.findMovie(title) != null) {
+                    user.addWishList(movie);
+                    return true;
+                }
+                break;
+            case 2:
+                Serie serie = administratorController.findSerie(title);
+                if (administratorController.findSerie(title) != null) {
+                    user.addWishList(serie);
+                    return true;
+                }
+                break;
 
-        Movie movie = administratorController.findMovie(title);
-        if (administratorController.findMovie(title) != null) {
-            user.addWishList(movie);
-            return true;
-        }
-
-        Serie serie = administratorController.findSerie(title);
-        if (administratorController.findSerie(title) != null) {
-            user.addWishList(serie);
-            return true;
+            default:
+                break;
         }
         return false;
     }
@@ -126,6 +134,10 @@ public class UserController {
     }
 
     public String showWishList() {
-        return user.getWishList().toString();
+        String wishList = "";
+        for (int i = 0; i < user.getWishList().size(); i++) {
+            wishList = wishList + "\n" + user.getWishList().get(i).getTitle();
+        }
+        return wishList;
     }
 }

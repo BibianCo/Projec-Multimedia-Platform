@@ -327,4 +327,19 @@ public class AdministratorController {
         return administrator.getUsers();
     }
 
+    public String showMovieTitle() {
+        String moviList = "";
+        for (int i = 0; i < mgc.getInstance().multimediaGallery.getMovies().size(); i++) {
+            moviList = moviList + "\n" + mgc.getInstance().multimediaGallery.getMovies().get(i).getTitle();
+        }
+        return moviList;
+    }
+
+    public String showSerieTitle() {
+        String moviList = "";
+        for (int i = 0; i < mgc.getInstance().multimediaGallery.getSeries().size(); i++) {
+            moviList = moviList + "\n" + mgc.getInstance().multimediaGallery.getSeries().get(i).getTitle();
+        }
+        return moviList;
+    }
 }

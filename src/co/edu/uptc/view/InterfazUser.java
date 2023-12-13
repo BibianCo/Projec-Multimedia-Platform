@@ -73,7 +73,7 @@ public class InterfazUser {
                 searchCategory(user);
                 break;
             case 4:
-                favorites(user);
+                favorites();
                 break;
             case 5:
                 porfile(user);
@@ -88,7 +88,69 @@ public class InterfazUser {
         System.out.println(user.getFirstName() + "\n1.update data");
     }
 
-    private static void favorites(User user) {
+    private static void favorites() {
+        String opstr = "";
+        int option = 0;
+        boolean op = true;
+        System.out.println("------------------ Select one option ------------------\n"
+                + "1. Add to favorites\n"
+                + "2. Show list of favorites");
+        sc.nextLine();
+        opstr = sc.nextLine();
+        while (op) {
+            try {
+                option = Integer.parseInt(opstr);
+                op = false;
+            } catch (Exception e) {
+                System.out.println("Enter a correct value");
+                opstr = sc.nextLine();
+            }
+        }
+
+        switch (option) {
+            case 1:
+                String title = "", optionStr = "";
+                int optionNum = 0;
+                op = true;
+                System.out.println("------------------ List of multimedia ------------------\n"
+                        + "___________  Movies  ___________" + administratorController.showMovieTitle() + "\n"
+                        + "___________  Series  ___________" + administratorController.showSerieTitle());
+                System.out.println("------------------ Select one option ------------------\n"
+                        + "1. Add Movies\n"
+                        + "2. Add Series");
+                optionStr = sc.nextLine();
+
+                while (op) {
+                    try {
+                        optionNum = Integer.parseInt(optionStr);
+                        op = false;
+                    } catch (Exception e) {
+                        System.out.println("Enter a correct value");
+                        optionStr = sc.nextLine();
+                    }
+                }
+                System.out.println("Add the title");
+                title = sc.nextLine();
+
+                if (userController.addWishList(title, optionNum)) {
+                    System.out.println("Successfully added");
+                } else {
+                    System.out.println("Nothing found with this title. Enter a correct title");
+                }
+                break;
+
+            case 2:
+                if (userController.showWishList().equals(null)) {
+                    System.out.println("Favorites list is empty");
+                } else {
+                    System.out.println(
+                            "------------------ Favorite List ------------------\n" + userController.showWishList());
+                }
+                break;
+
+            default:
+                break;
+        }
     }
 
     private static void searchCategory(User user) {
