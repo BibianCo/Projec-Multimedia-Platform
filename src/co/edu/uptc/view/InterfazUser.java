@@ -92,7 +92,27 @@ public class InterfazUser {
     }
 
     private static void searchCategory(User user) {
-        System.out.println("...........................................................");
+        int categoryNum = 0;
+        String categoryStr = "";
+        boolean op = true;
+
+        System.out.println("...........................................................\n"
+                + "Enter the category\n" + administratorController.showCategories());
+        sc.nextLine();
+        categoryStr = sc.nextLine();
+        while (op) {
+            try {
+                categoryNum = Integer.parseInt(categoryStr);
+                op = false;
+            } catch (Exception e) {
+                System.out.println("Enter a correct value");
+                categoryStr = sc.nextLine();
+            }
+        }
+        System.out.println("----------------- Series -----------------\n"
+                + administratorController.showSeriesCategory(categoryNum)
+                + "\n----------------- Movies -----------------\n"
+                + administratorController.showMoviesCategory(categoryNum));
 
     }
 

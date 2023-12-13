@@ -18,16 +18,10 @@ public class AdministratorController {
     // MultimediaGallery multimediaGallery = new MultimediaGallery();
     private Administrator administrator;
     private MultimediaGalleryController mgc = MultimediaGalleryController.getInstance();
-    private ArrayList<Category> categories = new ArrayList<>();
     // private MultimediaGallery multimedia;
 
     public AdministratorController() {
         administrator = new Administrator("admin1", "admin1@uptc.edu.co", "2244");
-        categories.add(new Category("Action"));
-        categories.add(new Category("Animated"));
-        categories.add(new Category("Comedy"));
-        categories.add(new Category("Romance"));
-        categories.add(new Category("Terror"));
     }
 
     public boolean validateAdminCredentials(String adminName, String adminEmail, String adminPassword) {
@@ -62,7 +56,7 @@ public class AdministratorController {
         if (!title.isEmpty() && !description.isEmpty() && numCategory > 0) {
             this.mgc.getInstance().multimediaGallery.setSeries(mgc.GenerateKey(true),
                     serie);
-            categories.get(numCategory - 1).setSeries(serie);
+            this.mgc.getInstance().multimediaGallery.getCategories().get(numCategory - 1).setSeries(serie);
             serie.setCode(code);
             return true;
         }
@@ -75,8 +69,7 @@ public class AdministratorController {
             Movie m1 = new Movie(title, description, findCategory(numCategory), publication, false, code, duration);
             if (m1 != null) {
                 this.mgc.getInstance().multimediaGallery.setMovies(code, m1);
-                categories.get(numCategory - 1).setMovies(m1);
-
+                this.mgc.getInstance().multimediaGallery.getCategories().get(numCategory - 1).setMovies(m1);
                 return true;
             }
         }
@@ -189,22 +182,22 @@ public class AdministratorController {
     }
 
     public boolean addCategory(String newCategory) {
-        for (Category category : categories) {
+        for (Category category : mgc.multimediaGallery.getCategories()) {
             if (category.getCategory().equals(newCategory)) {
                 return false;
             }
         }
-        categories.add(new Category(newCategory));
+        mgc.multimediaGallery.getCategories().add(new Category(newCategory));
         return true;
     }
 
     public Category findCategory(int numCategory) { // 1. Action, 2. Animated, 3. Comedy, 4. Romance, 5. Terror...
-        return categories.get(numCategory - 1);
+        return mgc.multimediaGallery.getCategories().get(numCategory - 1);
     }
 
     public boolean validationCategory(int numCategory) {
         try {
-            categories.get(numCategory - 1);
+            mgc.multimediaGallery.getCategories().get(numCategory - 1);
             return true;
         } catch (Exception e) {
             return false;
@@ -213,18 +206,18 @@ public class AdministratorController {
 
     public String showCategories() {
         String categoryStr = "";
-        for (int i = 0; i < categories.size(); i++) {
-            categoryStr = categoryStr + "\n" + (i + 1) + ". " + categories.get(i).toString();
+        for (int i = 0; i < mgc.multimediaGallery.getCategories().size(); i++) {
+            categoryStr = categoryStr + "\n" + (i + 1) + ". " + mgc.multimediaGallery.getCategories().get(i).toString();
         }
         return categoryStr;
     }
 
     public String showMoviesCategory(int numCategory) {
-        return categories.get(numCategory - 1).getMovies().toString();
+        return mgc.multimediaGallery.getCategories().get(numCategory - 1).getMovies().toString();
     }
 
     public String showSeriesCategory(int numCategory) {
-        return categories.get(numCategory - 1).getSeries().toString();
+        return mgc.multimediaGallery.getCategories().get(numCategory - 1).getSeries().toString();
     }
 
     public boolean addSeason(String serieTitle, String description, LocalDate publicationSeason, int numberSeason) {
