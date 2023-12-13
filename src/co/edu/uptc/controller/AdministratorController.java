@@ -28,6 +28,21 @@ public class AdministratorController {
         categories.add(new Category("Comedy"));
         categories.add(new Category("Romance"));
         categories.add(new Category("Terror"));
+        addMovie("son como niños", "aventura con adam sambler", 1, LocalDate.of(2002, 10, 10), 60);
+        addMovie("los juegos del hambre", "aventura de distopia", 2, LocalDate.of(2002, 10, 10), 120);
+        addMovie("rapidos y furiosos 6", "actores como la roca", 3, LocalDate.of(2002, 10, 10), 60);
+        addSerie("merlina", "una niña rara", 1, LocalDate.of(2001, 10, 10));
+        addSerie("elite", "serie de niños ricos", 4, LocalDate.of(2001, 10, 10));
+        addSerie("la casa de papel", "robo y asaltos", 2, LocalDate.of(2001, 10, 10));
+        addSeason("merlina", "temporada 1", LocalDate.of(2010, 10, 31), 8);
+        addChapter("merlina", 1, 60, "hjd sjhdks", "la casa de los muertos");
+        addChapter("merlina", 1, 45, "ijdsdnlqs", "una vezperdidos");
+        addChapter("merlina", 1, 30, "dhauksds", "locos de miedo");
+        // addSeason("merlina", "temporada 2", LocalDate.of(2001, 01, 10), 4);
+        // addChapter("merlina", 2, 60, "hjd sjhdks", "la casa de los muertos");
+        // addChapter("merlina", 2, 45, "ijdsdnlqs", "una vezperdidos");
+        // addChapter("merlina", 2, 30, "dhauksds", "locos de miedo");
+
     }
 
     public boolean validateAdminCredentials(String adminName, String adminEmail, String adminPassword) {
@@ -60,8 +75,7 @@ public class AdministratorController {
 
         Serie serie = new Serie(title, description, findCategory(numCategory), publication, false, code);
         if (!title.isEmpty() && !description.isEmpty() && numCategory > 0) {
-            this.mgc.getInstance().multimediaGallery.setSeries(mgc.GenerateKey(true),
-                    serie);
+            this.mgc.getInstance().multimediaGallery.setSeries(mgc.GenerateKey(true), serie);
             categories.get(numCategory - 1).setSeries(serie);
             serie.setCode(code);
             return true;

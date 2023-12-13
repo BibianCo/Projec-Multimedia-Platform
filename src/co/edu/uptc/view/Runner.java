@@ -12,7 +12,7 @@ public class Runner {
         int option = 0;
         do {
             try {
-                System.out.println("\n hello person " + "\n Choose how you identify\n" +
+                System.out.println("\n--------------- Hello person --------------- " + "\nChoose how you identify\n" +
                         "1. Administrator\n" +
                         "2. User\n" +
                         "3. Visitor\n" +

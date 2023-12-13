@@ -10,6 +10,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 import co.edu.uptc.controller.AdministratorController;
+import co.edu.uptc.controller.UserController;
 import co.edu.uptc.model.Category;
 import co.edu.uptc.model.Chapter;
 import co.edu.uptc.model.Season;
@@ -18,10 +19,12 @@ import co.edu.uptc.model.Serie;
 public class AdministratorControllerTest {
 
     AdministratorController administrator;
+    UserController userController;
 
     @Before
     public void setOne() {
         administrator = new AdministratorController();
+        userController = new UserController();
     }
 
     @Before
@@ -180,5 +183,10 @@ public class AdministratorControllerTest {
         assertFalse(administrator.updateChapter("Prueba1", 4, "Chapter1", 3, "New Title 1", 0));
         assertFalse(administrator.updateChapter("Prueba1", 1, "Chapter100", 3, "New Title 1", 0));
         assertFalse(administrator.updateChapter("Prueba1", 1, "Chapter1", 4, "New Title 1", 0));
+    }
+
+    @Test
+    public void showUserList() {
+
     }
 }

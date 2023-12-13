@@ -30,4 +30,12 @@ public class UserControllerTest {
         assertEquals(false, userController.addWishList("NoExist"));
         assertEquals(true, userController.addWishList("Movie2"));
     }
+
+    @Test
+    void updateUser() {
+        userController.addUser("juan", "juans@gmail.com", "JUASsdWE23", "JUAN    ", null);
+
+        userController.updateUser("juans@gmail.com", null, null, 0)
+
+    }
 }
