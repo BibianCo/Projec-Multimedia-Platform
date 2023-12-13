@@ -5,10 +5,6 @@ import java.util.Scanner;
 
 public class Runner {
 
-    private static InterfazUser interfazUser = new InterfazUser();
-    private static InterfazVisitor interfazVisitor = new InterfazVisitor();
-    private static InterfazAdmin interfazAdmin = new InterfazAdmin();
-
     public static void main(String[] args) {
 
         Scanner sc = new Scanner(System.in);
@@ -38,13 +34,13 @@ public class Runner {
         } while (!flag);
         switch (option) {
             case 1:
-                interfazAdmin.main(new String[] {});
+                InterfazAdmin.main(new String[] {});
                 break;
             case 2:
-                interfazUser.validationUser();
+                InterfazUser.validationUser();
                 break;
             case 3:
-                interfazVisitor.interfaz();
+                InterfazVisitor.interfaz();
                 break;
             case 4:
                 break;

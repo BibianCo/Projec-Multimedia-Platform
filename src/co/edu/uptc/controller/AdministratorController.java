@@ -83,8 +83,9 @@ public class AdministratorController {
         for (Integer movieId : movies.keySet()) {
             Movie movie = movies.get(movieId);
 
-            if (title.equals(movie.getTitle())) {
-                // se llama el metodo de showMonie para imprimir la pelicula encontrada
+            // Utilizar trim() para eliminar espacios al principio y al final del título
+            if (movie.getTitle().trim().equalsIgnoreCase(title.trim())) {
+                // Se llama el método de showMovie para imprimir la película encontrada
                 return movie;
             }
         }
@@ -188,7 +189,7 @@ public class AdministratorController {
             }
         }
         categories.add(new Category(newCategory));
-        return false;
+        return true;
     }
 
     public Category findCategory(int numCategory) { // 1. Action, 2. Animated, 3. Comedy, 4. Romance, 5. Terror...
@@ -220,18 +221,16 @@ public class AdministratorController {
         return categories.get(numCategory - 1).getSeries().toString();
     }
 
-    public boolean addSeason(String serieTitle, String description, LocalDate publicationSeason) {
+    public boolean addSeason(String serieTitle, String description, LocalDate publicationSeason, int numberSeason) {
 
-        for (HashMap.Entry<Integer, Serie> serie : mgc.multimedia.getSeries().entrySet()) {
+        for (HashMap.Entry<Integer, Serie> serie : mgc.getInstance().multimediaGallery.getSeries().entrySet()) {
             if (serie.getValue().getTitle().equals(serieTitle)) {
                 for (int index = 0; index < serie.getValue().getSeasons().size(); index++) {
                     if (serie.getValue().getSeasons().get(index).getDescription().equals(description)) {
                         return false;
                     }
                 }
-                serie.getValue()
-                        .addSeason(
-                                new Season(description, publicationSeason));
+                serie.getValue().addSeason(new Season(description, publicationSeason, numberSeason));
                 return true;
             }
         }
@@ -239,7 +238,7 @@ public class AdministratorController {
     }
 
     public boolean addChapter(String serieTitle, int numberSeason, int duration, String description, String title) {
-        for (HashMap.Entry<Integer, Serie> serie : mgc.multimedia.getSeries().entrySet()) {
+        for (HashMap.Entry<Integer, Serie> serie : mgc.getInstance().multimediaGallery.getSeries().entrySet()) {
             if (serie.getValue().getTitle().equals(serieTitle)) {
                 for (int i = 0; i < serie.getValue().getSeasons().size(); i++) {
                     if (serie.getValue().getSeasons().get(i).getNumberSeason() == numberSeason) {
@@ -263,7 +262,7 @@ public class AdministratorController {
     // Option 1, actualiza Description; 2, actualiza Duration; 3, actualiza Title
     public boolean updateChapter(String seriesTitle, int numberSeason, String chapterTitle, int option, String newValue,
             int duration) {
-        for (HashMap.Entry<Integer, Serie> serie : mgc.multimedia.getSeries().entrySet()) {
+        for (HashMap.Entry<Integer, Serie> serie : mgc.getInstance().multimediaGallery.getSeries().entrySet()) {
             if (serie.getValue().getTitle().equals(seriesTitle)) {
                 for (int i = 0; i < serie.getValue().getSeasons().size(); i++) {
                     if (serie.getValue().getSeasons().get(i).getNumberSeason() == numberSeason) {
