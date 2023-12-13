@@ -34,19 +34,30 @@ public class MultimediaGalleryController {
 
         // recorrido para listMovies
         for (HashMap.Entry<Integer, Movie> movies : multimediaGallery.getMovies().entrySet()) {
-            aux = movies.getValue().getTitle().substring(0, input.length());
+            aux = movies.getValue().getTitle().substring(0,
+                    Math.min(input.length(), movies.getValue().getTitle().length()));
+            // aux = movies.getValue().getTitle().substring(0, input.length());
             if (movies.getValue().getTitle().contains(aux) && aux.equals(input)) {
                 listOptions.add(movies.getValue());
             }
         }
         // recorrido para listSeries
         for (HashMap.Entry<Integer, Serie> series : multimediaGallery.getSeries().entrySet()) {
-            aux = series.getValue().getTitle().substring(0, input.length());
+            aux = series.getValue().getTitle().substring(0,
+                    Math.min(input.length(), series.getValue().getTitle().length()));
+            // aux = series.getValue().getTitle().substring(0, input.length());
             if (series.getValue().getTitle().contains(aux) && aux.equals(input)) {
                 listOptions.add(series.getValue());
             }
         }
         return listOptions;
+    }
+
+    public ArrayList<Multimedia> searchCategory(int index) {
+        int newIndex = index - 1;
+        ArrayList<Multimedia> listOptions = new ArrayList<>();
+
+        return null;
     }
 
     // type = true = serie type = false = pelicula

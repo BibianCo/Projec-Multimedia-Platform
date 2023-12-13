@@ -37,8 +37,9 @@ public class InterfazUser {
                 System.out.println("\n[ You can choose the functionality you want  ]\n"
                         + "1. Watch available movies and series\n"
                         + "2. Search\n"
-                        + "3. Favorites\n"
-                        + "4. Leave");
+                        + "3. Search by categories\n"
+                        + "4. Favorites\n"
+                        + "5. Your porfile");
                 option = sc.nextInt();
                 if (option > 0 && option <= 6) {
                     flag = true;
@@ -64,18 +65,35 @@ public class InterfazUser {
                 lookMultimedia(user);
                 break;
             case 2:
-                System.out.println("What do you want to look for?\n");
+                System.out.println("Write the name of the multimedia you want to search\n");
                 searchName(user);
 
                 break;
             case 3:
+                searchCategory(user);
                 break;
             case 4:
-                Runner.main(new String[] {});
+                favorites(user);
+                break;
+            case 5:
+                porfile(user);
                 break;
             default:
                 break;
         }
+    }
+
+    private static void porfile(User user) {
+        System.out.println("...........................................................");
+        System.out.println(user.getFirstName() + "\n1.update data");
+    }
+
+    private static void favorites(User user) {
+    }
+
+    private static void searchCategory(User user) {
+        System.out.println("...........................................................");
+
     }
 
     public static void validationUser() {
@@ -99,7 +117,7 @@ public class InterfazUser {
         // }
         do {
             try {
-                System.out.println("Do you want to look?\n" + "1. Yes\n" + "2. No\n");
+                System.out.println("\nDo you want to look?\n" + "1. Yes\n" + "2. No");
                 option = sc.nextInt();
                 sc.nextLine();
                 if (option > 0 && option <= 2) {
@@ -116,7 +134,8 @@ public class InterfazUser {
         } while (!flag);
         switch (option) {
             case 1:
-                System.out.println("What do you want to look at");
+                System.out.println("..................................................."
+                        + "\n Type the name of the multimedia you want to watch");
                 searchName(user);
                 break;
             case 2:
@@ -151,7 +170,9 @@ public class InterfazUser {
                 interfaz(user);
             }
 
-        } else {
+        } else
+
+        {
             System.out.println(messErrorInt[2]);
             interfaz(user);
         }

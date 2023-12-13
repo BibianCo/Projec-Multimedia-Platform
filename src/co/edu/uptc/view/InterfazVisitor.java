@@ -22,17 +22,18 @@ public class InterfazVisitor {
     private static boolean flag = false;
     private static int option = -1;
     private static Scanner sc = new Scanner(System.in);
-    private static String[] messErrorInt = new String[2];
+    private static String[] messErrorInt = new String[3];
 
     public static void interfaz() {
-        messErrorInt[0] = "............ Error, no characters accepted, please enter a correct answer ............\\n";
-        messErrorInt[1] = " ............ Invalid option ............";
+        messErrorInt[0] = "............ Error, no characters accepted, please enter a correct answer ............\n";
+        messErrorInt[1] = " ............ Invalid option ............\n";
+        messErrorInt[2] = "......................................................................................";
         // inicia interaccion con el visitante
-        System.out.println(
-                "\n---------------------------  WELCOME YOUR TRUSTED MILTIMEDIA  ---------------------------\n\n"
-                        +
-                        "You will find unlimited movies and series at a price that benefits you.\n" +
-                        "\nReasons to join: \n - You will find stories tailored to your tastes. \n - You will find plans with an affordable cost.\n");
+        System.out.println(messErrorInt[2]
+                + "\n---------------------------  WELCOME YOUR TRUSTED MILTIMEDIA  ---------------------------\n"
+                +
+                "You will find unlimited movies and series at a price that benefits you.\n" +
+                "\nReasons to join: \n - You will find stories tailored to your tastes. \n - You will find plans with an affordable cost.\n");
 
         boolean exit = false;
 
@@ -115,11 +116,12 @@ public class InterfazVisitor {
 
     // medoto de iniciar sesion
     public static void singIn() {
+        System.out.println(messErrorInt[2]);
         do {
             validationEmeilandPass();
             boolean valAuthen = userController.authentication(email, password);
             if (valAuthen) {
-                // interfazUser.interfaz();
+                InterfazUser.interfaz(userController.findUser(email));
 
             } else {
                 System.out.println(" ..... Your email or password are not correct .....\n");
@@ -152,10 +154,11 @@ public class InterfazVisitor {
 
     // medoto de registrarse
     public static void singUp() {
-
+        System.out.println(messErrorInt[2]);
         do {
             System.out.println("\nEnter your name");
-            name = sc.nextLine();
+            name = sc.next();
+            sc.next();
             if (name.matches("[a-zA-z]+")) {
                 flag = true;
             } else {
@@ -169,19 +172,8 @@ public class InterfazVisitor {
         // metodo donde se encuentar para ingresar email y contraseña
         validationEmeilandPass();
 
-        do {
-            System.out.println("\nEnter your username");
-            userName = sc.nextLine();
-            if (userName.matches("[a-zA-z]+")) {
-                flag = true;
-            } else {
-                System.out
-                        .println(
-                                "............ It is possible that you entered numbers and characters, digital valid answer ............\n");
-                flag = false;
-            }
-        } while (!flag);
-
+        System.out.println("\nEnter your username");
+        userName = sc.next();
         // se muestra el plan y el cliente lo escoge
 
         do {
@@ -212,7 +204,6 @@ public class InterfazVisitor {
         if (valAddUser) {
             System.out.println(" \n---- Hey, you have been successfully registered ----");
             InterfazUser.interfaz(userController.findUser(email));
-            interfaz();
         } else {
             System.out.println("\n..... There is already a registered person with the same data entered .....");
             interfaz();
