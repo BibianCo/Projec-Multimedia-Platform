@@ -11,21 +11,22 @@ import co.edu.uptc.model.Plan;
 public class InterfazVisitor {
 
     private static UserController userController = new UserController();
-    private static InterfazUser interfazUser = new InterfazUser();
+    private static MediaPlayerApp mediaPlayerApp = new MediaPlayerApp();
+    // private static Runner runner = new Runner();
     private static String name = "";
     private static String email = "";
     private static String password = "";
     private static String userName = "";
     private static PlanController planController = new PlanController();
-    // private static Plan plan = new Plan();
+    private static Plan plan = new Plan();
     private static boolean flag = false;
     private static int option = -1;
     private static Scanner sc = new Scanner(System.in);
     private static String[] messErrorInt = new String[2];
 
     public static void interfaz() {
-        messErrorInt[0] = "............ Error, no characters accepted, please enter a correct answer ............\n";
-        messErrorInt[1] = " ............ Invalid option ............\n";
+        messErrorInt[0] = "............ Error, no characters accepted, please enter a correct answer ............\\n";
+        messErrorInt[1] = " ............ Invalid option ............";
         // inicia interaccion con el visitante
         System.out.println(
                 "\n---------------------------  WELCOME YOUR TRUSTED MILTIMEDIA  ---------------------------\n\n"
@@ -47,7 +48,9 @@ public class InterfazVisitor {
                     break;
                 case 2:
                     // muestra una lista de planes que ofrese la multimedia
-                    planController.getListPlans().forEach(System.out::println);
+                    // planController.getListPlans().forEach(System.out::println);
+
+                    mediaPlayerApp.showPlans();
                     break;
             }
         }
@@ -79,7 +82,8 @@ public class InterfazVisitor {
                 singUp();
                 break;
             case 3:
-                Runner.main(new String[] {});
+                // llamar a la clase del runner o menu principal
+                // runner.main(messErrorInt);
                 break;
         }
 
@@ -115,7 +119,7 @@ public class InterfazVisitor {
             validationEmeilandPass();
             boolean valAuthen = userController.authentication(email, password);
             if (valAuthen) {
-                interfazUser.interfaz(userController.findUser(email));
+                // interfazUser.interfaz();
 
             } else {
                 System.out.println(" ..... Your email or password are not correct .....\n");
@@ -151,7 +155,7 @@ public class InterfazVisitor {
 
         do {
             System.out.println("\nEnter your name");
-            name = sc.next();
+            name = sc.nextLine();
             if (name.matches("[a-zA-z]+")) {
                 flag = true;
             } else {
@@ -167,7 +171,7 @@ public class InterfazVisitor {
 
         do {
             System.out.println("\nEnter your username");
-            userName = sc.next();
+            userName = sc.nextLine();
             if (userName.matches("[a-zA-z]+")) {
                 flag = true;
             } else {
@@ -182,8 +186,9 @@ public class InterfazVisitor {
 
         do {
             try {
-                System.out.println("\nChoose the plan you want to use");
-                planController.getListPlans().forEach(System.out::println);
+                System.out.println("\nChoose the plan you want to use4");
+                // planController.getListPlans().forEach(System.out::println);
+                mediaPlayerApp.showPlans();
                 option = sc.nextInt();
                 sc.nextLine();
                 if (option > 0 && option < 4) {
@@ -201,12 +206,13 @@ public class InterfazVisitor {
         } while (!flag);
 
         Plan p1 = planController.assignTypePlan(option);
-        //
+        planController.assignUser(userName);
         // se crea el usuarios y se valida si ya existe
         boolean valAddUser = userController.addUser(name, email, password, userName, p1);
         if (valAddUser) {
             System.out.println(" \n---- Hey, you have been successfully registered ----");
-            interfazUser.interfaz(userController.findUser(email));
+            InterfazUser.interfaz(userController.findUser(email));
+            interfaz();
         } else {
             System.out.println("\n..... There is already a registered person with the same data entered .....");
             interfaz();
@@ -216,21 +222,18 @@ public class InterfazVisitor {
     public static void validationEmeilandPass() {
         do {
             System.out.println("\nEnter your email");
-            email = sc.next();
-            sc.nextLine();
+            email = sc.nextLine();
             if (!emailValidation(email)) {
                 System.out.println("............ Invalid email ............\n");
                 flag = false;
-                sc.nextLine();
             } else {
                 flag = true;
-
             }
         } while (!flag);
         do {
             System.out.println("\nEnter your password\n"
                     + "[Minimum three characters, maximum twenty, minimum one uppercase letter, one lowercase letter and two numbers]");
-            password = sc.next();
+            password = sc.nextLine();
             if (passwordValidation(password)) {
                 flag = true;
             } else {
@@ -279,4 +282,11 @@ public class InterfazVisitor {
         return false;
     }
 
+    public void showTable() {
+
+        System.out.println("Plans");
+        System.out.println("+-------+-----------------+-----------------+");
+        System.out.println("|  ID   ");
+
+    }
 }

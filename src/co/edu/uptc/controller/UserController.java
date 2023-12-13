@@ -19,14 +19,14 @@ public class UserController {
     public UserController() {
     }
 
-    public boolean addListHistory(Multimedia multimedia, User user) {
+    // public boolean addListHistory(Multimedia multimedia, User user) {
 
-        if (multimedia.isReproduce()) {
-            user.setPlaylist(multimedia);
-            return true;
-        }
-        return false;
-    }
+    // if (multimedia.isReproduce()) {
+    // user.setPlaylist(multimedia);
+    // return true;
+    // }
+    // return false;
+    // }
 
     public ArrayList<Multimedia> showListHistory() {
         return user.getPlaylist();

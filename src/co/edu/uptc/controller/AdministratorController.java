@@ -3,6 +3,7 @@ package co.edu.uptc.controller;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 import co.edu.uptc.model.Administrator;
 import co.edu.uptc.model.Category;
@@ -55,11 +56,14 @@ public class AdministratorController {
     }
 
     public boolean addSerie(String title, String description, int numCategory, LocalDate publication) {
-        Serie serie = new Serie(title, description, findCategory(numCategory), publication, false);
+        int code = mgc.GenerateKey(true);
+
+        Serie serie = new Serie(title, description, findCategory(numCategory), publication, false, code);
         if (!title.isEmpty() && !description.isEmpty() && numCategory > 0) {
             this.mgc.getInstance().multimediaGallery.setSeries(mgc.GenerateKey(true),
                     serie);
             categories.get(numCategory - 1).setSeries(serie);
+            serie.setCode(code);
             return true;
         }
         return false;
@@ -67,10 +71,12 @@ public class AdministratorController {
 
     public boolean addMovie(String title, String description, int numCategory, LocalDate publication, int duration) {
         if (validationCategory(numCategory)) {
-            Movie m1 = new Movie(title, description, findCategory(numCategory), publication, false);
+            int code = mgc.GenerateKey(false);
+            Movie m1 = new Movie(title, description, findCategory(numCategory), publication, false, code, duration);
             if (m1 != null) {
-                this.mgc.getInstance().multimediaGallery.setMovies(mgc.GenerateKey(false), m1);
+                this.mgc.getInstance().multimediaGallery.setMovies(code, m1);
                 categories.get(numCategory - 1).setMovies(m1);
+
                 return true;
             }
         }
@@ -220,26 +226,39 @@ public class AdministratorController {
         return categories.get(numCategory - 1).getSeries().toString();
     }
 
-    public boolean addSeason(String serieTitle, String description, LocalDate publicationSeason) {
-
-        for (HashMap.Entry<Integer, Serie> serie : mgc.multimedia.getSeries().entrySet()) {
+    public boolean addSeason(String serieTitle, String description, LocalDate publicationSeason, int numberSeason) {
+        for (HashMap.Entry<Integer, Serie> serie : mgc.multimediaGallery.getSeries().entrySet()) {
             if (serie.getValue().getTitle().equals(serieTitle)) {
                 for (int index = 0; index < serie.getValue().getSeasons().size(); index++) {
                     if (serie.getValue().getSeasons().get(index).getDescription().equals(description)) {
                         return false;
                     }
                 }
-                serie.getValue()
-                        .addSeason(
-                                new Season(description, publicationSeason));
+                serie.getValue().addSeason(new Season(description, publicationSeason, numberSeason));
                 return true;
             }
         }
         return false;
     }
 
+    public Chapter deleteChapter(String serieTitle, int numberSeason, int chapterNumber) {
+        Serie serie = findSerie(serieTitle);
+
+        if (serie != null) {
+            for (int i = 0; i < serie.getSeasons().size(); i++) {
+                if (serie.getSeasons().get(i).getNumberSeason() == numberSeason) {
+                    List<Chapter> chapters = serie.getSeasons().get(i).getNumberOfChapters();
+                    if (chapterNumber >= 1 && chapterNumber <= chapters.size()) {
+                        return chapters.remove(chapterNumber - 1);
+                    }
+                }
+            }
+        }
+        return null;
+    }
+
     public boolean addChapter(String serieTitle, int numberSeason, int duration, String description, String title) {
-        for (HashMap.Entry<Integer, Serie> serie : mgc.multimedia.getSeries().entrySet()) {
+        for (HashMap.Entry<Integer, Serie> serie : mgc.getInstance().multimediaGallery.getSeries().entrySet()) {
             if (serie.getValue().getTitle().equals(serieTitle)) {
                 for (int i = 0; i < serie.getValue().getSeasons().size(); i++) {
                     if (serie.getValue().getSeasons().get(i).getNumberSeason() == numberSeason) {
@@ -258,12 +277,24 @@ public class AdministratorController {
         return false;
     }
 
+    public Season deleteSeason(String title, int numberSeason) {
+
+        Serie serie = findSerie(title);
+
+        if (serie != null) {
+            serie.getSeasons().get(numberSeason);
+
+        }
+
+        return null;
+    }
+
     // newValue puede ser para la nueva Description o para el nuevo Title.
     // ChapterTitle es para verificar la existencia del capítulo
     // Option 1, actualiza Description; 2, actualiza Duration; 3, actualiza Title
     public boolean updateChapter(String seriesTitle, int numberSeason, String chapterTitle, int option, String newValue,
             int duration) {
-        for (HashMap.Entry<Integer, Serie> serie : mgc.multimedia.getSeries().entrySet()) {
+        for (HashMap.Entry<Integer, Serie> serie : mgc.multimediaGallery.getSeries().entrySet()) {
             if (serie.getValue().getTitle().equals(seriesTitle)) {
                 for (int i = 0; i < serie.getValue().getSeasons().size(); i++) {
                     if (serie.getValue().getSeasons().get(i).getNumberSeason() == numberSeason) {
@@ -295,4 +326,10 @@ public class AdministratorController {
         }
         return false;
     }
+
+    public ArrayList<User> showUserList() {
+
+        return administrator.getUsers();
+    }
+
 }

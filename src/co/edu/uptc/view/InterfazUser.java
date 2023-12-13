@@ -84,15 +84,19 @@ public class InterfazUser {
     }
 
     public static void lookMultimedia(User user) {
-        System.out.println("Movies:");
+        // System.out.println("Movies:");
 
-        for (Movie movie : administratorController.showMovie().values()) {
-            System.out.println("Name: " + movie.getTitle());
-        }
-        System.out.println("Series:");
-        for (Serie serie : administratorController.showSeries().values()) {
-            System.out.println("Name: " + serie.getTitle());
-        }
+        mediaPlayerApp.showTableMovie(administratorController.showMovie());
+        // for (Movie movie : administratorController.showMovie().values()) {
+        // System.out.println("Name: " + movie.getTitle());
+        // }
+        System.out.println("");
+
+        mediaPlayerApp.showTableSerie(administratorController.showSeries());
+
+        // for (Serie serie : administratorController.showSeries().values()) {
+        // System.out.println("Name: " + serie.getTitle());
+        // }
         do {
             try {
                 System.out.println("Do you want to look?\n" + "1. Yes\n" + "2. No\n");
@@ -125,9 +129,8 @@ public class InterfazUser {
     public static void searchName(User user) {
         name = sc.nextLine();
         if (mgc.searchName(name) != null) {
-            for (Multimedia multimedia : mgc.searchName(name)) {
-                System.out.println("Name: " + multimedia.getTitle());
-            }
+            mediaPlayerApp.showMultimedia(name);
+
             System.out.println("To confirm your search, enter the full name: ");
             name = sc.nextLine();
 
@@ -135,11 +138,13 @@ public class InterfazUser {
             Serie serie = administratorController.findSerie(name);
 
             if (movie != null) {
-                System.out.println("The movie: " + movie.getTitle());
+                // System.out.println("The movie: " + movie.getTitle());
+                mediaPlayerApp.showMultimedia(name);
 
                 play(movie, user);
             } else if (serie != null) {
-                System.out.println("The serie: " + serie);
+                mediaPlayerApp.showMultimedia(name);
+                // System.out.println("The serie: " + serie);
                 play(serie, user);
             } else {
                 System.out.println(messErrorInt[2]);

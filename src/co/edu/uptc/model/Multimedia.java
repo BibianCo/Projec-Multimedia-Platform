@@ -8,13 +8,15 @@ public class Multimedia {
     private Category category;
     private LocalDate publication;
     private boolean reproduce;
+    private int code;
 
-    public Multimedia(String title, String description, Category category, LocalDate publication, boolean reproduce) {
+    public Multimedia(String title, String description, Category category, LocalDate publication, boolean reproduce,
+            int code) {
         this.title = title;
         this.description = description;
         this.category = category;
         this.publication = publication;
-
+        this.code = code;
     }
 
     public String getTitle() {
@@ -61,6 +63,14 @@ public class Multimedia {
 
     public void setPublication(LocalDate publication) {
         this.publication = publication;
+    }
+
+    public int getCode() {
+        return code;
+    }
+
+    public void setCode(int code) {
+        this.code = code;
     }
 
 }

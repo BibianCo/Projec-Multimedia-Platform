@@ -6,10 +6,12 @@ import java.util.ArrayList;
 public class Serie extends Multimedia {
     private int numberSeasons;
     private ArrayList<Season> seasons;
-    int curretChapter;
+    private int curretChapter;
+    private int code;
 
-    public Serie(String title, String description, Category category, LocalDate publication, boolean reproduce) {
-        super(title, description, category, publication, reproduce);
+    public Serie(String title, String description, Category category, LocalDate publication, boolean reproduce,
+            int code) {
+        super(title, description, category, publication, reproduce, code);
         seasons = new ArrayList<>();
         curretChapter = 0;
     }
@@ -49,4 +51,32 @@ public class Serie extends Multimedia {
         this.curretChapter = curretChapter;
     }
 
+    public int getCode() {
+        return code;
+    }
+
+    public void setCode(int code) {
+        this.code = code;
+    }
+
+    public Season getSeasonByNumber(int seasonNumber) {
+        for (Season season : seasons) {
+            if (season.getNumberSeason() == seasonNumber) {
+                return season;
+            }
+        }
+        return null; // Season not found
+    }
+
+    public Chapter getChapterByTitle(int seasonNumber, String chapterTitle) {
+        Season season = getSeasonByNumber(seasonNumber);
+        if (season != null) {
+            for (Chapter chapter : season.getNumberOfChapters()) {
+                if (chapter.getTitle().equals(chapterTitle)) {
+                    return chapter;
+                }
+            }
+        }
+        return null; // Chapter not found
+    }
 }

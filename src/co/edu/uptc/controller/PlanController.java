@@ -11,9 +11,9 @@ public class PlanController {
 
     public PlanController() {
         listPlans = new ArrayList<>();
-        listPlans.add(new Plan("Basic plan", 10000, 1));
-        listPlans.add(new Plan("Standard Plan ", 15000, 2));
-        listPlans.add(new Plan("Premium Plan ", 35000, 4));
+        listPlans.add(new Plan("Basic plan", 10000, 20));
+        listPlans.add(new Plan("Standard Plan ", 15000, 20));
+        listPlans.add(new Plan("Premium Plan ", 35000, 40));
     }
 
     public String generateInvitationCode() {
@@ -29,17 +29,18 @@ public class PlanController {
         return code;
     }
 
-    public Plan assignTypePlan(int option){
-        plan = getListPlans().get(option-1);
+    public Plan assignTypePlan(int option) {
+        plan = getListPlans().get(option - 1);
         return plan;
     }
 
-    public Plan assignUser(String userName){
-        if(plan.getUserList().size() < plan.getNumberUsers()){
+    public Plan assignUser(String userName) {
+        if (plan.getUserList().size() < plan.getNumberUsers()) {
             plan.getUserList().add(userName);
         }
         return plan;
     }
+
     public ArrayList<Plan> getListPlans() {
         return listPlans;
     }
