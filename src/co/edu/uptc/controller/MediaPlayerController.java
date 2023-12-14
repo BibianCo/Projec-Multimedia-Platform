@@ -13,22 +13,31 @@ public class MediaPlayerController {
 
     public boolean nextChapter(Serie serie) {
         if (serie.getCurretChapter() < findChapters(serie).size() - 1) {
+
             serie.setCurretChapter((int) (serie.getCurretChapter() + 1l));
             currentChapter(serie);
             mApp.reproduce(serie);
             return true;
+        } else {
+            serie.setCurretChapter(0);
+            return false;
         }
-        return false;
+
     }
 
     public boolean previousChapter(Serie serie) {
-        if (serie.getCurretChapter() > 0) {
-            serie.setCurretChapter(serie.getCurretChapter() - 1);
+        int currentChapterIndex = serie.getCurretChapter();
+
+        if (currentChapterIndex > 0) {
+            serie.setCurretChapter(currentChapterIndex - 1);
             currentChapter(serie);
             mApp.reproduce(serie);
             return true;
+        } else {
+            // Si ya estamos en el primer capítulo, simplemente volvemos al último
+            serie.setCurretChapter(0);
+            return false;
         }
-        return false;
     }
 
     public Chapter currentChapter(Serie serie) {

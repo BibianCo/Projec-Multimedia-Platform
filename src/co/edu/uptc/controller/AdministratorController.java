@@ -18,30 +18,51 @@ public class AdministratorController {
     // MultimediaGallery multimediaGallery = new MultimediaGallery();
     private Administrator administrator;
     private MultimediaGalleryController mgc = MultimediaGalleryController.getInstance();
-    // private MultimediaGallery multimedia;
 
-    public AdministratorController() {
-        administrator = new Administrator("admin1", "admin1@uptc.edu.co", "2244");
-        categories.add(new Category("Action"));
-        categories.add(new Category("Animated"));
-        categories.add(new Category("Comedy"));
-        categories.add(new Category("Romance"));
-        categories.add(new Category("Terror"));
-        addMovie("son como niños", "aventura con adam sambler", 1, LocalDate.of(2002, 10, 10), 60);
-        addMovie("los juegos del hambre", "aventura de distopia", 2, LocalDate.of(2002, 10, 10), 120);
-        addMovie("rapidos y furiosos 6", "actores como la roca", 3, LocalDate.of(2002, 10, 10), 60);
+    public void cargaMultimedia() {
+        addMovie("son como niños", "aventura con adam sambler", 1, LocalDate.of(2002,
+                10, 10), 60);
+        addMovie("los juegos del hambre", "aventura de distopia", 2,
+                LocalDate.of(2002, 10, 10), 120);
+        addMovie("rapidos y furiosos 6", "actores como la roca", 3,
+                LocalDate.of(2002, 10, 10), 60);
         addSerie("merlina", "una niña rara", 1, LocalDate.of(2001, 10, 10));
         addSerie("elite", "serie de niños ricos", 4, LocalDate.of(2001, 10, 10));
-        addSerie("la casa de papel", "robo y asaltos", 2, LocalDate.of(2001, 10, 10));
-        addSeason("merlina", "temporada 1", LocalDate.of(2010, 10, 31), 8);
+        addSerie("la casa de papel", "robo y asaltos", 2, LocalDate.of(2001, 10,
+                10));
+
+        addSeason("merlina", "temporada 1", LocalDate.of(2010, 10, 31), 1);
         addChapter("merlina", 1, 60, "hjd sjhdks", "la casa de los muertos");
         addChapter("merlina", 1, 45, "ijdsdnlqs", "una vezperdidos");
         addChapter("merlina", 1, 30, "dhauksds", "locos de miedo");
+        addSeason("merlina", "temporada 2", LocalDate.of(2001, 01, 10), 2);
+        addChapter("merlina", 2, 60, "hjd sjhdks", "la casa de los muertos");
+        addChapter("merlina", 2, 45, "ijdsdnlqs", "una vezperdidos");
+        addChapter("merlina", 2, 30, "dhauksds", "locos de miedo");
+
+    }
+
+    public AdministratorController() {
+        administrator = new Administrator("admin1", "admin1@uptc.edu.co", "2244");
+
+        // addMovie("son como niños", "aventura con adam sambler", 1, LocalDate.of(2002,
+        // 10, 10), 60);
+        // addMovie("los juegos del hambre", "aventura de distopia", 2,
+        // LocalDate.of(2002, 10, 10), 120);
+        // addMovie("rapidos y furiosos 6", "actores como la roca", 3,
+        // LocalDate.of(2002, 10, 10), 60);
+        // addSerie("merlina", "una niña rara", 1, LocalDate.of(2001, 10, 10));
+        // addSerie("elite", "serie de niños ricos", 4, LocalDate.of(2001, 10, 10));
+        // addSerie("la casa de papel", "robo y asaltos", 2, LocalDate.of(2001, 10,
+        // 10));
+        // addSeason("merlina", "temporada 1", LocalDate.of(2010, 10, 31), 8);
+        // addChapter("merlina", 1, 60, "hjd sjhdks", "la casa de los muertos");
+        // addChapter("merlina", 1, 45, "ijdsdnlqs", "una vezperdidos");
+        // addChapter("merlina", 1, 30, "dhauksds", "locos de miedo");
         // addSeason("merlina", "temporada 2", LocalDate.of(2001, 01, 10), 4);
         // addChapter("merlina", 2, 60, "hjd sjhdks", "la casa de los muertos");
         // addChapter("merlina", 2, 45, "ijdsdnlqs", "una vezperdidos");
         // addChapter("merlina", 2, 30, "dhauksds", "locos de miedo");
-
     }
 
     public boolean validateAdminCredentials(String adminName, String adminEmail, String adminPassword) {
@@ -232,12 +253,26 @@ public class AdministratorController {
         return categoryStr;
     }
 
-    public String showMoviesCategory(int numCategory) {
-        return mgc.multimediaGallery.getCategories().get(numCategory - 1).getMovies().toString();
+    public List<Movie> getMoviesByCategory(int numCategory) {
+        List<Movie> seriesList = new ArrayList<>();
+
+        // Verificar si el índice de la categoría es válido
+        if (numCategory > 0 && numCategory <= mgc.multimediaGallery.getCategories().size()) {
+            Category category = mgc.multimediaGallery.getCategories().get(numCategory - 1);
+            seriesList.addAll(category.getMovies());
+        }
+
+        return seriesList;
     }
 
-    public String showSeriesCategory(int numCategory) {
-        return mgc.multimediaGallery.getCategories().get(numCategory - 1).getSeries().toString();
+    public List<Serie> getSeriesByCategory(int numCategory) {
+        List<Serie> seriesList = new ArrayList<>();
+        if (numCategory > 0 && numCategory <= mgc.multimediaGallery.getCategories().size()) {
+            Category category = mgc.multimediaGallery.getCategories().get(numCategory - 1);
+            seriesList.addAll(category.getSeries());
+        }
+
+        return seriesList;
     }
 
     public boolean addSeason(String serieTitle, String description, LocalDate publicationSeason, int numberSeason) {
@@ -273,17 +308,17 @@ public class AdministratorController {
     }
 
     public boolean addChapter(String serieTitle, int numberSeason, int duration, String description, String title) {
-        for (HashMap.Entry<Integer, Serie> serie : mgc.getInstance().multimediaGallery.getSeries().entrySet()) {
-            if (serie.getValue().getTitle().equals(serieTitle)) {
-                for (int i = 0; i < serie.getValue().getSeasons().size(); i++) {
-                    if (serie.getValue().getSeasons().get(i).getNumberSeason() == numberSeason) {
-                        for (int j = 0; j < serie.getValue().getSeasons().get(i).getNumberOfChapters().size(); j++) {
-                            if (serie.getValue().getSeasons().get(i).getNumberOfChapters().get(i).getTitle()
-                                    .equals(title)) {
+        for (HashMap.Entry<Integer, Serie> entry : mgc.getInstance().multimediaGallery.getSeries().entrySet()) {
+            Serie serie = entry.getValue();
+            if (serie.getTitle().equals(serieTitle)) {
+                for (Season season : serie.getSeasons()) {
+                    if (season.getNumberSeason() == numberSeason) {
+                        for (Chapter chapter : season.getNumberOfChapters()) {
+                            if (chapter.getTitle().equals(title)) {
                                 return false;
                             }
                         }
-                        serie.getValue().getSeasons().get(i).addChapter(new Chapter(duration, description, title));
+                        season.addChapter(new Chapter(duration, description, title));
                         return true;
                     }
                 }
@@ -348,18 +383,18 @@ public class AdministratorController {
     }
 
     public String showMovieTitle() {
-        String moviList = "";
-        for (int i = 0; i < mgc.getInstance().multimediaGallery.getMovies().size(); i++) {
-            moviList = moviList + "\n" + mgc.getInstance().multimediaGallery.getMovies().get(i).getTitle();
+        StringBuilder moviList = new StringBuilder();
+        for (Movie movie : mgc.getInstance().multimediaGallery.getMovies().values()) {
+            moviList.append("\n").append(movie.getTitle());
         }
-        return moviList;
+        return moviList.toString();
     }
 
     public String showSerieTitle() {
-        String moviList = "";
-        for (int i = 0; i < mgc.getInstance().multimediaGallery.getSeries().size(); i++) {
-            moviList = moviList + "\n" + mgc.getInstance().multimediaGallery.getSeries().get(i).getTitle();
+        StringBuilder serieList = new StringBuilder();
+        for (Serie serie : mgc.getInstance().multimediaGallery.getSeries().values()) {
+            serieList.append("\n").append(serie.getTitle());
         }
-        return moviList;
+        return serieList.toString();
     }
 }

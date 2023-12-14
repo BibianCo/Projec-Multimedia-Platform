@@ -9,24 +9,24 @@ import co.edu.uptc.model.Movie;
 import co.edu.uptc.model.Serie;
 
 public class UserController {
-    private User user = new User();
+    private static User user = User.getInstance();
     private AdministratorController administratorController;
     // private ArrayList<Multimedia> playMultimedias = new ArrayList<>();
-    private Administrator administrator = new Administrator();
-    private ArrayList<User> users = new ArrayList<>();
+    private static Administrator administrator = Administrator.getInstance2();
+    // private ArrayList<User> users = new ArrayList<>();
 
     public UserController() {
         administratorController = new AdministratorController();
     }
 
-    public boolean addListHistory(Multimedia multimedia, User user) {
+    // public boolean addListHistory(Multimedia multimedia, User user) {
 
-        if (multimedia.isReproduce()) {
-            user.setPlaylist(multimedia);
-            return true;
-        }
-        return false;
-    }
+    // if (multimedia.isReproduce()) {
+    // user.setPlaylist(multimedia);
+    // return true;
+    // }
+    // return false;
+    // }
 
     public ArrayList<Multimedia> showListHistory() {
         return user.getPlaylist();
@@ -37,8 +37,8 @@ public class UserController {
         User user = new User(name, email, password, userName, plan);
         if (!user.getFirstName().isEmpty() && !user.getEmail().isEmpty() && !user.getPassword().isEmpty()
                 && user.getPlan() != null) {
-            users.add(user);
-            administrator.setUsers(users);
+            // users.add(user);
+            administrator.setUsers(user);
             return true;
         }
         return false;
@@ -109,7 +109,7 @@ public class UserController {
         if (userToDelete != null) {
 
             administrator.getUsers().remove(userToDelete);
-            users.remove(userToDelete);
+            administrator.getUsers().remove(userToDelete);
             return true;
         }
         return false;
