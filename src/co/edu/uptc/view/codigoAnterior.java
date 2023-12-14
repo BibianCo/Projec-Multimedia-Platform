@@ -17,7 +17,7 @@ import co.edu.uptc.model.Season;
 import co.edu.uptc.model.Serie;
 import co.edu.uptc.model.User;
 
-public class InterfazAdmin {
+public class codigoAnterior {
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
 
@@ -31,34 +31,8 @@ public class InterfazAdmin {
         int opc4=0;
         int opc5=0;
 
-        while (triesPass < maxTries) {
-            System.out.println("Enter the name of the administrator:");
-            String adminNameInput = sc.next();
-            sc.nextLine();
-            System.out.println("Enter the administrator's email:");
-            String adminEmailInput = sc.next();
 
-            System.out.println("Enter the administrator password");
-            String adminPasswordInput = sc.next();
-
-            if (administratorController.validateAdminCredentials(adminNameInput, adminEmailInput, adminPasswordInput)) {
-                System.out.println("---------------------------------------------");
-                System.out.println("Correct credentials.");
-                System.out.println("---------------------------------------------");
-                triesPass = 0;
-                break;
-            } else {
-                System.out.println("---------------------------------------------");
-                System.out.println("Incorrect credentials.");
-                System.out.println("---------------------------------------------");
-                triesPass++;
-            }
-        }
-
-        if (triesPass == maxTries) {
-            System.out.println("The number of attempts has been exceeded");
-            System.out.println("---------------------------------------------");
-        }
+        
         
         do { 
             try{

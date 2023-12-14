@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Random;
-
 import co.edu.uptc.model.Movie;
 import co.edu.uptc.model.Multimedia;
 import co.edu.uptc.model.MultimediaGallery;
@@ -52,6 +51,11 @@ public class MultimediaGalleryController {
         }
         return listOptions;
     }
+
+    public boolean deleteMovie(Movie movie) {
+        return this.multimediaGallery.getMovies().values().remove(movie);
+    }
+
 
     public ArrayList<Multimedia> searchCategory(int index) {
         int newIndex = index - 1;
