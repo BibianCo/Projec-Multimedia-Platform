@@ -43,4 +43,8 @@ public class Category {
         return category;
     }
 
+    public Object getName() {
+        return null;
+    }
+
 }
