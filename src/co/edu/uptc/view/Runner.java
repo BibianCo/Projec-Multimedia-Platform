@@ -43,6 +43,7 @@ public class Runner {
                 InterfazVisitor.interfaz();
                 break;
             case 4:
+                System.exit(0);
                 break;
 
         }
