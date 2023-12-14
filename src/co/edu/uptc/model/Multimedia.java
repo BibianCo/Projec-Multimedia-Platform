@@ -51,12 +51,6 @@ public class Multimedia {
         this.reproduce = reproduce;
     }
 
-    @Override
-    public String toString() {
-        return "Multimedia title=" + title + ", description=" + description + ", category=" + category
-                + ", publication=" + publication + ", reproduce=" + reproduce + "]";
-    }
-
     public LocalDate getPublication() {
         return publication;
     }
@@ -73,4 +67,8 @@ public class Multimedia {
         this.code = code;
     }
 
+    @Override
+    public String toString() {
+        return title;
+    }
 }

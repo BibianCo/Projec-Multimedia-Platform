@@ -182,14 +182,25 @@ public class InterfazAdmin {
 
                                     System.out.println("Title: ");
                                     String movieTitle = sc.nextLine();
+
                                     System.out.println("---------------------------------------------");
 
+<<<<<<< HEAD
                                     boolean loop = true;
 
                                     do {
                                         try {
                                             System.out.println("Publication Date (YYYY-MM-DD): ");
                                             String moviePublicationDateStr = sc.nextLine();
+=======
+                                    try {
+                                        System.out.println("Publication Date (YYYY-MM-DD): ");
+                                        String moviePublicationDateStr = sc.nextLine();
+                                        sc.next();
+                                        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+                                        LocalDate moviePublicationDate = LocalDate.parse(moviePublicationDateStr,
+                                                formatter);
+>>>>>>> d8f9a6543b5e0455ec529b27e31456125367e08a
 
                                             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
                                             LocalDate moviePublicationDate = LocalDate.parse(moviePublicationDateStr, formatter);
@@ -246,7 +257,45 @@ public class InterfazAdmin {
                                             System.out.println("An error occurred: " + e.getMessage());
                                             loop = false;
                                         }
+<<<<<<< HEAD
                                     } while (loop);
+=======
+
+                                        System.out.println("Description: ");
+                                        String description = sc.nextLine();
+                                        sc.next();
+                                        System.out.println("---------------------------------------------");
+
+                                        // Display available categories
+                                        System.out.println("Available Categories:");
+                                        System.out.println(administratorController.showCategories());
+                                        System.out.println("---------------------------------------------");
+
+                                        System.out.println("Choose a Category (Enter the category number): ");
+                                        int numCategory = sc.nextInt();
+                                        System.out.println("---------------------------------------------");
+
+                                        System.out.println("Duration: ");
+                                        int duration = sc.nextInt();
+                                        System.out.println("---------------------------------------------");
+
+                                        if (administratorController.addMovie(movieTitle, description, numCategory,
+                                                moviePublicationDate, duration)) {
+                                            System.out.println("Movie added successfully!");
+                                            System.out.println("---------------------------------------");
+                                        } else {
+                                            System.out.println("Failed to add movie. Please check your input.");
+                                        }
+                                    } catch (DateTimeParseException e) {
+                                        System.out.println("---------------------------------------------");
+                                        System.out.println(
+                                                "Invalid date format. Please enter the date in the format YYYY-MM-DD.");
+                                        System.out.println("---------------------------------------------");
+                                    } catch (Exception e) {
+                                        // Handle other exceptions if necessary
+                                        System.out.println("An error occurred: " + e.getMessage());
+                                    }
+>>>>>>> d8f9a6543b5e0455ec529b27e31456125367e08a
                                     break;
                                 case 2:
                                     sc.nextLine(); 
@@ -294,9 +343,11 @@ public class InterfazAdmin {
                                                 System.out.print("Season Description: ");
                                                 sc.nextLine(); 
                                                 String seasonDescription = sc.nextLine();
+                                                sc.next();
                                                 System.out.println("---------------------------------------");
                                                 System.out.print("Season Publication Date (YYYY-MM-DD): ");
                                                 String seasonPublicationDateStr = sc.nextLine();
+                                                sc.next();
                                                 System.out.println("---------------------------------------");
                                 
                                                 
@@ -1016,6 +1067,7 @@ public class InterfazAdmin {
                         break;
                     case 6:
                         System.out.println("Regresando al menu anterior");
+                        Runner.main(new String[] {});
                         System.out.println("---------------------------------------");
                         break;
 

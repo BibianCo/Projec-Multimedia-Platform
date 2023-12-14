@@ -40,7 +40,8 @@ public class Serie extends Multimedia {
 
     @Override
     public String toString() {
-        return "Serie [numberSeasons=" + numberSeasons + ", seasons=" + seasons + "]" + super.toString();
+        return "\nTitle: " + super.getTitle() + "\nDescription: " + super.getDescription() + "\nLaunching: "
+                + super.getPublication() + "\nNumber of Seasons: " + numberSeasons;
     }
 
     public int getCurretChapter() {
