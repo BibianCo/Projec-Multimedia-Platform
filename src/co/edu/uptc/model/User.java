@@ -8,11 +8,19 @@ public class User extends Person {
     private ArrayList<Multimedia> wishList = new ArrayList<>();
     private ArrayList<Multimedia> playlist = new ArrayList<>();
     private Plan plan;
+    private static User user;
 
     public User(String name, String email, String password, String userName, Plan plan) {
         super(name, email, password);
         this.userName = userName;
         this.plan = plan;
+    }
+
+    public static User getInstance() {
+        if (user == null) {
+            user = new User();
+        }
+        return user;
     }
 
     public User() {

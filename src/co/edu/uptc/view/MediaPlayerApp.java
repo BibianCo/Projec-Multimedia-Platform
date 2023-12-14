@@ -2,7 +2,9 @@ package co.edu.uptc.view;
 
 import java.io.IOException;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Scanner;
 
 import javax.print.attribute.standard.Media;
@@ -58,7 +60,7 @@ public class MediaPlayerApp {
                 }
 
             } catch (InterruptedException e) {
-                System.out.println("Error en la espera: " + e.getMessage());
+                System.out.println("Error en la espera: ");
             } catch (Exception e) {
             }
 
@@ -91,58 +93,73 @@ public class MediaPlayerApp {
         System.out.println("Continue");
     }
 
-    public void showTableSerie(HashMap<Integer, Serie> Series) {
+    public void showTableSerie(HashMap<Integer, Serie> series) {
         System.out.println("Series:");
-        System.out.println("+------------+----------------------+-------------------------+-----------------+");
-        System.out.println("|    ID      |         TITLE        |       DESCRIPTION       |  NUMBER SEASON  |");
-        System.out.println("+------------+----------------------+-------------------------+-----------------+");
+        System.out.println(
+                "+------------+----------------------+---------------------------+-----------------------+---------------------+------------------+");
+        System.out.println(
+                "|    ID      |         TITLE        |       DESCRIPTION         |     NUMBER SEASONS    |      PUBLICATION    |     CATEGORY     |");
+        System.out.println(
+                "+------------+----------------------+---------------------------+-----------------------+---------------------+------------------+");
 
         for (Serie serie : administratorController.showSeries().values()) {
+            String truncatedDescription = serie.getDescription();
 
-            if (serie.getDescription().length() > 22) {
-
+            if (truncatedDescription.length() > 22) {
+                truncatedDescription = truncatedDescription.substring(0, 19) + "...";
             }
-            System.out.printf("|%-12d| %-21s| %-24s| %-11d |\n", serie.getCode(),
-                    serie.getTitle(), serie.getDescription(), serie.getNumberSeasons());
-            System.out
-                    .println("+------------+----------------------+-----------------+-----------------+");
+
+            System.out.printf("|%-12d| %-21s| %-26s| %-22d| %-20s| %-17s|\n", serie.getCode(),
+                    serie.getTitle(), truncatedDescription, serie.getNumberSeasons(), serie.getPublication(),
+                    serie.getCategory().toString());
+            System.out.println(
+                    "+------------+----------------------+---------------------------+-----------------------+---------------------+------------------+");
 
         }
-
     }
 
     public void showTableMovie(HashMap<Integer, Movie> movies) {
         System.out.println("Movies:");
-        System.out.println("+------------+----------------------+-------------------------+-----------------+");
-        System.out.println("|    ID      |         TITLE        |       DESCRIPTION       |     DURATION    |");
-        System.out.println("+------------+----------------------+-------------------------+-----------------+");
+        System.out.println(
+                "+------------+----------------------+---------------------------+-----------------+---------------------+------------------+");
+        System.out.println(
+                "|    ID      |         TITLE        |       DESCRIPTION         |     DURATION    |      PUBLICATION    |     CATEGORY     |");
+        System.out.println(
+                "+------------+----------------------+---------------------------+-----------------+---------------------+------------------+");
 
         for (Movie movie : administratorController.showMovie().values()) {
+            String truncatedDescription = movie.getDescription();
 
-            if (movie.getDescription().length() > 22) {
+            if (truncatedDescription.length() > 22) {
+                truncatedDescription = truncatedDescription.substring(0, 19) + "...";
             }
-            System.out.printf("|%-12d| %-21s| %-24s| %-16d|\n", movie.getCode(),
-                    movie.getTitle(), movie.getDescription(), movie.getDuration());
-            System.out.println("+------------+----------------------+-------------------------+-----------------+");
+
+            System.out.printf("|%-12d| %-21s| %-26s| %-16d| %-20s| %-17s|\n", movie.getCode(),
+                    movie.getTitle(), truncatedDescription, movie.getDuration(), movie.getPublication(),
+                    movie.getCategory().toString());
+            System.out.println(
+                    "+------------+----------------------+---------------------------+-----------------+---------------------+------------------+");
 
         }
-
     }
 
     public void showMultimedia(String name) {
         System.out.println("Movies and Serie");
-        System.out.println("+------------+----------------------+-------------------------+-----------------+");
-        System.out.println("|    ID      |         TITLE        |       DESCRIPTION       |     CATEGORY    |");
-        System.out.println("+------------+----------------------+-------------------------+-----------------+");
+        System.out.println(
+                "+------------+----------------------+--------------------------+-----------------+---------------------+");
+        System.out.println(
+                "|    ID      |         TITLE        |        DESCRIPTION       |     CATEGORY    |    PUBLICATION     |");
+        System.out.println(
+                "+------------+----------------------+--------------------------+-----------------+---------------------+");
 
         for (Multimedia multimedia2 : mgc.searchName(name)) {
-
-            System.out.printf("|%-12d| %-21s| %-24s| %-16s|\n", multimedia2.getCode(),
-                    multimedia2.getTitle(), multimedia2.getDescription(), multimedia2.getCategory().toString());
-            System.out.println("+------------+----------------------+-------------------------+-----------------+");
+            System.out.printf("|%-12d| %-21s| %-25s| %-16s| %-20s|\n", multimedia2.getCode(),
+                    multimedia2.getTitle(), multimedia2.getDescription(), multimedia2.getCategory().toString(),
+                    multimedia2.getPublication());
+            System.out.println(
+                    "+------------+----------------------+-------------------------+-----------------+---------------------+");
 
         }
-
     }
 
     public void showPlans() {
@@ -161,4 +178,72 @@ public class MediaPlayerApp {
 
     }
 
+    public void showFavorite(String name) {
+        System.out.println("Movies and Serie");
+        System.out.println(
+                "+------------+----------------------+--------------------------+-----------------+---------------------+");
+        System.out.println(
+                "|    ID      |         TITLE        |        DESCRIPTION       |     CATEGORY    |    PUBLICATION     |");
+        System.out.println(
+                "+------------+----------------------+--------------------------+-----------------+---------------------+");
+
+        for (Multimedia multimedia2 : mgc.searchName(name)) {
+            System.out.printf("|%-12d| %-21s| %-25s| %-16s| %-20s|\n", multimedia2.getCode(),
+                    multimedia2.getTitle(), multimedia2.getDescription(), multimedia2.getCategory().toString(),
+                    multimedia2.getPublication());
+            System.out.println(
+                    "+------------+----------------------+-------------------------+-----------------+---------------------+");
+
+        }
+    }
+
+    public void showTableSeriesByCategory(int categoryNum) {
+        List<Serie> series = administratorController.getSeriesByCategory(categoryNum);
+
+        System.out.println("Series:");
+        System.out.println(
+                "+------------+----------------------+---------------------------+-----------------------+---------------------+");
+        System.out.println(
+                "|    ID      |         TITLE        |       DESCRIPTION         |     NUMBER SEASONS    |     PUBLICATION    |");
+        System.out.println(
+                "+------------+----------------------+---------------------------+-----------------------+---------------------+");
+
+        for (Serie serie : series) {
+            String truncatedDescription = serie.getDescription();
+
+            if (truncatedDescription.length() > 22) {
+                truncatedDescription = truncatedDescription.substring(0, 19) + "...";
+            }
+
+            System.out.printf("|%-12d| %-21s| %-26s| %-22d| %-19s|\n", serie.getCode(),
+                    serie.getTitle(), truncatedDescription, serie.getNumberSeasons(), serie.getPublication());
+            System.out.println(
+                    "+------------+----------------------+---------------------------+-----------------------+---------------------+");
+        }
+    }
+
+    public void showTableMoviesByCategory(int categoryNum) {
+        List<Movie> movies = administratorController.getMoviesByCategory(categoryNum);
+
+        System.out.println("MOVIES:");
+        System.out.println(
+                "+------------+----------------------+---------------------------+-----------------------+---------------------+");
+        System.out.println(
+                "|    ID      |         TITLE        |       DESCRIPTION         |       DURATION        |     PUBLICATION    |");
+        System.out.println(
+                "+------------+----------------------+---------------------------+-----------------------+---------------------+");
+
+        for (Movie movie : movies) {
+            String truncatedDescription = movie.getDescription();
+
+            if (truncatedDescription.length() > 22) {
+                truncatedDescription = truncatedDescription.substring(0, 19) + "...";
+            }
+
+            System.out.printf("|%-12d| %-21s| %-26s| %-22d| %-19s|\n", movie.getCode(),
+                    movie.getTitle(), truncatedDescription, movie.getDuration(), movie.getPublication());
+            System.out.println(
+                    "+------------+----------------------+---------------------------+-----------------------+---------------------+");
+        }
+    }
 }
