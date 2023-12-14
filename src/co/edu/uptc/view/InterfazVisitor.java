@@ -18,7 +18,6 @@ public class InterfazVisitor {
     private static String password = "";
     private static String userName = "";
     private static PlanController planController = new PlanController();
-    private static Plan plan = new Plan();
     private static boolean flag = false;
     private static int option = -1;
     private static Scanner sc = new Scanner(System.in);
@@ -27,7 +26,7 @@ public class InterfazVisitor {
     public static void interfaz() {
         messErrorInt[0] = "............ Error, no characters accepted, please enter a correct answer ............\n";
         messErrorInt[1] = " ............ Invalid option ............\n";
-        messErrorInt[2] = "......................................................................................";
+        messErrorInt[2] = "..........................................................................................";
         // inicia interaccion con el visitante
         System.out.println(messErrorInt[2]
                 + "\n---------------------------  WELCOME YOUR TRUSTED MILTIMEDIA  ---------------------------\n"
@@ -48,8 +47,6 @@ public class InterfazVisitor {
                             "\nIt is a multimedia platform where you can find and watch the movies and series you want");
                     break;
                 case 2:
-                    // muestra una lista de planes que ofrese la multimedia
-                    // planController.getListPlans().forEach(System.out::println);
 
                     mediaPlayerApp.showPlans();
                     break;
@@ -83,8 +80,7 @@ public class InterfazVisitor {
                 singUp();
                 break;
             case 3:
-                // llamar a la clase del runner o menu principal
-                // runner.main(messErrorInt);
+                Runner.main(new String[] {});
                 break;
         }
 
@@ -117,6 +113,7 @@ public class InterfazVisitor {
     // medoto de iniciar sesion
     public static void singIn() {
         System.out.println(messErrorInt[2]);
+        System.err.println("----------- Sing in ----------- ");
         do {
             validationEmeilandPass();
             boolean valAuthen = userController.authentication(email, password);
@@ -155,11 +152,11 @@ public class InterfazVisitor {
     // medoto de registrarse
     public static void singUp() {
         System.out.println(messErrorInt[2]);
+        System.out.println("----------- Sing up -----------  ");
         do {
             System.out.println("\nEnter your name");
-            name = sc.next();
-            sc.next();
-            if (name.matches("[a-zA-z]+")) {
+            name = sc.nextLine();
+            if (name.matches("[a-zA-Z\\s]+")) {
                 flag = true;
             } else {
                 System.out
@@ -178,7 +175,7 @@ public class InterfazVisitor {
 
         do {
             try {
-                System.out.println("\nChoose the plan you want to use4");
+                System.out.println("\nChoose the plan you want to use");
                 // planController.getListPlans().forEach(System.out::println);
                 mediaPlayerApp.showPlans();
                 option = sc.nextInt();
@@ -213,12 +210,14 @@ public class InterfazVisitor {
     public static void validationEmeilandPass() {
         do {
             System.out.println("\nEnter your email");
-            email = sc.nextLine();
+            email = sc.next();
+            sc.nextLine();
             if (!emailValidation(email)) {
                 System.out.println("............ Invalid email ............\n");
                 flag = false;
             } else {
                 flag = true;
+
             }
         } while (!flag);
         do {
@@ -253,6 +252,7 @@ public class InterfazVisitor {
                 } else {
                     return true;
                 }
+
             }
 
         }

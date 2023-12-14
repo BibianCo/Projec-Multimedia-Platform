@@ -7,9 +7,13 @@ import java.util.Scanner;
 import co.edu.uptc.controller.AdministratorController;
 import co.edu.uptc.controller.MediaPlayerController;
 import co.edu.uptc.controller.MultimediaGalleryController;
+import co.edu.uptc.controller.PlanController;
 import co.edu.uptc.controller.UserController;
+import co.edu.uptc.model.Chapter;
 import co.edu.uptc.model.Movie;
 import co.edu.uptc.model.Multimedia;
+import co.edu.uptc.model.Plan;
+import co.edu.uptc.model.Season;
 import co.edu.uptc.model.Serie;
 import co.edu.uptc.model.User;
 
@@ -18,6 +22,7 @@ public class InterfazUser {
     private static AdministratorController administratorController = new AdministratorController();
     private static MediaPlayerApp mediaPlayerApp = new MediaPlayerApp();
     private static MediaPlayerController mpc = new MediaPlayerController();
+    private static PlanController planController = new PlanController();
     private static MultimediaGalleryController mgc = MultimediaGalleryController.getInstance();
     private static Scanner sc = new Scanner(System.in);
     private static int option = 0;
@@ -34,14 +39,14 @@ public class InterfazUser {
 
         do {
             try {
-                System.out.println("\n[ You can choose the functionality you want  ]\n"
+                System.out.println("\n[  You can choose the functionality you want  ]\n"
                         + "1. Watch available movies and series\n"
                         + "2. Search\n"
                         + "3. Search by categories\n"
                         + "4. Favorites\n"
                         + "5. Your porfile");
                 option = sc.nextInt();
-                if (option > 0 && option <= 6) {
+                if (option > 0 && option <= 5) {
                     flag = true;
                 } else {
                     System.out.println(messErrorInt[1]);
@@ -85,7 +90,170 @@ public class InterfazUser {
 
     private static void porfile(User user) {
         System.out.println("...........................................................");
-        System.out.println(user.getFirstName() + "\n1.update data");
+        do {
+            try {
+                System.out.println(user.getFirstName() + "\n1.My data" + "\n2.Sing of" + "\n3.Leave");
+                option = sc.nextInt();
+                if (option > 0 && option <= 3) {
+                    flag = true;
+                } else {
+                    System.out.println(messErrorInt[1]);
+                    flag = false;
+                    sc.nextLine();
+                }
+
+            } catch (InputMismatchException e) {
+                System.out.println(messErrorInt[0]);
+                sc.nextLine();
+                flag = false;
+            }
+        } while (!flag);
+        switch (option) {
+            case 1:
+                System.out.println("---------- My personal information ----------\n");
+                userData(user);
+                break;
+            case 2:
+                Runner.main(new String[] {});
+                break;
+            case 3:
+                interfaz(user);
+                break;
+            default:
+                break;
+        }
+    }
+
+    private static void userData(User user) {
+        String op = "";
+        System.out.println(" Name:     " + user.getFirstName()
+                + "\n User:     " + user.getUserName()
+                + "\n Email:    " + user.getEmail()
+                + "\n Password: " + user.getPassword()
+                + "\n Plan: " + user.getPlan());
+        do {
+            System.out.println("Do you want to update data? \nyes\nno");
+            op = sc.next();
+
+            if (op.equals("yes")) {
+                do {
+                    try {
+                        System.out.println("1. Name\n"
+                                + "2. User\n"
+                                + "3. Email\n"
+                                + "4. Passmord\n"
+                                + "5. Plan");
+                        option = sc.nextInt();
+                        if (option > 0 && option <= 5) {
+                            flag = true;
+                            sc.nextLine();
+                        } else {
+                            System.out.println(messErrorInt[1]);
+                            flag = false;
+                            sc.nextLine();
+                        }
+
+                    } catch (InputMismatchException e) {
+                        System.out.println(messErrorInt[0]);
+                        sc.nextLine();
+                        flag = false;
+                    }
+                } while (!flag);
+                switch (option) {
+                    case 1:
+                        do {
+                            System.out.println("\nEnter your name to update");
+                            name = sc.nextLine();
+                            if (name.matches("[a-zA-Z\\s]+")) {
+                                flag = true;
+                            } else {
+                                System.out
+                                        .println(
+                                                "............ It is possible that you entered numbers and characters, digital valid answer ............\n");
+                                flag = false;
+                            }
+                        } while (!flag);
+                        if (userController.updateUser(user.getEmail(), name, user.getPlan(), option)) {
+                            System.out.println("uptada");
+                        }
+                        break;
+                    case 2:
+                        System.out.println("\nEnter your username to update");
+                        name = sc.next();
+                        userController.updateUser(user.getEmail(), name, user.getPlan(), option);
+                        break;
+                    case 3:
+                        do {
+                            System.out.println("\nEnter your email to update");
+                            name = sc.next();
+                            sc.nextLine();
+                            if (!InterfazVisitor.emailValidation(name)) {
+                                System.out.println("............ Invalid email ............\n");
+                                flag = false;
+                            } else {
+                                flag = true;
+
+                            }
+                        } while (!flag);
+                        userController.updateUser(user.getEmail(), name, user.getPlan(), option);
+                        break;
+                    case 4:
+                        do {
+                            System.out.println("\nEnter your password\n"
+                                    + "[Minimum three characters, maximum twenty, minimum one uppercase letter, one lowercase letter and two numbers]");
+                            name = sc.nextLine();
+                            if (InterfazVisitor.passwordValidation(name)) {
+                                flag = true;
+                            } else {
+                                System.out.println("............ Invalid password ............");
+                                flag = false;
+                            }
+                        } while (!flag);
+                        userController.updateUser(user.getEmail(), name, user.getPlan(), option);
+                        break;
+                    case 5:
+                        do {
+                            try {
+                                System.out.println("\nChoose the plan you want to use");
+                                // planController.getListPlans().forEach(System.out::println);
+                                mediaPlayerApp.showPlans();
+                                option = sc.nextInt();
+                                sc.nextLine();
+                                if (option > 0 && option < 100) {
+                                    flag = true;
+                                } else {
+                                    System.out.println(messErrorInt[1]);
+                                    flag = false;
+                                }
+
+                            } catch (InputMismatchException e) {
+                                System.out.println(messErrorInt[0]);
+                                flag = false;
+                                sc.nextLine();
+                            }
+                        } while (!flag);
+
+                        Plan p1 = planController.assignTypePlan(option);
+                        planController.assignUser(user.getUserName());
+                        userController.updateUser(user.getEmail(), null, p1, option);
+                        break;
+                    default:
+                        break;
+                }
+                System.out.println("---------- Your updated data ----------\n");
+                userData(user);
+                flag = true;
+
+            } else if (op.equals("no")) {
+                porfile(user);
+                flag = true;
+
+            } else {
+                System.out.println(messErrorInt[1]);
+                userData(user);
+            }
+        } while (!flag);
+
     }
 
     private static void favorites() {
@@ -241,12 +409,13 @@ public class InterfazUser {
             if (movie != null) {
                 // System.out.println("The movie: " + movie.getTitle());
                 mediaPlayerApp.showMultimedia(name);
-
                 play(movie, user);
+
             } else if (serie != null) {
                 mediaPlayerApp.showMultimedia(name);
                 // System.out.println("The serie: " + serie);
                 play(serie, user);
+
             } else {
                 System.out.println(messErrorInt[2]);
                 interfaz(user);
@@ -284,22 +453,8 @@ public class InterfazUser {
                 if (multimedia instanceof Serie) {
 
                     Serie serie = (Serie) multimedia;
-                    mediaPlayerApp.reproduce(multimedia);
-                    System.out.println("1 to see next chapter or 2. to see previous chapter");
-                    option = sc.nextInt();
-                    if (option == 1) {
+                    playSeries(user, serie);
 
-                        boolean nextChapter = mpc.nextChapter(serie);
-                        if (!nextChapter) {
-                            System.out.println("there is no next chapter");
-                        }
-                    } else {
-                        boolean previousChapter = mpc.previousChapter(serie);
-                        if (!previousChapter) {
-                            System.out.println("there is no previous chapter");
-
-                        }
-                    }
                 } else if (multimedia instanceof Movie) {
                     mediaPlayerApp.reproduce(multimedia);
                     interfaz(user);
@@ -312,5 +467,86 @@ public class InterfazUser {
                 break;
         }
 
+    }
+
+    public static void playSeries(User user, Serie serie) {
+        int i = 0;
+        String opt = "";
+        int optionSeason = 0;
+        for (Season season : serie.getSeasons()) {
+            System.out.printf("Seasons %d: %s%n ", (i + 1), season.getDescription());
+            i++;
+        }
+
+        System.out.println("You want to see the content of the season, write a for yes or b for no");
+        do {
+            opt = sc.next();
+            if (opt.equals("a")) {
+
+                try {
+                    System.out.println("Enter the season number you want to see");
+                    optionSeason = sc.nextInt();
+                    sc.nextLine();
+                    if (optionSeason < 0 || optionSeason > serie.getSeasons().size()) {
+                        System.out.println("Invalid season number. Please enter a valid season number or 0 to exit:");
+
+                    } else if (optionSeason > 0 || optionSeason <= serie.getSeasons().size()) {
+                        playEpisodes(user, serie.getSeasons().get(optionSeason - 1), serie);
+                    }
+                } catch (InputMismatchException e) {
+                    System.out.println(messErrorInt[1]);
+                }
+
+            } else if (opt.equals("b")) {
+                interfaz(user);
+
+            } else {
+                System.out.println(messErrorInt[1]);
+                playSeries(user, serie);
+            }
+        } while (optionSeason != 0);
+    }
+
+    private static void playEpisodes(User user, Season season, Serie serie) {
+        int i = 0;
+        System.out.printf("Episodes in %s:%n", season.getDescription());
+        for (Chapter chapter : season.getNumberOfChapters()) {
+            System.out.printf("%d. %s%n", (i + 1), chapter.getTitle());
+            i++;
+        }
+        System.out.println("Enter the number of the chapter you want to watch (or enter 0 to return to seasons):");
+        int selectedEpisode;
+        do {
+            selectedEpisode = sc.nextInt();
+            sc.nextLine(); // Consume el salto de línea
+
+            if (selectedEpisode < 0 || selectedEpisode > season.getNumberOfChapters().size()) {
+                System.out.println(
+                        "Invalid episode number. Please enter a valid episode number or 0 to go back to seasons:");
+
+            } else if (selectedEpisode > 0) {
+                System.out.printf("Playing %s.%n",
+                        season.getNumberOfChapters().get(selectedEpisode - 1).getTitle());
+                mediaPlayerApp.reproduce(serie);
+                System.out.println("1 to see next chapter or 2. to see previous chapter");
+                option = sc.nextInt();
+                if (option == 1) {
+
+                    boolean nextChapter = mpc.nextChapter(serie);
+                    if (!nextChapter) {
+                        System.out.println("there is no next chapter");
+                        playEpisodes(user, season, serie);
+                    }
+                } else {
+                    boolean previousChapter = mpc.previousChapter(serie);
+                    if (!previousChapter) {
+                        System.out.println("there is no previous chapter");
+                        playEpisodes(user, season, serie);
+
+                    }
+                }
+            }
+        } while (selectedEpisode != 0);
+        playSeries(user, serie);
     }
 }

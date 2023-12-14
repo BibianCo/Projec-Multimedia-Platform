@@ -3,7 +3,6 @@ package co.edu.uptc.controller;
 import java.util.ArrayList;
 import co.edu.uptc.model.Administrator;
 import co.edu.uptc.model.Multimedia;
-import co.edu.uptc.model.MultimediaGallery;
 import co.edu.uptc.model.Plan;
 import co.edu.uptc.model.User;
 import co.edu.uptc.model.Movie;
@@ -20,14 +19,14 @@ public class UserController {
         administratorController = new AdministratorController();
     }
 
-    // public boolean addListHistory(Multimedia multimedia, User user) {
+    public boolean addListHistory(Multimedia multimedia, User user) {
 
-    // if (multimedia.isReproduce()) {
-    // user.setPlaylist(multimedia);
-    // return true;
-    // }
-    // return false;
-    // }
+        if (multimedia.isReproduce()) {
+            user.setPlaylist(multimedia);
+            return true;
+        }
+        return false;
+    }
 
     public ArrayList<Multimedia> showListHistory() {
         return user.getPlaylist();
@@ -57,7 +56,7 @@ public class UserController {
     }
 
     public User findUser(String email) {
-        for (User user : users) {
+        for (User user : administrator.getUsers()) {
             if (user.getEmail().equals(email)) {
                 return user;
             }
@@ -65,14 +64,43 @@ public class UserController {
         return null;
     }
 
-    public boolean updateUser(String email, String newName, String newEmail, String newPassword) {
+    public boolean updateUser(String email, String nameUpdate, Plan plan, int opcion) {
         User userToUpdate = findUser(email);
         if (userToUpdate != null) {
-            userToUpdate.setFirstName(newName);
-            userToUpdate.setEmail(newEmail);
-            userToUpdate.setPassword(newPassword);
-            return true;
+            switch (opcion) {
+                case 1:
+                    if (nameUpdate != null) {
+                        userToUpdate.setFirstName(nameUpdate);
+                        return true;
+                    }
+                    break;
+                case 2:
+                    if (nameUpdate != null) {
+                        userToUpdate.setUserName(nameUpdate);
+                        return true;
+                    }
+                    break;
+                case 3:
+                    if (nameUpdate != null) {
+                        userToUpdate.setEmail(nameUpdate);
+                        return true;
+                    }
+                    break;
+                case 4:
+                    if (nameUpdate != null) {
+                        userToUpdate.setPassword(nameUpdate);
+                        return true;
+                    }
+                    break;
+                case 5:
+                    userToUpdate.setPlan(plan);
+                    return true;
+                default:
+                    System.out.println("Invalid option");
+                    return false;
+            }
         }
+        // Usuario no encontrado
         return false;
     }
 

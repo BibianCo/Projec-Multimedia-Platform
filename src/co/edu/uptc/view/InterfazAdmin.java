@@ -183,12 +183,13 @@ public class InterfazAdmin {
 
                                     System.out.println("Title: ");
                                     String movieTitle = sc.nextLine();
+
                                     System.out.println("---------------------------------------------");
 
                                     try {
                                         System.out.println("Publication Date (YYYY-MM-DD): ");
                                         String moviePublicationDateStr = sc.nextLine();
-
+                                        sc.next();
                                         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
                                         LocalDate moviePublicationDate = LocalDate.parse(moviePublicationDateStr,
                                                 formatter);
@@ -207,6 +208,7 @@ public class InterfazAdmin {
 
                                         System.out.println("Description: ");
                                         String description = sc.nextLine();
+                                        sc.next();
                                         System.out.println("---------------------------------------------");
 
                                         // Display available categories
@@ -278,9 +280,11 @@ public class InterfazAdmin {
                                                 System.out.println("---------------------------------------");
                                                 System.out.print("Season Description: ");
                                                 String seasonDescription = sc.nextLine();
+                                                sc.next();
                                                 System.out.println("---------------------------------------");
                                                 System.out.print("Season Publication Date (YYYY-MM-DD): ");
                                                 String seasonPublicationDateStr = sc.nextLine();
+                                                sc.next();
                                                 System.out.println("---------------------------------------");
 
                                                 LocalDate seasonPublicationDate = LocalDate
@@ -961,6 +965,7 @@ public class InterfazAdmin {
                         break;
                     case 6:
                         System.out.println("Regresando al menu anterior");
+                        Runner.main(new String[] {});
                         System.out.println("---------------------------------------");
                         break;
 
