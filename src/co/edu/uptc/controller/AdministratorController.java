@@ -105,9 +105,7 @@ public class AdministratorController {
         return false;
     }
 
-   
-
-      public Serie findSerie(String title) {
+    public Serie findSerie(String title) {
         if (!title.isEmpty()) {// title.equals("");
             for (Serie serie : this.mgc.getInstance().multimediaGallery.getSeries().values()) {
                 if (serie.getTitle().equals(title)) {
@@ -118,26 +116,22 @@ public class AdministratorController {
         return null;
     }
 
-   public Serie deleteSerie(String title) {
-    HashMap<Integer, Serie> series = this.mgc.getInstance().multimediaGallery.getSeries();
+    public Serie deleteSerie(String title) {
+        HashMap<Integer, Serie> series = this.mgc.getInstance().multimediaGallery.getSeries();
 
-    // Buscar la serie por título
-    for (Map.Entry<Integer, Serie> entry : series.entrySet()) {
-        Serie serie = entry.getValue();
-        if (serie.getTitle().equalsIgnoreCase(title)) {
-            // Eliminar la serie y devolverla
-            series.remove(entry.getKey());
-            return serie;
+        // Buscar la serie por título
+        for (Map.Entry<Integer, Serie> entry : series.entrySet()) {
+            Serie serie = entry.getValue();
+            if (serie.getTitle().equalsIgnoreCase(title)) {
+                // Eliminar la serie y devolverla
+                series.remove(entry.getKey());
+                return serie;
+            }
         }
-    }
 
-    // Si no se encuentra la serie
-    return null;
-}
-    
-    
-    
-    
+        // Si no se encuentra la serie
+        return null;
+    }
 
     public boolean addMovie(String title, String description, int numCategory, LocalDate publication, int duration) {
         if (validationCategory(numCategory)) {
@@ -154,16 +148,16 @@ public class AdministratorController {
 
     public boolean deleteMovie(String title) {
         Movie mov = findMovie(title);
-    
+
         if (mov != null) {
             MultimediaGalleryController mgcInstance = this.mgc.getInstance();
             HashMap<Integer, Movie> movies = mgcInstance.multimediaGallery.getMovies();
             movies.remove(mov.getCode());
-            
+
             return true;
         }
         return false;
-    }   
+    }
 
     public void updateMoviesList(HashMap<Integer, Movie> movies) {
 
@@ -175,7 +169,6 @@ public class AdministratorController {
         }
         movies = updatedMovies;
     }
-
 
     public Movie findMovie(String title) {
         HashMap<Integer, Movie> movies = mgc.getInstance().multimediaGallery.getMovies();
@@ -194,12 +187,12 @@ public class AdministratorController {
 
     public Movie updateMovie(int options, String title, String dataUpdate, LocalDate publication) {
         Movie movie = findMovie(title);
-    
+
         if (movie == null) {
             System.out.println("Error: Movie not found.");
             return null;
         }
-    
+
         switch (options) {
             case 1:
                 if (title != null && !title.equals(movie.getTitle())) {
@@ -225,11 +218,9 @@ public class AdministratorController {
                 System.out.println("Error: Invalid option.");
                 return null;
         }
-    
+
         return movie;
     }
-
-    
 
     public Serie updateSerie(int option, String titleSerie, String newD, LocalDate newPublication, int newSeason) {
         Serie serie = findSerie(titleSerie);
@@ -256,22 +247,19 @@ public class AdministratorController {
         return null;
     }
 
-
     public Season deleteSeason(String title, int numberSeason) {
         Serie serie = findSerie(title);
-    
+
         if (serie != null) {
             int adjustedIndex = numberSeason - 1;
-    
+
             if (adjustedIndex >= 0 && adjustedIndex < serie.getSeasons().size()) {
                 return serie.getSeasons().remove(adjustedIndex);
             }
         }
-    
+
         return null;
     }
-    
-    
 
     public HashMap<Integer, Movie> showMovie() {
         return this.mgc.getInstance().multimediaGallery.getMovies();
@@ -365,7 +353,6 @@ public class AdministratorController {
         }
         return null;
     }
- 
 
     public boolean addChapter(String serieTitle, int numberSeason, int duration, String description, String title) {
         for (HashMap.Entry<Integer, Serie> entry : mgc.getInstance().multimediaGallery.getSeries().entrySet()) {
@@ -386,8 +373,6 @@ public class AdministratorController {
         }
         return false;
     }
-
-    
 
     // newValue puede ser para la nueva Description o para el nuevo Title.
     // ChapterTitle es para verificar la existencia del capítulo
@@ -449,4 +434,3 @@ public class AdministratorController {
         return serieList.toString();
     }
 }
->>>>>>> d8f9a6543b5e0455ec529b27e31456125367e08a
