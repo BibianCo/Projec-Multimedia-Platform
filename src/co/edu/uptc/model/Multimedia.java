@@ -1,22 +1,29 @@
 package co.edu.uptc.model;
 
-import java.time.LocalDate;
+import java.util.Date;
 
-public class Multimedia {
-    private String title;
-    private String description;
-    private Category category;
-    private LocalDate publication;
-    private boolean reproduce;
-    private int code;
+public abstract class Multimedia {
 
-    public Multimedia(String title, String description, Category category, LocalDate publication, boolean reproduce,
-            int code) {
+    protected int id;
+    protected String title, synopsis;
+    protected Date releaseDate;
+
+    public Multimedia() {
+    }
+
+    public Multimedia(int id, String title, String synopsis, Date releaseDate) {
+        this.id = id;
         this.title = title;
-        this.description = description;
-        this.category = category;
-        this.publication = publication;
-        this.code = code;
+        this.synopsis = synopsis;
+        this.releaseDate = releaseDate;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public String getTitle() {
@@ -27,48 +34,20 @@ public class Multimedia {
         this.title = title;
     }
 
-    public String getDescription() {
-        return description;
+    public String getSynopsis() {
+        return synopsis;
     }
 
-    public void setDescription(String description) {
-        this.description = description;
+    public void setSynopsis(String synopsis) {
+        this.synopsis = synopsis;
     }
 
-    public Category getCategory() {
-        return category;
+    public Date getReleaseDate() {
+        return releaseDate;
     }
 
-    public void setCategory(Category category) {
-        this.category = category;
+    public void setReleaseDate(Date releaseDate) {
+        this.releaseDate = releaseDate;
     }
 
-    public boolean isReproduce() {
-        return reproduce;
-    }
-
-    public void setReproduce(boolean reproduce) {
-        this.reproduce = reproduce;
-    }
-
-    public LocalDate getPublication() {
-        return publication;
-    }
-
-    public void setPublication(LocalDate publication) {
-        this.publication = publication;
-    }
-
-    public int getCode() {
-        return code;
-    }
-
-    public void setCode(int code) {
-        this.code = code;
-    }
-
-    @Override
-    public String toString() {
-        return title;
-    }
 }
