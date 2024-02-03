@@ -1,12 +1,11 @@
 package co.edu.uptc.model;
 
-import java.time.LocalDate;
+import java.util.Date;
 
 public class Serie extends Multimedia {
 
-    public Serie(String title, String description, Category category, LocalDate publication, boolean reproduce,
-            int code) {
-        super(title, description, category, publication, reproduce, code);
+    public Serie(int id, String title, String synopsis, Date releaseDate) {
+        super(id, title, synopsis, releaseDate);
         // TODO Auto-generated constructor stub
     }
 
