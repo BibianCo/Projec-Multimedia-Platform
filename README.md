@@ -15,7 +15,5 @@ This project aims to provide the functionality of a multimedia platform, specifi
 - Bibian Corredor
 - Juan Fernandez
 - Fernanda Angarita
-- Daniel Vargas
-- Daniela Guevara
 
 
