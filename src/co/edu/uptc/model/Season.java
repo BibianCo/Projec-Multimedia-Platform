@@ -1,60 +1,35 @@
 package co.edu.uptc.model;
 
-import java.time.LocalDate;
-import java.util.ArrayList;
-
 public class Season {
-    private ArrayList<Chapter> numberOfChapters;
-    private String description;
-    private LocalDate publicationSeason;
-    private int numberSeason;
+    private int id;
+    private int number;
 
-    public Season(String description, LocalDate publicationSeason, int numberSeason) {
-        this.description = description;
-        this.publicationSeason = publicationSeason;
-        this.numberOfChapters = new ArrayList<>();
+    public Season(int id, int number) {
+        this.id = id;
+        this.number = number;
     }
 
-    public void addChapter(Chapter chapter) {
-        numberOfChapters.add(chapter);
+    public int getId() {
+        return id;
     }
 
-    public ArrayList<Chapter> getNumberOfChapters() {
-        return numberOfChapters;
+
+    public void setId(int id) {
+        this.id = id;
     }
 
-    public void setNumberOfChapters(ArrayList<Chapter> numberOfChapters) {
-        this.numberOfChapters = numberOfChapters;
+
+    public int getNumber() {
+        return number;
     }
 
-    public String getDescription() {
-        return description;
-    }
 
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
-    public LocalDate getPublicationSeason() {
-        return publicationSeason;
-    }
-
-    public void setPublicationSeason(LocalDate publicationSeason) {
-        this.publicationSeason = publicationSeason;
-    }
-
-    public int getNumberSeason() {
-        return numberSeason;
-    }
-
-    public void setNumberSeason(int numberSeason) {
-        this.numberSeason = numberSeason;
+    public void setNumber(int number) {
+        this.number = number;
     }
 
     @Override
     public String toString() {
-        return "Season [numberOfChapters=" + numberOfChapters + ", description=" + description + ", publicationSeason="
-                + publicationSeason + ", numberSeason=" + numberSeason + "]";
+        return "Season{"+"Id= "+id+", Number= "+number+"}";
     }
-
 }
