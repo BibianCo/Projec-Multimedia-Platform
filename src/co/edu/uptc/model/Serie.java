@@ -7,10 +7,15 @@ public class Serie extends Multimedia {
 
     private ArrayList<Category> categories;
 
-    public Serie(int id, String title, String synopsis, Date releaseDate) {
-        super(id, title, synopsis, releaseDate);
+    public Serie() {
+        super();
         this.categories = new ArrayList<>();
-        // TODO Auto-generated constructor stub
+    }
+
+    public Serie(int id, String title, String synopsis, Date releaseDate, ArrayList<Category> categories) {
+        super(id, title, synopsis, releaseDate);
+        this.categories = categories;
+
     }
 
     public ArrayList<Category> getCategories() {
