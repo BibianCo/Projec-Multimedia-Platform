@@ -9,13 +9,12 @@ public class Serie extends Multimedia {
 
     public Serie() {
         super();
-        this.categories = new ArrayList<>();
+
     }
 
     public Serie(int id, String title, String synopsis, Date releaseDate, ArrayList<Category> categories) {
         super(id, title, synopsis, releaseDate);
-        this.categories = categories;
-
+        this.categories = new ArrayList<>();
     }
 
     public ArrayList<Category> getCategories() {
