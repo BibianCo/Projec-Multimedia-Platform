@@ -15,7 +15,7 @@ public class Movie extends Multimedia {
     public Movie(int id, String title, String synopsis, Date releaseDate, ArrayList<Category> categories) {
         super(id, title, synopsis, releaseDate);
         this.duration = duration;
-        this.categories = new ArrayList<>();
+        this.categories = categories;
     }
 
     public int getDuration() {
