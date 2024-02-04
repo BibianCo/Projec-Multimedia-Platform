@@ -1,65 +1,69 @@
 package co.edu.uptc.model;
 
-import java.util.ArrayList;
+public class User {
 
-public class User extends Person {
+    private int id;
+    private String firstName;
+    private String lastName;
+    private String email;
+    private String password;
 
-    private String userName;
-    private ArrayList<Multimedia> wishList = new ArrayList<>();
-    private ArrayList<Multimedia> playlist = new ArrayList<>();
-    private Plan plan;
-    private static User user;
-
-    public User(String name, String email, String password, String userName, Plan plan) {
-        super(name, email, password);
-        this.userName = userName;
-        this.plan = plan;
+    public User(int id, String firstName, String lastName, String email, String password) {
+        this.id = id;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.email = email;
+        this.password = password;
     }
 
-    public static User getInstance() {
-        if (user == null) {
-            user = new User();
-        }
-        return user;
+    public int getId() {
+        return id;
     }
 
-    public User() {
-
+    public void setId(int id) {
+        this.id = id;
     }
 
-    public String getUserName() {
-        return userName;
+    public String getFirstName() {
+        return firstName;
     }
 
-    public void setUserName(String userName) {
-        this.userName = userName;
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
     }
 
-    public ArrayList<Multimedia> getWishList() {
-        return wishList;
+    public String getLastName() {
+        return lastName;
     }
 
-    public void setWishList(ArrayList<Multimedia> wishList) {
-        this.wishList = wishList;
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
     }
 
-    public ArrayList<Multimedia> getPlaylist() {
-        return playlist;
+    public String getEmail() {
+        return email;
     }
 
-    public void setPlaylist(ArrayList<Multimedia> playlist) {
-        this.playlist = playlist;
+    public void setEmail(String email) {
+        this.email = email;
     }
 
-    public Plan getPlan() {
-        return plan;
+    public String getPassword() {
+        return password;
     }
 
-    public void setPlan(Plan plan) {
-        this.plan = plan;
+    public void setPassword(String password) {
+        this.password = password;
     }
 
-    public void addWishList(Multimedia multimedia) {
-        wishList.add(multimedia);
+    @Override
+    public String toString() {
+        return "User{" +
+                "id=" + id +
+                ", firstName='" + firstName + '\'' +
+                ", lastName='" + lastName + '\'' +
+                ", email='" + email + '\'' +
+                ", password='" + password + '\'' +
+                '}';
     }
 }
