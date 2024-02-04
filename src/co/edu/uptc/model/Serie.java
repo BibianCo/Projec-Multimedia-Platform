@@ -7,7 +7,11 @@ public class Serie extends Multimedia {
 
     private ArrayList<Season> seasons;
 
-    public Serie(int id, String title, String synopsis, Date releaseDate) {
+    public Serie() {
+        super();
+    }
+
+    public Serie(int id, String title, String synopsis, Date releaseDate, ArrayList<Season> seasons) {
         super(id, title, synopsis, releaseDate);
         this.seasons = new ArrayList<>();
 
