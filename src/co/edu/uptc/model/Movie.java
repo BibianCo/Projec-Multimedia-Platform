@@ -1,28 +1,26 @@
 package co.edu.uptc.model;
 
-import java.time.LocalDate;
+import java.util.Date;
 
 public class Movie extends Multimedia {
     private int duration;
 
-    public Movie(String title, String description, Category category, LocalDate publication, boolean reproduce,
-            int code, int duration) {
-        super(title, description, category, publication, reproduce, code);
+    public Movie(int id, String title, String synopsis, Date releaseDate) {
+        super(id, title, synopsis, releaseDate);
         this.duration = duration;
     }
-
-    @Override
-    public String toString() {
-        return "\nTitle: " + super.getTitle() + "\nDescription: " + super.getDescription() + "\nLaunching: "
-                + super.getPublication() + "\nDuration: " + duration;
-    }
-
     public int getDuration() {
         return duration;
     }
 
     public void setDuration(int duration) {
         this.duration = duration;
+    }
+
+    @Override
+    public String toString() {
+        return "\nId: " + super.getId()+"\nTitle: " + super.getTitle() + "\nSynopsis: "
+                + super.getSynopsis() + "\nDate: " + super.getReleaseDate() +"\nDuration: " + duration;
     }
 
 }
