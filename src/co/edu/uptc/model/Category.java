@@ -1,12 +1,17 @@
 package co.edu.uptc.model;
 
+import java.lang.reflect.Array;
+import java.util.ArrayList;
+
 public class Category {
     private int id;
     private String name;
+    private Movie movie;
 
-    public Category(int id, String name){
-        this.id=id;
-        this.name=name;
+    public Category(int id, String name, Movie movie) {
+        this.id = id;
+        this.name = name;
+        this.movie = movie;
     }
 
     public int getId() {
@@ -27,7 +32,15 @@ public class Category {
 
     @Override
     public String toString() {
-    return "Category{"+" id=" + id +", Name='"+name+'}';
+        return "Category{" + " id=" + id + ", Name='" + name + '}';
     }
-    
+
+    public Movie getMovie() {
+        return movie;
+    }
+
+    public void setMovie(Movie movie) {
+        this.movie = movie;
+    }
+
 }

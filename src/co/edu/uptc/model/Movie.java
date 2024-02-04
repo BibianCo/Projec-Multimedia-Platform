@@ -1,14 +1,23 @@
 package co.edu.uptc.model;
 
+import java.lang.reflect.Array;
+import java.util.ArrayList;
 import java.util.Date;
 
 public class Movie extends Multimedia {
     private int duration;
+    private ArrayList<Category> categories;
 
-    public Movie(int id, String title, String synopsis, Date releaseDate) {
+    public Movie() {
+
+    }
+
+    public Movie(int id, String title, String synopsis, Date releaseDate, ArrayList<Category> categories) {
         super(id, title, synopsis, releaseDate);
         this.duration = duration;
+        this.categories = new ArrayList<>();
     }
+
     public int getDuration() {
         return duration;
     }
@@ -19,8 +28,8 @@ public class Movie extends Multimedia {
 
     @Override
     public String toString() {
-        return "\nId: " + super.getId()+"\nTitle: " + super.getTitle() + "\nSynopsis: "
-                + super.getSynopsis() + "\nDate: " + super.getReleaseDate() +"\nDuration: " + duration;
+        return "\nId: " + super.getId() + "\nTitle: " + super.getTitle() + "\nSynopsis: "
+                + super.getSynopsis() + "\nDate: " + super.getReleaseDate() + "\nDuration: " + duration;
     }
 
 }
