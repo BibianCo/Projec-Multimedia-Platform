@@ -8,8 +8,8 @@ public interface Persistence<T> {
 
     public boolean erase(int id);
 
-    public T obtaninById(int id);
+    public T obtainById(int id);
 
-    public ArrayList<T> obtainByld();
+    public ArrayList<T> obtainAll();
 
 }
