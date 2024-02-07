@@ -5,7 +5,6 @@ import co.edu.uptc.model.Category;
 import co.edu.uptc.persistence.Persistence;
 
 public class CategoryController {
-
     private Persistence<Category> persistence;
 
     public CategoryController() {
@@ -16,12 +15,10 @@ public class CategoryController {
     }
 
     public boolean add(Category category) {
-
-        return true;
+        return persistence.persist(category);
     }
 
     public boolean delete(int id) {
-
         return true;
     }
 
