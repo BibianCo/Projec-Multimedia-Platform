@@ -1,21 +1,11 @@
 package co.edu.uptc.model;
 
-
-public class Category {
-    private int id;
+public class Category extends Entity {
     private String name;
 
     public Category(int id, String name) {
-        this.id = id;
+        super(id);
         this.name = name;
-    }
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
     }
 
     public String getName() {
@@ -28,7 +18,7 @@ public class Category {
 
     @Override
     public String toString() {
-        return "Category{" + " id=" + id + ", Name='" + name + '}';
+        return "Category{" + " id=" + super.getId() + ", Name='" + name + '}';
     }
 
 }

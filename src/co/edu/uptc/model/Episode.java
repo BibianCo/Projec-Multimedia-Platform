@@ -1,8 +1,7 @@
 package co.edu.uptc.model;
 
-public class Episode {
+public class Episode extends Entity {
 
-    private int id;
     private int number;
     private int duration;
 
@@ -10,7 +9,7 @@ public class Episode {
     }
 
     public Episode(int id, int number, int duration) {
-        this.id = id;
+        super(id);
         this.number = number;
         this.duration = duration;
     }

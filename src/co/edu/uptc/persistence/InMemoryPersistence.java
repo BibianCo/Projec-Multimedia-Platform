@@ -2,7 +2,9 @@ package co.edu.uptc.persistence;
 
 import java.util.ArrayList;
 
-public class InMemoryPersistence<T> implements Persistence<T>{
+import co.edu.uptc.model.Entity;
+
+public class InMemoryPersistence<T extends Entity> implements Persistence<T> {
 
     public ArrayList<T> data = new ArrayList<T>();
 
@@ -15,21 +17,33 @@ public class InMemoryPersistence<T> implements Persistence<T>{
 
     @Override
     public boolean persist(T value) {
-        return false;
+        return data.add(value);
+
     }
 
     @Override
     public boolean erase(int id) {
+        T t = obtainById(id);
+        if (t != null) {
+            data.remove(t);
+            return true;
+        }
         return false;
     }
 
     @Override
     public T obtainById(int id) {
+
+        for (T obj : data) {
+            if (obj.getId() == id) {
+                return obj;
+            }
+        }
         return null;
     }
 
     @Override
     public ArrayList<T> obtainAll() {
-        return new ArrayList<>();
+        return new ArrayList<>(data);
     }
 }

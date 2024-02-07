@@ -1,15 +1,14 @@
 package co.edu.uptc.model;
 
-public class Role {
+public class Role extends Entity {
 
-    private int id;
     private String name;
 
     public Role() {
     }
 
     public Role(int id, String name) {
-        this.id = id;
+        super(id);
         this.name = name;
     }
 
