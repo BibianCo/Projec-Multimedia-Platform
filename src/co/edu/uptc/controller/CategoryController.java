@@ -19,7 +19,7 @@ public class CategoryController {
     }
 
     public boolean delete(int id) {
-        return true;
+        return persistence.erase(id);
     }
 
     public Category get(int id) {
