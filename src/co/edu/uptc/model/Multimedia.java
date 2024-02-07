@@ -2,9 +2,8 @@ package co.edu.uptc.model;
 
 import java.util.Date;
 
-public abstract class Multimedia {
+public abstract class Multimedia extends Entity {
 
-    protected int id;
     protected String title, synopsis;
     protected Date releaseDate;
 
@@ -12,18 +11,10 @@ public abstract class Multimedia {
     }
 
     public Multimedia(int id, String title, String synopsis, Date releaseDate) {
-        this.id = id;
+        super(id);
         this.title = title;
         this.synopsis = synopsis;
         this.releaseDate = releaseDate;
-    }
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
     }
 
     public String getTitle() {

@@ -1,8 +1,7 @@
 package co.edu.uptc.model;
 
-public class User {
+public class User extends Entity {
 
-    private int id;
     private String firstName;
     private String lastName;
     private String email;
@@ -10,20 +9,12 @@ public class User {
     private Role role;
 
     public User(int id, String firstName, String lastName, String email, String password, Role role) {
-        this.id = id;
+        super(id);
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
         this.password = password;
         this.role = role;
-    }
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
     }
 
     public String getFirstName() {
@@ -61,7 +52,7 @@ public class User {
     @Override
     public String toString() {
         return "User{" +
-                "id=" + id +
+                "id=" + super.getId() +
                 ", firstName='" + firstName + '\'' +
                 ", lastName='" + lastName + '\'' +
                 ", email='" + email + '\'' +

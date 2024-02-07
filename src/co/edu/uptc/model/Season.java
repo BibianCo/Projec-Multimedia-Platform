@@ -1,8 +1,8 @@
 package co.edu.uptc.model;
+
 import java.util.ArrayList;
 
-public class Season {
-    private int id;
+public class Season extends Entity {
     private int number;
     private ArrayList<Episode> episodes;
 
@@ -11,7 +11,7 @@ public class Season {
     }
 
     public Season(int id, int number, ArrayList<Episode> episodes) {
-        this.id = id;
+        super(id);
         this.number = number;
         this.episodes = episodes;
     }
