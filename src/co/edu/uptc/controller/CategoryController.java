@@ -5,12 +5,12 @@ import co.edu.uptc.model.Category;
 import co.edu.uptc.persistence.Persistence;
 
 public class CategoryController {
-    private Persistence persistence;
+    private Persistence<Category> persistence;
 
     public CategoryController() {
     }
 
-    public CategoryController(Persistence persistence) {
+    public CategoryController(Persistence<Category> persistence) {
         this.persistence = persistence;
     }
 
@@ -23,7 +23,7 @@ public class CategoryController {
     }
 
     public Category get(int id) {
-        return new Category(id, null);
+        return this.persistence.obtainById(id);
     }
 
     public ArrayList<Category> getAll() {
