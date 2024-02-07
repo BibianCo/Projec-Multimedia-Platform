@@ -1,7 +1,5 @@
 package co.edu.uptc.model;
 
-import java.lang.reflect.Array;
-import java.util.ArrayList;
 
 public class Category {
     private int id;
