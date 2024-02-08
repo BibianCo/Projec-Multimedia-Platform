@@ -2,11 +2,9 @@ package co.edu.uptc.controller;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
-
-import java.util.ArrayList;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import org.junit.Before;
-import org.junit.BeforeClass;
 import org.junit.Test;
 
 import co.edu.uptc.model.Category;
@@ -17,10 +15,26 @@ public class CategoryControllerTest {
     public static CategoryController controller;
     public static InMemoryPersistence<Category> inMemoryPersistence;
 
-    @BeforeClass
-    public static void setUp() {
+    @Before
+    public void setUp() {
         inMemoryPersistence = new InMemoryPersistence<Category>();
         controller = new CategoryController(inMemoryPersistence);
+
+    }
+
+    @Test
+    public void testAddCategory() {
+        Category category = new Category(1, "Categoria de prueba");
+        boolean result = controller.add(category);
+        assertTrue(result);
+    }
+
+    @Test
+    public void testDeleteCategory() {
+        controller.add(new Category(123, "romantica"));
+        assertEquals(true, controller.delete(123));
+        assertEquals(false, controller.delete(0));
+        assertEquals(false, controller.delete(123));
 
     }
 
