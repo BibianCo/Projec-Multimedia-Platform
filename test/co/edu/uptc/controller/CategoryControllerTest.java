@@ -3,10 +3,9 @@ package co.edu.uptc.controller;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-
+import java.util.ArrayList;
 import org.junit.Before;
 import org.junit.Test;
-
 import co.edu.uptc.model.Category;
 import co.edu.uptc.persistence.InMemoryPersistence;
 
@@ -19,13 +18,12 @@ public class CategoryControllerTest {
     public void setUp() {
         inMemoryPersistence = new InMemoryPersistence<Category>();
         controller = new CategoryController(inMemoryPersistence);
-
     }
 
     @Test
     public void testAddCategory() {
-        Category category = new Category(1, "Categoria de prueba");
-        boolean result = controller.add(category);
+        Category c1 = new Category(1, "Categoria1");
+        boolean result = controller.add(c1);
         assertTrue(result);
     }
 
@@ -51,4 +49,19 @@ public class CategoryControllerTest {
         assertNull(controller.get(4));
     }
 
+    @Test
+    public void testGetAllCategories() {
+        Category c1 = new Category(1, "Terror");
+        Category c2 = new Category(2, "Comedia");
+        Category c3 = new Category(3, "Drama");
+        inMemoryPersistence.data.add(c1);
+        inMemoryPersistence.data.add(c2);
+        inMemoryPersistence.data.add(c3);
+
+        ArrayList<Category> allCategories = controller.getAll();
+        assertEquals(3, allCategories.size());
+        assertTrue(allCategories.contains(c1));
+        assertTrue(allCategories.contains(c2));
+        assertTrue(allCategories.contains(c3));
+    }
 }
