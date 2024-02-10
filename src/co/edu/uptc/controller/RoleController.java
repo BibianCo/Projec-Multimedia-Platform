@@ -28,6 +28,21 @@ public class RoleController {
         return this.persistence.obtainById(id);
     }
 
+    public Role update(int option, int roleId, int newId, String name) {
+
+        Role role = get(roleId);
+        switch (option) {
+            case 1:
+                role.setId(newId);
+                break;
+            case 2:
+                role.setName(name);
+            default:
+                break;
+        }
+        return role;
+    }
+
     public ArrayList<Role> getAll() {
         ArrayList<Role> roles = new ArrayList<>();
         roles = this.persistence.obtainAll();
