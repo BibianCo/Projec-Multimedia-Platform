@@ -27,8 +27,7 @@ public class CategoryController {
     }
 
     public ArrayList<Category> getAll() {
-        ArrayList<Category> categories = new ArrayList<>();
-        return categories;
+        return persistence.obtainAll();
     }
 
     public Persistence getPersistence() {
