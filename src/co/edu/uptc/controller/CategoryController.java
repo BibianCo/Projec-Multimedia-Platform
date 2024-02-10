@@ -26,6 +26,23 @@ public class CategoryController {
         return this.persistence.obtainById(id);
     }
 
+    public boolean update(int id, Category newCategory) {
+        Category currenCategory = get(id);
+        if (currenCategory != null) {
+
+            if (!currenCategory.getName().equals(newCategory.getName())) {
+                currenCategory.setName(newCategory.getName());
+            }
+            if (currenCategory.getId() != newCategory.getId()) {
+                currenCategory.setId(newCategory.getId());
+            }
+            return true;
+        } else {
+            return false;
+        }
+
+    }
+
     public ArrayList<Category> getAll() {
         ArrayList<Category> categories = new ArrayList<>();
         return categories;
