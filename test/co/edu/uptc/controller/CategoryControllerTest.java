@@ -50,6 +50,25 @@ public class CategoryControllerTest {
     }
 
     @Test
+    public void testUpdate() {
+
+        Category c1 = new Category(123, "terror");
+        Category c2 = new Category(124, "animada");
+        controller.add(c1);
+        controller.add(c2);
+
+        assertEquals(true, controller.update(123, new Category(123, "romance")));
+
+        assertEquals(false, controller.update(126, new Category(124, "romance")));
+
+        assertEquals(true, controller.update(124, new Category(125, "terror")));
+
+        assertEquals(false, controller.update(124, new Category(125, "terror")));
+
+        assertEquals(true, controller.update(123, new Category(126, "romance")));
+    }
+
+    @Test
     public void testGetAllCategories() {
         Category c1 = new Category(1, "Terror");
         Category c2 = new Category(2, "Comedia");

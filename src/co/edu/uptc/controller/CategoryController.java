@@ -19,11 +19,23 @@ public class CategoryController {
     }
 
     public boolean delete(int id) {
-        return persistence.erase(id);
+        return this.persistence.erase(id);
     }
 
     public Category get(int id) {
         return this.persistence.obtainById(id);
+    }
+
+    public boolean update(int id, Category newCategory) {
+        Category currentCategory = get(id);
+
+        if (currentCategory != null) {
+            int index = getAll().indexOf(currentCategory);
+            return this.persistence.persist(index, newCategory);
+        } else {
+            return false;
+        }
+
     }
 
     public ArrayList<Category> getAll() {
