@@ -62,10 +62,10 @@ public class UserControllerTest {
         Role newRole = new Role(0, "visit");
         User User = new User(45, "liliana", "fernandez", "juferi200", "123", newRole);
 
-        userController.updateUserById(123, User);
-        assertEquals("liliana", user1.getFirstName());
-        assertEquals(45, user1.getId());
-        assertEquals(newRole, user1.getRole());
+        assertTrue(userController.updateUserById(123, User));
+        assertEquals(false, userController.updateUserById(78, User));
+        assertEquals("liliana", userController.get(45).getFirstName());
+        assertNull(userController.get(123));
 
     }
 

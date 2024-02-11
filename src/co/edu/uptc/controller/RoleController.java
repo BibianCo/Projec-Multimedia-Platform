@@ -28,23 +28,15 @@ public class RoleController {
         return this.persistence.obtainById(id);
     }
 
-    public Role updateRoleById(int roleId, Role newRole) {
+    public boolean updateRoleById(int roleId, Role newRole) {
 
         Role currentRole = get(roleId);
 
-        if (currentRole != null && currentRole.getId() == roleId) {
-            if (currentRole.getId() != newRole.getId()) {
-                currentRole.setId(newRole.getId());
-            }
-            if (currentRole.getName() != newRole.getName()) {
-                currentRole.setName(newRole.getName());
-                ;
-            }
-
-            return currentRole;
+        if (currentRole != null) {
+            int index = getAll().indexOf(currentRole);
+            return this.persistence.persist(index, newRole);
         }
-
-        return null;
+        return false;
 
     }
 

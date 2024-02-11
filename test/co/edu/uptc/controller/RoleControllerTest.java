@@ -9,6 +9,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 import co.edu.uptc.model.Role;
+import co.edu.uptc.model.User;
 import co.edu.uptc.persistence.InMemoryPersistence;
 
 public class RoleControllerTest {
@@ -58,15 +59,12 @@ public class RoleControllerTest {
     public void testUpdate() {
         setUp2();
 
-        Role newRole = new Role(45, "visit");
+        Role newRole = new Role(0, "visit");
 
-        Role role = roleController.updateRoleById(01, newRole);
-
-        assertEquals("visit", role.getName());
-        assertEquals(45, role.getId());
-        assertEquals(45, admin.getId());
-        assertEquals("visit", admin.getName());
-
+        assertTrue(roleController.updateRoleById(01, newRole));
+        assertEquals(false, roleController.updateRoleById(78, newRole));
+        assertEquals("visit", roleController.get(0).getName());
+        assertNull(roleController.get(01));
     }
 
     @Test

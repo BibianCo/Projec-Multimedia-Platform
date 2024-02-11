@@ -29,33 +29,16 @@ public class UserController {
 
     }
 
-    public User updateUserById(int userId, User newUser) {
+    public boolean updateUserById(int userId, User newUser) {
 
         User currentUser = get(userId);
 
         if (currentUser != null) {
-            if (currentUser.getId() != newUser.getId()) {
-                currentUser.setId(newUser.getId());
-            }
-            if (!currentUser.getFirstName().equals(newUser.getFirstName())) {
-                currentUser.setFirstName(newUser.getFirstName());
-            }
-            if (!currentUser.getLastName().equals(newUser.getLastName())) {
-                currentUser.setLastName(newUser.getLastName());
-            }
-            if (!currentUser.getEmail().equals(newUser.getEmail())) {
-                currentUser.setEmail(newUser.getEmail());
-            }
-            if (!currentUser.getPassword().equals(newUser.getPassword())) {
-                currentUser.setPassword(newUser.getPassword());
-            }
-            if (currentUser.getRole() != newUser.getRole()) {
-                currentUser.setRole(newUser.getRole());
-            }
-
-            return currentUser;
+            int index = getAll().indexOf(currentUser);
+            return this.persistence.persist(index, newUser);
+        } else {
+            return false;
         }
-        return null;
 
     }
 
