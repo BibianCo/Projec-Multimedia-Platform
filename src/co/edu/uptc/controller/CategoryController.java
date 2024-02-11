@@ -19,7 +19,7 @@ public class CategoryController {
     }
 
     public boolean delete(int id) {
-        return persistence.erase(id);
+        return this.persistence.erase(id);
     }
 
     public Category get(int id) {
@@ -28,15 +28,10 @@ public class CategoryController {
 
     public boolean update(int id, Category newCategory) {
         Category currentCategory = get(id);
-        if (currentCategory != null) {
 
-            if (!currentCategory.getName().equals(newCategory.getName())) {
-                currentCategory.setName(newCategory.getName());
-            }
-            if (currentCategory.getId() != newCategory.getId()) {
-                currentCategory.setId(newCategory.getId());
-            }
-            return true;
+        if (currentCategory != null) {
+            int index = getAll().indexOf(currentCategory);
+            return this.persistence.persist(index, currentCategory);
         } else {
             return false;
         }
