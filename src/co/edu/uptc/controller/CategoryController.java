@@ -27,14 +27,14 @@ public class CategoryController {
     }
 
     public boolean update(int id, Category newCategory) {
-        Category currenCategory = get(id);
-        if (currenCategory != null) {
+        Category currentCategory = get(id);
+        if (currentCategory != null) {
 
-            if (!currenCategory.getName().equals(newCategory.getName())) {
-                currenCategory.setName(newCategory.getName());
+            if (!currentCategory.getName().equals(newCategory.getName())) {
+                currentCategory.setName(newCategory.getName());
             }
-            if (currenCategory.getId() != newCategory.getId()) {
-                currenCategory.setId(newCategory.getId());
+            if (currentCategory.getId() != newCategory.getId()) {
+                currentCategory.setId(newCategory.getId());
             }
             return true;
         } else {
