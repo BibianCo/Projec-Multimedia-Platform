@@ -48,11 +48,11 @@ public class UserController {
         return users;
     }
 
-    public Persistence getPersistence() {
+    public Persistence<User> getPersistence() {
         return persistence;
     }
 
-    public void setPersistence(Persistence persistence) {
+    public void setPersistence(Persistence<User> persistence) {
         this.persistence = persistence;
     }
 }

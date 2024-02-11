@@ -1,12 +1,16 @@
 package co.edu.uptc.controller;
+
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
+
 import java.util.ArrayList;
+
 import org.junit.Before;
 import org.junit.Test;
 import co.edu.uptc.model.Category;
+import co.edu.uptc.model.Episode;
 import co.edu.uptc.model.Season;
 import co.edu.uptc.model.Serie;
 import co.edu.uptc.persistence.InMemoryPersistence;
@@ -15,12 +19,16 @@ public class SerieControllerTest {
 
     public SerieController serieController;
     public InMemoryPersistence<Serie> inMemoryPersistence;
+    public static InMemoryPersistence<Category> impc;
+    public static CategoryController categoryController;
     private Serie serie1, serie2;
 
     @Before
     public void setUp() {
-        this.inMemoryPersistence = new InMemoryPersistence<Serie>();
-        this.serieController = new SerieController(inMemoryPersistence);
+        inMemoryPersistence = new InMemoryPersistence<Serie>();
+        impc = new InMemoryPersistence<Category>();
+        categoryController = new CategoryController(impc);
+        serieController = new SerieController(inMemoryPersistence, categoryController);
     }
 
     public void setUp2() {
@@ -33,7 +41,8 @@ public class SerieControllerTest {
 
     @Test
     public void testAddSerie() {
-        Serie serie = new Serie(3, "New Serie", "New Synopsis", null, new ArrayList<Category>(), new ArrayList<Season>());
+        Serie serie = new Serie(3, "New Serie", "New Synopsis", null, new ArrayList<Category>(),
+                new ArrayList<Season>());
         assertTrue(serieController.add(serie));
     }
 
@@ -53,21 +62,26 @@ public class SerieControllerTest {
     }
 
     @Test
-    public void testUpdate() {
+    public void testUpdateMovie() {
         setUp2();
-        // 1-change title
-        // 2-change synopsis
-        // 3-change categories
-        // 4-change seasons
+        ArrayList<Episode> episodes = new ArrayList<>();
 
-        serieController.update(1, 1, "New Title", null, null, null);
-        assertEquals(serie1.getTitle(), "New Title");
-        assertEquals(serie1.getSynopsis(), "Synopsis 1");
+        Episode ep = new Episode(1, 23, 45);
+        episodes.add(ep);
+        Category c1 = new Category(122, "Romance");
+        Category c2 = new Category(123, "Drama");
+        Category c3 = new Category(124, "Terror");
+        categoryController.add(c1);
+        categoryController.add(c2);
+        categoryController.add(c3);
 
-        serieController.update(2, 1, null, "New Synopsis", null, null);
-        assertEquals(serie1.getSynopsis(), "New Synopsis");
-        assertEquals(serie1.getTitle(), "New Title");
+        Serie newSerie = new Serie(45, "merlina", "chica mala", null, new ArrayList<Category>(),
+                new ArrayList<Season>());
 
+        assertTrue(serieController.update(1, newSerie));
+        assertEquals(false, serieController.update(333, newSerie));
+        assertEquals(false, serieController.update(154, newSerie));
+        assertNull(serieController.get(1));
     }
 
     @Test
@@ -82,4 +96,3 @@ public class SerieControllerTest {
         assertEquals(inMemoryPersistence, serieController.getPersistence());
     }
 }
-
