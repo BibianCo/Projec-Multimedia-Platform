@@ -11,21 +11,22 @@ public class MovieController {
     private Persistence<Movie> persistence;
     private CategoryController categoryController;
 
-    public MovieController(CategoryController categoryController) {
+    public MovieController() {
     }
 
-    public MovieController(Persistence<Movie> persistence) {
+    public MovieController(Persistence<Movie> persistence, CategoryController categoryController) {
         this.persistence = persistence;
+        this.categoryController = categoryController;
     }
 
     public boolean categoriesExists(ArrayList<Category> categories) {
-        for (int i = 0; i < categories.size(); i++) {
-            if (categories.get(i).getId() == this.categoryController.getAll().get(i).getId()) {
-                return true;
+
+        for (Category category : categories) {
+            if (categoryController.get(category.getId()) == null) {
+                return false;
             }
         }
-        return false;
-
+        return true;
     }
 
     public boolean add(Movie movie) {
@@ -35,6 +36,22 @@ public class MovieController {
             return false;
         }
 
+    }
+
+    public boolean delete(int id) {
+        return this.persistence.erase(id);
+    }
+
+    public Movie get(int id) {
+        return this.persistence.obtainById(id);
+    }
+
+    public ArrayList<Movie> getAll() {
+        return this.persistence.obtainAll();
+    }
+
+    public boolean update(int id, Movie movie) {
+        return false;
     }
 
 }
