@@ -58,15 +58,14 @@ public class RoleControllerTest {
     public void testUpdate() {
         setUp2();
 
-        // 1-change id
-        // 2-change role
-        roleController.update(1, 01, 45, null);
-        assertEquals(45, admin.getId());
+        Role newRole = new Role(45, "visit");
 
-        roleController.update(2, 45, 0, "visit");
+        Role role = roleController.updateRoleById(01, newRole);
+
+        assertEquals("visit", role.getName());
+        assertEquals(45, role.getId());
+        assertEquals(45, admin.getId());
         assertEquals("visit", admin.getName());
-
-        assertEquals(45, admin.getId());
 
     }
 

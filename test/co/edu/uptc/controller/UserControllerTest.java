@@ -58,24 +58,14 @@ public class UserControllerTest {
     @Test
     public void testUpdate() {
         setUp2();
-        // 1-change id
-        // 2-change first name
-        // 3-change last name
-        // 4-change email
-        // 5-change password
-        // 6-change Role
 
-        userController.update(1, 123, 456, null, null);
-        assertEquals(user1.getId(), 456);
-        assertEquals(user1.getFirstName(), "juan");
+        Role newRole = new Role(0, "visit");
+        User User = new User(45, "liliana", "fernandez", "juferi200", "123", newRole);
 
-        userController.update(2, 456, 0, "david", null);
-        assertEquals(user1.getFirstName(), "david");
-        assertEquals(user1.getId(), 456);
-
-        userController.update(5, 1234, 0, "123", null);
-        assertEquals(user2.getPassword(), "123");
-        assertEquals(user2.getId(), 1234);
+        userController.updateUserById(123, User);
+        assertEquals("liliana", user1.getFirstName());
+        assertEquals(45, user1.getId());
+        assertEquals(newRole, user1.getRole());
 
     }
 

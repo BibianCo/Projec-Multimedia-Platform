@@ -28,19 +28,24 @@ public class RoleController {
         return this.persistence.obtainById(id);
     }
 
-    public Role update(int option, int roleId, int newId, String name) {
+    public Role updateRoleById(int roleId, Role newRole) {
 
-        Role role = get(roleId);
-        switch (option) {
-            case 1:
-                role.setId(newId);
-                break;
-            case 2:
-                role.setName(name);
-            default:
-                break;
+        Role currentRole = get(roleId);
+
+        if (currentRole != null && currentRole.getId() == roleId) {
+            if (currentRole.getId() != newRole.getId()) {
+                currentRole.setId(newRole.getId());
+            }
+            if (currentRole.getName() != newRole.getName()) {
+                currentRole.setName(newRole.getName());
+                ;
+            }
+
+            return currentRole;
         }
-        return role;
+
+        return null;
+
     }
 
     public ArrayList<Role> getAll() {

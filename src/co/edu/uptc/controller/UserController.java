@@ -2,14 +2,12 @@ package co.edu.uptc.controller;
 
 import java.util.ArrayList;
 
-import co.edu.uptc.model.Role;
 import co.edu.uptc.model.User;
 import co.edu.uptc.persistence.Persistence;
 
 public class UserController {
 
     private Persistence<User> persistence;
-    private User user;
 
     public UserController() {
     }
@@ -31,32 +29,34 @@ public class UserController {
 
     }
 
-    public User update(int option, int userId, int newId, String newDescirption, Role newRole) {
+    public User updateUserById(int userId, User newUser) {
 
-        User user = get(userId);
-        switch (option) {
-            case 1:
-                user.setId(newId);
-                break;
-            case 2:
-                user.setFirstName(newDescirption);
-                break;
-            case 3:
-                user.setLastName(newDescirption);
-                break;
-            case 4:
-                user.setEmail(newDescirption);
-                break;
-            case 5:
-                user.setPassword(newDescirption);
-                break;
-            case 6:
-                user.setRole(newRole);
-                break;
-            default:
-                break;
+        User currentUser = get(userId);
+
+        if (currentUser != null) {
+            if (currentUser.getId() != newUser.getId()) {
+                currentUser.setId(newUser.getId());
+            }
+            if (!currentUser.getFirstName().equals(newUser.getFirstName())) {
+                currentUser.setFirstName(newUser.getFirstName());
+            }
+            if (!currentUser.getLastName().equals(newUser.getLastName())) {
+                currentUser.setLastName(newUser.getLastName());
+            }
+            if (!currentUser.getEmail().equals(newUser.getEmail())) {
+                currentUser.setEmail(newUser.getEmail());
+            }
+            if (!currentUser.getPassword().equals(newUser.getPassword())) {
+                currentUser.setPassword(newUser.getPassword());
+            }
+            if (currentUser.getRole() != newUser.getRole()) {
+                currentUser.setRole(newUser.getRole());
+            }
+
+            return currentUser;
         }
-        return user;
+        return null;
+
     }
 
     public ArrayList<User> getAll() {
