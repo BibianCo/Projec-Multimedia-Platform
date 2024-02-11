@@ -32,4 +32,12 @@ public class Movie extends Multimedia {
                 + super.getSynopsis() + "\nDate: " + super.getReleaseDate() + "\nDuration: " + duration;
     }
 
+    public ArrayList<Category> getCategories() {
+        return categories;
+    }
+
+    public void setCategories(ArrayList<Category> categories) {
+        this.categories = categories;
+    }
+
 }
