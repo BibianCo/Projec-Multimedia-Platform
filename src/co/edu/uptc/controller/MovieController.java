@@ -50,8 +50,15 @@ public class MovieController {
         return this.persistence.obtainAll();
     }
 
-    public boolean update(int id, Movie movie) {
-        return false;
+    public boolean update(int id, Movie newMovie) {
+        Movie currentMovie = get(id);
+        if (currentMovie != null && categoriesExists(newMovie.getCategories())) {
+            int index = getAll().indexOf(currentMovie);
+            return this.persistence.persist(index, newMovie);
+
+        } else {
+            return false;
+        }
     }
 
 }
