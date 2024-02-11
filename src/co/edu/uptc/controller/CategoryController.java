@@ -31,7 +31,7 @@ public class CategoryController {
 
         if (currentCategory != null) {
             int index = getAll().indexOf(currentCategory);
-            return this.persistence.persist(index, currentCategory);
+            return this.persistence.persist(index, newCategory);
         } else {
             return false;
         }
