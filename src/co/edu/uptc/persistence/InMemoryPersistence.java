@@ -46,4 +46,15 @@ public class InMemoryPersistence<T extends Entity> implements Persistence<T> {
     public ArrayList<T> obtainAll() {
         return new ArrayList<>(data);
     }
+
+    @Override
+    public boolean persist(int index, T saveData) {
+        T t = data.set(index, saveData);
+        if (t != null) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
 }
