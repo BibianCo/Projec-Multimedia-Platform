@@ -2,23 +2,39 @@ package co.edu.uptc.controller;
 
 import java.util.ArrayList;
 import co.edu.uptc.model.Category;
-import co.edu.uptc.model.Season;
 import co.edu.uptc.model.Serie;
 import co.edu.uptc.persistence.Persistence;
 
 public class SerieController {
 
     private Persistence<Serie> persistence;
+    private CategoryController categoryController;
 
     public SerieController() {
     }
 
-    public SerieController(Persistence<Serie> persistence) {
+    public SerieController(Persistence<Serie> persistence, CategoryController categoryController) {
         this.persistence = persistence;
+        this.categoryController = categoryController;
+    }
+
+    public boolean categoriesExists(ArrayList<Category> categories) {
+
+        for (Category category : categories) {
+            if (categoryController.get(category.getId()) == null) {
+                return false;
+            }
+        }
+        return true;
     }
 
     public boolean add(Serie serie) {
-        return this.persistence.persist(serie);
+        if (categoriesExists(serie.getCategories())) {
+            return this.persistence.persist(serie);
+        } else {
+            return false;
+        }
+
     }
 
     public boolean delete(int id) {
@@ -29,27 +45,15 @@ public class SerieController {
         return this.persistence.obtainById(id);
     }
 
-    public Serie update(int option, int serieId, String title, String synopsis, ArrayList<Category> categories,
-            ArrayList<Season> seasons) {
+    public boolean update(int id, Serie newSerie) {
+        Serie currentSerie = get(id);
+        if (currentSerie != null && categoriesExists(newSerie.getCategories())) {
+            int index = getAll().indexOf(currentSerie);
+            return this.persistence.persist(index, newSerie);
 
-        Serie serie = get(serieId);
-        switch (option) {
-            case 1:
-                serie.setTitle(title);
-                break;
-            case 2:
-                serie.setSynopsis(synopsis);
-                break;
-            case 3:
-                serie.setCategories(categories);
-                break;
-            case 4:
-                serie.setSeasons(seasons);
-                break;
-            default:
-                break;
+        } else {
+            return false;
         }
-        return serie;
     }
 
     public ArrayList<Serie> getAll() {
@@ -66,4 +70,3 @@ public class SerieController {
         this.persistence = persistence;
     }
 }
-
