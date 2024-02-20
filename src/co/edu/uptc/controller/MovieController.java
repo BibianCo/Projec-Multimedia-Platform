@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 import co.edu.uptc.model.Category;
 import co.edu.uptc.model.Movie;
-import co.edu.uptc.persistence.Persistence;
+import co.edu.uptc.util.Persistence;
 
 public class MovieController {
 
@@ -59,6 +59,27 @@ public class MovieController {
         } else {
             return false;
         }
+    }
+
+    public ArrayList<Movie> groupByCategory(int idCategory) {
+        ArrayList<Movie> m = getAll();
+        Category category = categoryController.get(idCategory);
+        ArrayList<Movie> gbcm = new ArrayList<>();
+
+        if (!m.isEmpty() && category != null) {
+            for (Movie movie : m) {
+                ArrayList<Category> cat = movie.getCategories();
+                for (Category categoryFind : cat) {
+                    if (category.getId() == categoryFind.getId()) {
+                        gbcm.add(movie);
+                    }
+                }
+            }
+            return gbcm;
+        } else {
+            return null;
+        }
+
     }
 
 }
