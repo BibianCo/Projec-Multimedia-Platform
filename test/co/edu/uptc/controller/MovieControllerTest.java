@@ -9,14 +9,9 @@ import java.util.ArrayList;
 import org.junit.Before;
 import org.junit.Test;
 
-import com.google.gson.reflect.TypeToken;
-
-import co.edu.uptc.controller.CategoryController;
-import co.edu.uptc.controller.MovieController;
 import co.edu.uptc.model.Category;
 import co.edu.uptc.model.Movie;
-import co.edu.uptc.util.FileManagement;
-import co.edu.uptc.util.InMemoryPersistence;
+import co.edu.uptc.persistence.InMemoryPersistence;
 
 public class MovieControllerTest {
     public static MovieController movieController;
@@ -77,14 +72,17 @@ public class MovieControllerTest {
         assertEquals(true, movieController.categoriesExists(cat3));
         assertEquals(false, movieController.categoriesExists(cat2));
         assertEquals(false, movieController.categoriesExists(cat4));
+        assertEquals(false, movieController.categoriesExists(new ArrayList<>()));
 
     }
 
     @Test
     public void testAddMovie() {
+        Movie m5 = new Movie(555, "El conjuro", "no se de que trata", Date.valueOf("2014-05-01"), new ArrayList<>());
         assertEquals(false, movieController.add(m1));
         assertEquals(false, movieController.add(m2));
         assertEquals(true, movieController.add(m3));
+        assertEquals(false, movieController.add(m5));
 
     }
 
@@ -133,11 +131,12 @@ public class MovieControllerTest {
     public void testGroupByCategory() {
         movieController.add(m3);
         movieController.add(m4);
-        movieController.add(m1);
+        ArrayList<Movie> movies = movieController.groupByCategory(124);
 
+        assertEquals(movies, movieController.groupByCategory(124));
         assertEquals(m3, movieController.groupByCategory(124).get(0));
-        assertEquals(m4, movieController.groupByCategory(124).get(1));
         assertNull(movieController.groupByCategory(111));
+        assertNull(movieController.groupByCategory(122));
 
     }
 
