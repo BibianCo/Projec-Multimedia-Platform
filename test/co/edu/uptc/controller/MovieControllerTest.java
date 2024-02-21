@@ -1,3 +1,4 @@
+package co.edu.uptc.controller;
 
 import static org.junit.Assert.assertNull;
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -8,8 +9,6 @@ import java.util.ArrayList;
 import org.junit.Before;
 import org.junit.Test;
 
-import co.edu.uptc.controller.CategoryController;
-import co.edu.uptc.controller.MovieController;
 import co.edu.uptc.model.Category;
 import co.edu.uptc.model.Movie;
 import co.edu.uptc.persistence.InMemoryPersistence;

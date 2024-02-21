@@ -20,12 +20,17 @@ public class SerieController {
 
     public boolean categoriesExists(ArrayList<Category> categories) {
 
-        for (Category category : categories) {
-            if (categoryController.get(category.getId()) == null) {
-                return false;
+        if (categories.isEmpty()) {
+            return false;
+        } else {
+            for (Category category : categories) {
+                if (categoryController.get(category.getId()) == null) {
+                    return false;
+                }
             }
+            return true;
         }
-        return true;
+
     }
 
     public boolean add(Serie serie) {
@@ -68,5 +73,29 @@ public class SerieController {
 
     public void setPersistence(Persistence<Serie> persistence) {
         this.persistence = persistence;
+    }
+
+    public ArrayList<Serie> groupByCategory(int idCategory) {
+        ArrayList<Serie> allSeries = getAll();
+        Category category = categoryController.get(idCategory);
+        ArrayList<Serie> gbcs = new ArrayList<>();
+
+        if (!allSeries.isEmpty() && category != null) {
+            for (Serie serie : allSeries) {
+                ArrayList<Category> cat = serie.getCategories();
+                for (Category categoryFind : cat) {
+                    if (category.getId() == categoryFind.getId()) {
+                        gbcs.add(serie);
+                        break;
+                    } else {
+                        return null;
+                    }
+                }
+            }
+            return gbcs;
+        } else {
+            return null;
+        }
+
     }
 }
