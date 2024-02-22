@@ -8,7 +8,9 @@ import static org.junit.Assert.assertTrue;
 import org.junit.Before;
 import org.junit.Test;
 
+import co.edu.uptc.model.Plan;
 import co.edu.uptc.model.Role;
+import co.edu.uptc.model.Subscription;
 import co.edu.uptc.model.User;
 import co.edu.uptc.persistence.InMemoryPersistence;
 
@@ -28,16 +30,31 @@ public class UserControllerTest {
     public void setUp2() {
         user1 = new User(123, "juan", "fernandez", "juferi2003@gmail.com", "78956", new Role(1, "admin"));
 
-        user2 = new User(1234, "laura", "garcia", "garcia2003@gmail.com", "78956", new Role(2, "admin"));
+        user2 = new User(1234, "laura", "garcia", "garcia2003@gmail.com", "7895", new Role(2, "admin"));
+
+        User user3 = new User(23, "juan", "fernandez", "juferi2003@gmail.com", "78956", new Role(1, "user"));
+
+        Subscription sb = new Subscription(1, new Plan(12, "prem", "30 dias adicionales", 7000, 30), user3);
+        user3.setSubscription(sb);
 
         userController.add(user1);
         userController.add(user2);
+        userController.add(user3);
     }
 
     @Test
     public void testAddUser() {
-        User user = new User(123, "juan", "fernandez", "juferi2003@gmail.com", "78956", new Role(1, "admin"));
-        assertTrue(userController.add(user));
+        User user = new User(23, "juan", "fernandez", "juferi2003@gmail.com", "78956", new Role(1, "user"));
+
+        Subscription sb = new Subscription(1, new Plan(12, "prem", "30 dias adicionales", 7000, 30), user);
+        user.setSubscription(sb);
+
+        User user1 = new User(123, "juan", "fernandez", "juferi2003@gmail.com", "78956", new Role(1, "admin"));
+        User user2 = new User(123, "juan", "fernandez", "juferi2003@gmail.com", "78956", new Role(1, "admi"));
+
+        assertFalse(userController.add(user2));
+        assertEquals(true, userController.add(user));
+        assertTrue(userController.add(user1));
     }
 
     @Test
@@ -79,5 +96,15 @@ public class UserControllerTest {
     @Test
     public void testGetPersistence() {
         assertEquals(inMemoryPersistence, userController.getPersistence());
+    }
+
+    @Test
+    public void testLogin() {
+        setUp2();
+
+        assertEquals(false, userController.logIn("juferi2003@gmail.com", "asda"));
+        assertEquals(true, userController.logIn("juferi2003@gmail.com", "78956"));
+        assertEquals(true, userController.logIn("garcia2003@gmail.com", "7895"));
+
     }
 }

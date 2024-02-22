@@ -7,6 +7,18 @@ public class User extends Entity {
     private String email;
     private String password;
     private Role role;
+    private Subscription subscription;
+
+    public User(int id, String firstName, String lastName, String email, String password, Role role,
+            Subscription subscription) {
+        super(id);
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.email = email;
+        this.password = password;
+        this.role = role;
+        this.subscription = subscription;
+    }
 
     public User(int id, String firstName, String lastName, String email, String password, Role role) {
         super(id);
@@ -67,4 +79,13 @@ public class User extends Entity {
     public void setRole(Role role) {
         this.role = role;
     }
+
+    public Subscription getSubscription() {
+        return subscription;
+    }
+
+    public void setSubscription(Subscription subscription) {
+        this.subscription = subscription;
+    }
+
 }

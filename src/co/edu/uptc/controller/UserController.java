@@ -17,7 +17,13 @@ public class UserController {
     }
 
     public boolean add(User user) {
-        return this.persistence.persist(user);
+        if (user.getRole().getName().equals("user") && user.getSubscription() != null) {
+            return this.persistence.persist(user);
+        }
+        if (user.getRole().getName().equals("admin")) {
+            return this.persistence.persist(user);
+        }
+        return false;
     }
 
     public boolean delete(int id) {
@@ -55,4 +61,15 @@ public class UserController {
     public void setPersistence(Persistence<User> persistence) {
         this.persistence = persistence;
     }
+
+    public boolean logIn(String email, String password) {
+        ArrayList<User> users = getAll();
+        for (User user : users) {
+            if (user.getEmail().equals(email) && user.getPassword().equals(password)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
 }
