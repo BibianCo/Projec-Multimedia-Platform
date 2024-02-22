@@ -12,6 +12,7 @@ import org.junit.Test;
 import co.edu.uptc.model.Category;
 import co.edu.uptc.model.Movie;
 import co.edu.uptc.persistence.InMemoryPersistence;
+import co.edu.uptc.persistence.Persistence;
 
 public class MovieControllerTest {
     public static MovieController movieController;

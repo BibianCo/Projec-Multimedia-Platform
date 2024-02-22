@@ -29,8 +29,8 @@ public class SubscriptionControllerTest {
         inMemoryPersistence = new InMemoryPersistence<Subscription>();
         subscriptionController = new SubscriptionController(inMemoryPersistence);
 
-        Plan plan1 = new Plan(1, "Basico", "Disfruta tu plataforma de Multimedia en tu smartphone", 39000, 30);
-        User user1 = new User(1234, "bibian", "corredor", "bibian@gmail.com", "bibian1234", new Role(1235, "user"));
+        plan1 = new Plan(1, "Basico", "Disfruta tu plataforma de Multimedia en tu smartphone", 39000, 30);
+        user1 = new User(1234, "bibian", "corredor", "bibian@gmail.com", "bibian1234", new Role(1235, "user"));
 
         sc1 = new Subscription(111, plan1, user1);
         sc2 = new Subscription(222, null, null);
@@ -40,32 +40,34 @@ public class SubscriptionControllerTest {
 
     @Test
     public void testOperations() {
-        addSubscription();
-        deleteSubscription();
-        getSubscription();
-        getAllSubscription();
-        updateSubscription();
+        addSubscriptionTest();
+        deleteSubscriptionTest();
+        getSubscriptionTest();
+        getAllSubscriptionTest();
+        updateSubscriptionTest();
     }
 
-    public void addSubscription() {
+    public void addSubscriptionTest() {
         assertEquals(false, subscriptionController.add(sc2));
         assertEquals(false, subscriptionController.add(sc2));
         assertEquals(true, subscriptionController.add(sc1));
+        assertEquals(true, subscriptionController.setStartDate(sc1));
+        assertEquals(true, subscriptionController.setEndDate(sc1));
         assertEquals(true, subscriptionController.add(sc3));
     }
 
-    public void deleteSubscription() {
+    public void deleteSubscriptionTest() {
         assertEquals(false, subscriptionController.delete(123));
         assertEquals(true, subscriptionController.delete(333));
     }
 
-    public void getSubscription() {
+    public void getSubscriptionTest() {
         assertEquals(sc1, subscriptionController.get(111));
         assertEquals(null, subscriptionController.get(333));
         assertEquals(null, subscriptionController.get(123));
     }
 
-    public void getAllSubscription() {
+    public void getAllSubscriptionTest() {
         ArrayList<Subscription> prueba = new ArrayList<>();
         prueba.add(sc1);
         assertEquals(sc1, subscriptionController.getAll().get(0));
@@ -73,10 +75,15 @@ public class SubscriptionControllerTest {
         assertEquals(1, subscriptionController.getAll().size());
     }
 
-    public void updateSubscription() {
+    public void updateSubscriptionTest() {
         Subscription prueba = new Subscription(253, plan1, user1);
         assertEquals(false, subscriptionController.update(1234, prueba));
         assertEquals(true, subscriptionController.update(111, prueba));
     }
 
+    @Test
+    public void expireSubscriptionTest() {
+        assertEquals(false, subscriptionController.expireSubscription(sc1));
+
+    }
 }

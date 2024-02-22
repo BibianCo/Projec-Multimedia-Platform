@@ -70,4 +70,15 @@ public class SubscriptionController {
         }
     }
 
+    public boolean expireSubscription(Subscription subscription) {
+        Subscription validateExpire = get(subscription.getId());
+        LocalDate DayNow = LocalDate.now();
+        if (validateExpire != null && subscription.getDateEnd().isBefore(DayNow)) {
+            return true;
+        } else {
+            return false;
+        }
+
+    }
+
 }
