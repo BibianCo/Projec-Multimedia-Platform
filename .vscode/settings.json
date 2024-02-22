@@ -5,6 +5,7 @@
     ],
     "java.project.outputPath": "bin",
     "java.project.referencedLibraries": [
-        "lib/**/*.jar"
+        "lib/**/*.jar",
+        "c:\\Users\\bibia\\Documents\\ProjectsVScode\\gson-2.10.1.jar"
     ]
 }
