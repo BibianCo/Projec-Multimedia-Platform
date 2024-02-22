@@ -21,12 +21,17 @@ public class MovieController {
 
     public boolean categoriesExists(ArrayList<Category> categories) {
 
-        for (Category category : categories) {
-            if (categoryController.get(category.getId()) == null) {
-                return false;
+        if (categories.isEmpty()) {
+            return false;
+        } else {
+            for (Category category : categories) {
+                if (categoryController.get(category.getId()) == null) {
+                    return false;
+                }
             }
+            return true;
         }
-        return true;
+
     }
 
     public boolean add(Movie movie) {
@@ -59,6 +64,31 @@ public class MovieController {
         } else {
             return false;
         }
+    }
+
+    public ArrayList<Movie> groupByCategory(int idCategory) {
+        ArrayList<Movie> allMovie = getAll();
+        Category category = categoryController.get(idCategory);
+        ArrayList<Movie> gbcm = new ArrayList<>();
+
+        if (!allMovie.isEmpty() && category != null) {
+            for (Movie movie : allMovie) {
+                ArrayList<Category> cat = movie.getCategories();
+                for (Category categoryFind : cat) {
+                    if (category.getId() == categoryFind.getId()) {
+                        gbcm.add(movie);
+                        break;
+                    } else {
+                        return null;
+                    }
+                }
+
+            }
+            return gbcm;
+        } else {
+            return null;
+        }
+
     }
 
 }
