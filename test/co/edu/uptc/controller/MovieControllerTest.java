@@ -29,7 +29,6 @@ public class MovieControllerTest {
 
     public static Movie m4 = new Movie();
 
-
     @Before
     public void setUp() {
         inMemoryPersistence = new InMemoryPersistence<Movie>();
@@ -47,7 +46,6 @@ public class MovieControllerTest {
         categoryController.add(c1);
         categoryController.add(c2);
         categoryController.add(c3);
-
 
     }
 
@@ -70,8 +68,6 @@ public class MovieControllerTest {
         cat4.add(c2);
         cat4.add(c3);
 
-
-
         m1 = new Movie(111, "Titanic", "Jack y Ross un amor imposible", Date.valueOf("2004-05-04"), cat1);
         m2 = new Movie(222, "Pinocho", "padre e hijo", Date.valueOf("2019-04-05"), cat2);
         m3 = new Movie(333, "It", "payaso asusta ninios", Date.valueOf("2019-04-05"), cat3);
@@ -82,7 +78,6 @@ public class MovieControllerTest {
     public void testCategoryExists() {
         setUp2();
         setUp3();
-
 
         assertEquals(false, movieController.categoriesExists(cat1));
         assertEquals(true, movieController.categoriesExists(cat3));
@@ -102,7 +97,6 @@ public class MovieControllerTest {
         assertEquals(false, movieController.add(m1));
         assertEquals(false, movieController.add(m2));
         assertEquals(true, movieController.add(m3));
-
 
     }
 
@@ -163,14 +157,6 @@ public class MovieControllerTest {
 
     }
 
-}
-
-
-        assertEquals(false, movieController.update(333,
-                new Movie(123, "Harry Potter", "trio de amigos", Date.valueOf("2006-06-12"), cat3)));
-        assertEquals(null, movieController.get(333));
-    }
-
     @Test
     public void testGroupByCategory() {
         movieController.add(m3);
@@ -185,4 +171,3 @@ public class MovieControllerTest {
     }
 
 }
-
