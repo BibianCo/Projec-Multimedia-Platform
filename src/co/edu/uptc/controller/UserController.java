@@ -1,19 +1,24 @@
 package co.edu.uptc.controller;
 
+import java.time.DayOfWeek;
+import java.time.LocalDate;
 import java.util.ArrayList;
 
+import co.edu.uptc.model.Subscription;
 import co.edu.uptc.model.User;
 import co.edu.uptc.persistence.Persistence;
 
 public class UserController {
 
     private Persistence<User> persistence;
+    private SubscriptionController subscriptionController;
 
     public UserController() {
     }
 
-    public UserController(Persistence<User> persistence) {
+    public UserController(Persistence<User> persistence, SubscriptionController subscriptionController) {
         this.persistence = persistence;
+        this.subscriptionController = subscriptionController;
     }
 
     public boolean add(User user) {
@@ -68,6 +73,20 @@ public class UserController {
             if (user.getEmail().equals(email) && user.getPassword().equals(password)) {
                 return true;
             }
+        }
+        return false;
+    }
+
+    public boolean renewSuscription(Subscription newSuscription, int id) {
+
+        User user = get(id);
+        if (user != null && user.getSubscription() != null) {
+            if (subscriptionController.expireSubscription(user.getSubscription())) {
+                subscriptionController.update(user.getSubscription().getId(), newSuscription);
+                user.setSubscription(subscriptionController.get(user.getSubscription().getId()));
+                return true;
+            }
+
         }
         return false;
     }
