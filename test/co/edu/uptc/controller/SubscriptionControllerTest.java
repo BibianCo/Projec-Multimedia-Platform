@@ -18,6 +18,8 @@ public class SubscriptionControllerTest {
 
     public static SubscriptionController subscriptionController;
     public static InMemoryPersistence<Subscription> inMemoryPersistence;
+    public static PlanController planController;
+    public static InMemoryPersistence<Plan> impp;
     public static Subscription sc1;
     public static Subscription sc2;
     public static Subscription sc3;
@@ -27,10 +29,14 @@ public class SubscriptionControllerTest {
     @Before
     public void setUp() {
         inMemoryPersistence = new InMemoryPersistence<Subscription>();
-        subscriptionController = new SubscriptionController(inMemoryPersistence);
+        impp = new InMemoryPersistence<Plan>();
+        planController = new PlanController(impp);
+        subscriptionController = new SubscriptionController(inMemoryPersistence, planController);
 
         plan1 = new Plan(1, "Basico", "Disfruta tu plataforma de Multimedia en tu smartphone", 39000, 30);
         user1 = new User(1234, "bibian", "corredor", "bibian@gmail.com", "bibian1234", new Role(1235, "user"));
+
+        planController.add(plan1);
 
         sc1 = new Subscription(111, plan1, user1);
         sc2 = new Subscription(222, null, null);
@@ -53,7 +59,6 @@ public class SubscriptionControllerTest {
         assertEquals(false, subscriptionController.add(sc2));
         assertEquals(true, subscriptionController.add(sc1));
         assertEquals(LocalDate.now(), subscriptionController.setStartDate(sc1));
-        // assertEquals(true, subscriptionController.setEndDate(sc1));
         assertEquals(true, subscriptionController.add(sc3));
     }
 
