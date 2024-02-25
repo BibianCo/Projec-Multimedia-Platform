@@ -9,9 +9,13 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
+import java.util.List;
 
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import com.google.gson.stream.JsonReader;
+
+import co.edu.uptc.model.Plan;
 
 public class FileManagement<T> implements Persistence<T> {
     private Type classType;
@@ -68,7 +72,28 @@ public class FileManagement<T> implements Persistence<T> {
     }
 
     @Override
-    public boolean persist(Object value) {
+    public boolean persist(T value) {
+
+        if (value != null) {
+            ArrayList<T> result = obtainAll();
+            GsonBuilder gb = new GsonBuilder();
+            gb.setPrettyPrinting();
+            gb.setDateFormat("YYYY-MM-DD");
+            gson = gb.create();
+
+            try {
+                pw = new PrintWriter(new FileWriter(filePath + file + fileExtension));
+                result.add(value);
+                pw.println(gson.toJson(result));
+                pw.close();
+                return true;
+            } catch (FileNotFoundException e) {
+                e.printStackTrace();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+
         return false;
     }
 
@@ -89,7 +114,11 @@ public class FileManagement<T> implements Persistence<T> {
 
     @Override
     public ArrayList<T> obtainAll() {
-        return null;
+        ArrayList<T> result = new ArrayList<>();
+        gson = new Gson();
+        result = gson.fromJson(readFile(), this.classType);
+
+        return result;
 
     }
 
