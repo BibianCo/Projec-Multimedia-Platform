@@ -19,24 +19,32 @@ import co.edu.uptc.persistence.InMemoryPersistence;
 public class UserControllerTest {
 
     public UserController userController;
+    public PlanController planController;
     public Role role;
     public SubscriptionController subscriptionController;
     public InMemoryPersistence<Subscription> ims;
     public InMemoryPersistence<User> inMemoryPersistence;
+    public InMemoryPersistence<Plan> imp;
 
     private User user1, user2, user3, user4;
     private Subscription subs1, subs2;
+    private Plan pl1;
 
     @Before
     public void setUp() {
         this.inMemoryPersistence = new InMemoryPersistence<User>();
         this.ims = new InMemoryPersistence<Subscription>();
-        subscriptionController = new SubscriptionController(ims);
+        this.imp = new InMemoryPersistence<Plan>();
+        this.planController = new PlanController(imp);
+        subscriptionController = new SubscriptionController(ims, planController);
         this.userController = new UserController(inMemoryPersistence, subscriptionController);
 
     }
 
     public void setUp2() {
+
+        pl1 = new Plan(12354, "gold", "juansd as", 45, 50);
+        planController.add(pl1);
 
         user1 = new User(123, "juan", "fernandez", "juferi2003@gmail.com", "78956", new Role(1, "admin"));
         user2 = new User(1234, "laura", "garcia", "garcia2003@gmail.com", "7895", new Role(2, "admin"));
@@ -44,7 +52,7 @@ public class UserControllerTest {
         user4 = new User(10542820, "carlos", "alberto", "carlos@gmail", "asdas53", new Role(5, "user"));
 
         subs1 = new Subscription(4, new Plan(0, "prem", "30 dias adicionales", 7000, 30), user3);
-        subs2 = new Subscription(1, new Plan(0, "prem", "30 dias adicionales", 7000, 30), user3);
+        subs2 = new Subscription(1, pl1, user3);
 
         subscriptionController.add(subs1);
         subscriptionController.add(subs2);
@@ -141,6 +149,6 @@ public class UserControllerTest {
         Subscription newSubscription2 = new Subscription(12, new Plan(1, "plas", "asd", 12, 0), user4);
 
         assertEquals(false, userController.renewSuscription(newSubscription, 23));
-        assertEquals(true, userController.renewSuscription(newSubscription2, 10542820));
+        assertEquals(false, userController.renewSuscription(newSubscription2, 10542820));
     }
 }
