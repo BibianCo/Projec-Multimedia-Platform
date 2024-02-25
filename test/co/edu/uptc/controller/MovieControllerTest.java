@@ -1,6 +1,7 @@
 package co.edu.uptc.controller;
 
 import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertTrue;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.sql.Date;
@@ -11,6 +12,7 @@ import org.junit.Test;
 
 import co.edu.uptc.model.Category;
 import co.edu.uptc.model.Movie;
+import co.edu.uptc.persistence.FileManagement;
 import co.edu.uptc.persistence.InMemoryPersistence;
 import co.edu.uptc.persistence.Persistence;
 
@@ -18,6 +20,7 @@ public class MovieControllerTest {
     public static MovieController movieController;
     public static InMemoryPersistence<Movie> inMemoryPersistence;
     public static InMemoryPersistence<Category> impc;
+    public static FileManagement<Movie> fileManagement;
     public static CategoryController categoryController;
 
     public static ArrayList<Category> cat1 = new ArrayList<>();
@@ -28,18 +31,13 @@ public class MovieControllerTest {
     public static Movie m2 = new Movie();
     public static Movie m3 = new Movie();
 
-    public static Movie m4 = new Movie();
-
     @Before
     public void setUp() {
         inMemoryPersistence = new InMemoryPersistence<Movie>();
         impc = new InMemoryPersistence<Category>();
         categoryController = new CategoryController(impc);
         movieController = new MovieController(inMemoryPersistence, categoryController);
-
-    }
-
-    public void setUp2() {
+        fileManagement = new FileManagement<Movie>(Movie.class, "Movie");
 
         Category c1 = new Category(122, "Romance");
         Category c2 = new Category(123, "Drama");
@@ -48,37 +46,40 @@ public class MovieControllerTest {
         categoryController.add(c2);
         categoryController.add(c3);
 
-    }
+        Category cp1 = new Category(0, null);
+        Category cp2 = new Category(122, "Romance");
+        Category cp3 = new Category(128, "Animada");
+        Category cp4 = new Category(124, "Terror");
 
-    public void setUp3() {
+        cat1.add(cp1);
+        cat1.add(cp2);
 
-        Category c1 = new Category(0, null);
-        Category c2 = new Category(122, "Romance");
-        Category c3 = new Category(128, "Animada");
-        Category c4 = new Category(124, "Terror");
+        cat2.add(cp3);
+        cat2.add(cp1);
 
-        cat1.add(c1);
-        cat1.add(c2);
+        cat3.add(cp4);
+        cat3.add(cp2);
 
-        cat2.add(c3);
-        cat2.add(c1);
-
-        cat3.add(c4);
-        cat3.add(c2);
-
-        cat4.add(c2);
-        cat4.add(c3);
+        cat4.add(cp2);
+        cat4.add(cp3);
 
         m1 = new Movie(111, "Titanic", "Jack y Ross un amor imposible", Date.valueOf("2004-05-04"), cat1);
         m2 = new Movie(222, "Pinocho", "padre e hijo", Date.valueOf("2019-04-05"), cat2);
         m3 = new Movie(333, "It", "payaso asusta ninios", Date.valueOf("2019-04-05"), cat3);
+    }
 
+    @Test
+    public void createFileTest() {
+        assertEquals(true, fileManagement.createFile());
+    }
+
+    @Test
+    public void readFileTest() {
+        assertTrue(fileManagement.readFile().isEmpty());
     }
 
     @Test
     public void testCategoryExists() {
-        setUp2();
-        setUp3();
 
         assertEquals(false, movieController.categoriesExists(cat1));
         assertEquals(true, movieController.categoriesExists(cat3));
@@ -91,9 +92,6 @@ public class MovieControllerTest {
 
     @Test
     public void testAddMovie() {
-
-        setUp2();
-        setUp3();
 
         Movie movie = new Movie(333, "It", "payaso asusta ninios", Date.valueOf("2019-04-05"), cat3);
 
@@ -108,9 +106,6 @@ public class MovieControllerTest {
     @Test
     public void testDeleteMovie() {
 
-        setUp2();
-        setUp3();
-
         movieController.add(m3);
 
         assertEquals(false, movieController.delete(0));
@@ -122,9 +117,6 @@ public class MovieControllerTest {
     @Test
     public void testGetMovie() {
 
-        setUp2();
-        setUp3();
-
         movieController.add(m3);
         assertEquals(m3, movieController.get(333));
         assertEquals(null, movieController.get(111));
@@ -135,9 +127,6 @@ public class MovieControllerTest {
     @Test
     public void testGetAllMovie() {
 
-        setUp2();
-        setUp3();
-
         movieController.add(m3);
         assertEquals(m3, movieController.getAll().get(0));
         assertEquals(1, movieController.getAll().size());
@@ -146,9 +135,6 @@ public class MovieControllerTest {
 
     @Test
     public void testUpdateMovie() {
-
-        setUp2();
-        setUp3();
 
         movieController.add(m3);
         assertEquals(false, movieController.update(333, m1));
@@ -165,7 +151,6 @@ public class MovieControllerTest {
     @Test
     public void testGroupByCategory() {
         movieController.add(m3);
-        movieController.add(m4);
         ArrayList<Movie> movies = movieController.groupByCategory(124);
 
         assertEquals(movies, movieController.groupByCategory(124));
