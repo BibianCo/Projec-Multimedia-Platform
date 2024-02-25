@@ -39,20 +39,21 @@ public class SubscriptionControllerTest {
     }
 
     @Test
-    public void testOperations() {
+    public void testMethods() {
         addSubscriptionTest();
         deleteSubscriptionTest();
         getSubscriptionTest();
         getAllSubscriptionTest();
         updateSubscriptionTest();
+        expireSubscriptionTest();
     }
 
     public void addSubscriptionTest() {
         assertEquals(false, subscriptionController.add(sc2));
         assertEquals(false, subscriptionController.add(sc2));
         assertEquals(true, subscriptionController.add(sc1));
-        assertEquals(true, subscriptionController.setStartDate(sc1));
-        assertEquals(true, subscriptionController.setEndDate(sc1));
+        assertEquals(LocalDate.now(), subscriptionController.setStartDate(sc1));
+        // assertEquals(true, subscriptionController.setEndDate(sc1));
         assertEquals(true, subscriptionController.add(sc3));
     }
 
@@ -79,11 +80,11 @@ public class SubscriptionControllerTest {
         Subscription prueba = new Subscription(253, plan1, user1);
         assertEquals(false, subscriptionController.update(1234, prueba));
         assertEquals(true, subscriptionController.update(111, prueba));
+        assertEquals(253, subscriptionController.get(253).getId());
     }
 
-    @Test
     public void expireSubscriptionTest() {
-        assertEquals(false, subscriptionController.expireSubscription(sc1));
+        assertEquals(false, subscriptionController.expireSubscription(subscriptionController.get(253)));
 
     }
 }

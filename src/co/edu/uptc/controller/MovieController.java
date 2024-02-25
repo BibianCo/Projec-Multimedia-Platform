@@ -34,8 +34,17 @@ public class MovieController {
 
     }
 
+    public boolean movieExists(Movie movie) {
+        if (movie == null) {
+            return false;
+        } else if (get(movie.getId()) == null) {
+            return false;
+        }
+        return true;
+    }
+
     public boolean add(Movie movie) {
-        if (categoriesExists(movie.getCategories())) {
+        if (categoriesExists(movie.getCategories()) && movieExists(movie) == false) {
             return this.persistence.persist(movie);
         } else {
             return false;
