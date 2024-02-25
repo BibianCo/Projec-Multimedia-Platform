@@ -38,31 +38,29 @@ public class SerieControllerTest {
     }
 
     public void setUp2() {
-        ArrayList<Category> prueba = new ArrayList<>();
         Category c1 = new Category(122, "Romance");
         Category c2 = new Category(123, "Drama");
         categoryController.add(c2);
         categoryController.add(c1);
-        prueba.add(c2);
-        serie1 = new Serie(1, "Serie 1", "Synopsis 1", null, prueba, new ArrayList<Season>());
+        cat3.add(c2);
+        serie1 = new Serie(1, "Serie 1", "Synopsis 1", null, cat3, new ArrayList<Season>());
         serie2 = new Serie(2, "Serie 2", "Synopsis 2", null, new ArrayList<Category>(), new ArrayList<Season>());
 
         serieController.add(serie1);
         serieController.add(serie2);
 
-        serie3 = new Serie(3, "Serie 3", "Synopsis 3", null, prueba, new ArrayList<Season>());
+        serie3 = new Serie(3, "Serie 3", "Synopsis 3", null, cat3, new ArrayList<Season>());
         serieController.add(serie3);
 
-        serie1.setCategories(null);
-        ;
     }
 
     @Test
     public void testAddSerie() {
-        Serie serie = new Serie(3, "New Serie", "New Synopsis", null, new ArrayList<Category>(),
+        setUp2();
+        Serie serie = new Serie(3, "New Serie", "New Synopsis", null, cat3,
                 new ArrayList<Season>());
-        assertTrue(serieController.add(serie));
-
+        assertEquals(false, serieController.add(serie1));
+        // assertTrue(serieController.add(serie));
     }
 
     @Test

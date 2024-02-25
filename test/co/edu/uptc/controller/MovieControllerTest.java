@@ -95,9 +95,13 @@ public class MovieControllerTest {
         setUp2();
         setUp3();
 
+        Movie movie = new Movie(333, "It", "payaso asusta ninios", Date.valueOf("2019-04-05"), cat3);
+
         assertEquals(false, movieController.add(m1));
         assertEquals(false, movieController.add(m2));
         assertEquals(true, movieController.add(m3));
+        assertEquals(false, movieController.add(m3));
+        assertEquals(false, movieController.add(movie));
 
     }
 

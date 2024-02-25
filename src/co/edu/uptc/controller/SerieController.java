@@ -33,8 +33,18 @@ public class SerieController {
 
     }
 
+    public boolean serieExists(Serie serie) {
+        if (serie == null) {
+            return false;
+        } else if (get(serie.getId()) == null) {
+            return false;
+        }
+
+        return true;
+    }
+
     public boolean add(Serie serie) {
-        if (categoriesExists(serie.getCategories())) {
+        if (categoriesExists(serie.getCategories()) && serieExists(serie) == false) {
             return this.persistence.persist(serie);
         } else {
             return false;
