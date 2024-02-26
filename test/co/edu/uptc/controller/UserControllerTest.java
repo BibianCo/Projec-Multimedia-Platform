@@ -134,11 +134,9 @@ public class UserControllerTest {
     @Test
     public void testLogin() {
         setUp2();
-
         assertEquals(false, userController.logIn("juferi2003@gmail.com", "asda"));
         assertEquals(true, userController.logIn("juferi2003@gmail.com", "78956"));
         assertEquals(true, userController.logIn("garcia2003@gmail.com", "7895"));
-
     }
 
     @Test
@@ -151,4 +149,38 @@ public class UserControllerTest {
         assertEquals(false, userController.renewSuscription(newSubscription, 23));
         assertEquals(false, userController.renewSuscription(newSubscription2, 10542820));
     }
+
+    @Test
+    public void testLoginSub () {
+        setUp2();
+        Plan plan = new Plan(12354, "gold", "juansd as", 45, 50);
+        PlanController planController = new PlanController(new InMemoryPersistence<Plan>());
+        planController.add(plan);
+
+        User user1 = new User(123, "juan", "fernandez", "juferi2003@gmail.com", "78956", new Role(1, "admin"));
+        User user2 = new User(1234, "laura", "garcia", "garcia2003@gmail.com", "7895", new Role(2, "admin"));
+        User user3 = new User(23, "juan", "fernandez", "juferi2003@gmail.com", "78956", new Role(8, "user"));
+        User user4 = new User(10542820, "carlos", "alberto", "carlos@gmail", "asdas53", new Role(5, "user"));
+
+        Subscription subs1 = new Subscription(4, new Plan(0, "prem", "30 dias adicionales", 7000, 30), user3);
+        Subscription subs2 = new Subscription(1, plan, user3);
+
+        subscriptionController.add(subs1);
+        subscriptionController.add(subs2);
+
+        user4.setSubscription(subs1);
+        user3.setSubscription(subs2);
+
+        subs2.setDateStart(LocalDate.now());
+        subscriptionController.setEndDate(subs2);
+
+        subs1.setDateStart(LocalDate.of(2021, 02, 02));
+        subscriptionController.setEndDate(subs1);
+
+        userController.add(user1);
+        userController.add(user2);
+        userController.add(user3);
+        userController.add(user4);
+    }
 }
+

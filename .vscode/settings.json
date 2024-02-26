@@ -1,12 +1,10 @@
 {
-    "java.project.sourcePaths": [
-        "src",
-        "test"
-    ],
-    "java.project.outputPath": "bin",
-    "java.project.referencedLibraries": [
-        "lib/**/*.jar",
-        "c:\\Users\\bibia\\Documents\\ProjectsVScode\\gson-2.10.1.jar",
-        "c:\\Users\\juan3\\Downloads\\gson-2.10.1.jar"
-    ]
+  "java.project.sourcePaths": ["src", "test"],
+  "java.project.outputPath": "bin",
+  "java.project.referencedLibraries": [
+    "lib/**/*.jar",
+    "c:\\Users\\bibia\\Documents\\ProjectsVScode\\gson-2.10.1.jar",
+    "c:\\Users\\juan3\\Downloads\\gson-2.10.1.jar",
+    "c:\\Users\\angar\\Downloads\\gson-2.10.1.jar"
+  ]
 }
