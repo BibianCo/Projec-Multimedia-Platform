@@ -12,7 +12,7 @@ import org.junit.Test;
 
 import co.edu.uptc.model.Category;
 import co.edu.uptc.model.Movie;
-import co.edu.uptc.persistence.FileManagement;
+import co.edu.uptc.persistence.FilePersistence;
 import co.edu.uptc.persistence.InMemoryPersistence;
 import co.edu.uptc.persistence.Persistence;
 
@@ -20,7 +20,7 @@ public class MovieControllerTest {
     public static MovieController movieController;
     public static InMemoryPersistence<Movie> inMemoryPersistence;
     public static InMemoryPersistence<Category> impc;
-    public static FileManagement<Movie> fileManagement;
+    public static FilePersistence<Movie> fileManagement;
     public static CategoryController categoryController;
 
     public static ArrayList<Category> cat1 = new ArrayList<>();
@@ -37,7 +37,7 @@ public class MovieControllerTest {
         impc = new InMemoryPersistence<Category>();
         categoryController = new CategoryController(impc);
         movieController = new MovieController(inMemoryPersistence, categoryController);
-        fileManagement = new FileManagement<Movie>(Movie.class, "Movie");
+        fileManagement = new FilePersistence<Movie>(Movie.class, "Movie");
 
         Category c1 = new Category(122, "Romance");
         Category c2 = new Category(123, "Drama");

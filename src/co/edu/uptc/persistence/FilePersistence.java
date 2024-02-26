@@ -15,9 +15,10 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.stream.JsonReader;
 
+import co.edu.uptc.model.Entity;
 import co.edu.uptc.model.Plan;
 
-public class FileManagement<T> implements Persistence<T> {
+public class FilePersistence<T> implements Persistence<T> {
     private Type classType;
     private File file;
     private Gson gson;
@@ -27,7 +28,7 @@ public class FileManagement<T> implements Persistence<T> {
     private static final String fileExtension = ".json";
     private String fileName;
 
-    public FileManagement(Type classType, String fileName) {
+    public FilePersistence(Type classType, String fileName) {
         this.classType = classType;
         this.fileName = fileName;
     }
@@ -104,11 +105,37 @@ public class FileManagement<T> implements Persistence<T> {
 
     @Override
     public boolean erase(int id) {
+        ArrayList<T> result = obtainAll();
+        if (result != null) {
+            for (int i = 0; i < result.size(); i++) {
+                T obj = result.get(i);
+                if (obj instanceof Entity && ((Entity) obj).getId() == id) {
+                    result.remove(i);
+                    try {
+                        pw = new PrintWriter(new FileWriter(filePath + fileName + fileExtension));
+                        pw.println(gson.toJson(result));
+                        pw.close();
+                        return true;
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                        return false;
+                    }
+                }
+            }
+        }
         return false;
     }
 
     @Override
     public T obtainById(int id) {
+        ArrayList<T> result = obtainAll();
+        if (result != null) {
+            for (T obj : result) {
+                if (obj instanceof Entity && ((Entity) obj).getId() == id) {
+                    return obj;
+                }
+            }
+        }
         return null;
     }
 
