@@ -44,7 +44,7 @@ public class SerieController {
     }
 
     public boolean add(Serie serie) {
-        if (categoriesExists(serie.getCategories()) && serieExists(serie) == false) {
+        if (categoriesExists(serie.getCategories()) && serieExists(serie) == false && !serie.getSeasons().isEmpty()) {
             return this.persistence.persist(serie);
         } else {
             return false;
