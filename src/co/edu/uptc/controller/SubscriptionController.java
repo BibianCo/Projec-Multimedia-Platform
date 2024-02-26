@@ -75,7 +75,9 @@ public class SubscriptionController {
     }
 
     public boolean expireSubscription(Subscription subscription) {
+
         Subscription validateExpire = get(subscription.getId());
+        System.out.println(validateExpire.toString());
         LocalDate DayNow = LocalDate.now();
         if (validateExpire != null && subscription.getDateEnd() != null && subscription.getDateEnd().isBefore(DayNow)) {
             return true;

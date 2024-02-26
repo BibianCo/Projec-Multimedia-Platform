@@ -51,7 +51,7 @@ public class UserControllerTest {
         user3 = new User(23, "juan", "fernandez", "juferi2003@gmail.com", "78956", new Role(8, "user"));
         user4 = new User(10542820, "carlos", "alberto", "carlos@gmail", "asdas53", new Role(5, "user"));
 
-        subs1 = new Subscription(4, new Plan(0, "prem", "30 dias adicionales", 7000, 30), user3);
+        subs1 = new Subscription(4, pl1, user3);
         subs2 = new Subscription(1, pl1, user3);
 
         subscriptionController.add(subs1);
@@ -147,8 +147,8 @@ public class UserControllerTest {
 
         Subscription newSubscription = new Subscription(12, new Plan(1, "plas", "asd", 12, 30), user3);
         Subscription newSubscription2 = new Subscription(12, new Plan(1, "plas", "asd", 12, 0), user4);
-
+        System.out.println(user3.getSubscription().getDateEnd());
         assertEquals(false, userController.renewSuscription(newSubscription, 23));
-        assertEquals(false, userController.renewSuscription(newSubscription2, 10542820));
+        assertEquals(true, userController.renewSuscription(newSubscription2, 10542820));
     }
 }

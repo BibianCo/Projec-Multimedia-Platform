@@ -47,4 +47,10 @@ public class Subscription extends Entity {
         this.user = user;
     }
 
+    @Override
+    public String toString() {
+        return "Subscription [dateStart=" + dateStart + ", dateEnd=" + dateEnd + ", plan=" + plan + ", user=" + user
+                + "]";
+    }
+
 }
