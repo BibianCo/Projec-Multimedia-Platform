@@ -3,19 +3,22 @@ package co.edu.uptc.controller;
 import java.util.ArrayList;
 
 import co.edu.uptc.model.Episode;
+import co.edu.uptc.model.Season;
 import co.edu.uptc.persistence.Persistence;
 
 public class EpisodeController {
 
     private Persistence<Episode> persistence;
+    private SeasonController seasonController;
 
-    public EpisodeController(Persistence<Episode> persistence) {
+    public EpisodeController(Persistence<Episode> persistence, SeasonController seasonController) {
         this.persistence = persistence;
+        this.seasonController = seasonController;
     }
 
     public boolean add(Episode episode) {
-        if (episode.getId() > 0 && episode.getDuration() > 0 && episode.getNumber() > 0
-                && get(episode.getId()) != null) {
+        if (episode.getId() > 0 && get(episode.getId()) == null && episode.getDuration() > 0 && episode.getNumber() > 0
+                && setEpisodeToSeason(episode.getIdSeason())) {
             return persistence.persist(episode);
         } else {
             return false;
@@ -43,6 +46,17 @@ public class EpisodeController {
         } else {
             return false;
         }
+    }
+
+    public boolean setEpisodeToSeason(int idSeason) {
+        Season season = seasonController.get(idSeason);
+        if (season != null) {
+            season.setEpisodes(getAll());
+            return true;
+        } else {
+            return false;
+        }
+
     }
 
 }
