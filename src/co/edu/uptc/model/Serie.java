@@ -12,10 +12,8 @@ public class Serie extends Multimedia {
         super();
     }
 
-    public Serie(int id, String title, String synopsis, Date releaseDate, ArrayList<Category> categories,
-            ArrayList<Season> seasons) {
+    public Serie(int id, String title, String synopsis, Date releaseDate, ArrayList<Category> categories) {
         super(id, title, synopsis, releaseDate);
-        this.seasons = seasons;
         this.categories = categories;
     }
 
@@ -23,8 +21,8 @@ public class Serie extends Multimedia {
         return seasons;
     }
 
-    public void setSeasons(ArrayList<Season> seasons) {
-        this.seasons = seasons;
+    public void setSeasons(Season season) {
+        seasons.add(season);
     }
 
     public ArrayList<Category> getCategories() {
@@ -32,7 +30,7 @@ public class Serie extends Multimedia {
     }
 
     public void setCategories(ArrayList<Category> categories) {
-        this.categories = categories;
+
     }
 
 }

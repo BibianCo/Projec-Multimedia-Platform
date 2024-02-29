@@ -2,23 +2,58 @@ package co.edu.uptc.controller;
 
 import static org.junit.Assert.assertEquals;
 
+import java.sql.Date;
+import java.time.LocalDate;
+import java.util.ArrayList;
+
 import org.junit.Before;
 import org.junit.Test;
 
 import co.edu.uptc.controller.EpisodeController;
+import co.edu.uptc.model.Category;
 import co.edu.uptc.model.Episode;
+import co.edu.uptc.model.Season;
+import co.edu.uptc.model.Serie;
 import co.edu.uptc.persistence.InMemoryPersistence;
 
 public class EpisodeControllerTest {
 
     private InMemoryPersistence<Episode> inMemoryPersistence;
     private EpisodeController episodeController;
+    private SeasonController seasonController;
+    private SerieController serieController;
+    private CategoryController categoryController;
+    private InMemoryPersistence<Episode> impe;
+    private InMemoryPersistence<Season> imps;
+    private InMemoryPersistence<Serie> impserie;
+    private InMemoryPersistence<Category> impc;
     private Episode ep1, ep2;
+    private Serie serie1, serie2;
 
     @Before
     public void setUp() {
         this.inMemoryPersistence = new InMemoryPersistence<>();
-        this.episodeController = new EpisodeController(inMemoryPersistence);
+        this.imps = new InMemoryPersistence<>();
+        this.impserie = new InMemoryPersistence<>();
+        this.impc = new InMemoryPersistence<>();
+        this.categoryController = new CategoryController(impc);
+        this.serieController = new SerieController(impserie, categoryController);
+        this.seasonController = new SeasonController(imps, serieController);
+        this.episodeController = new EpisodeController(impe, seasonController);
+
+        // adicionar categorias
+        ArrayList<Category> categories = new ArrayList<>();
+        Category category = new Category(1, "Romantica");
+        Category category2 = new Category(2, "Comedia");
+        categoryController.add(category);
+        categoryController.add(category2);
+        categories.add(category2);
+        categories.add(category2);
+
+        //
+        // adicionar serie
+
+        serie1 = new Serie(23, "antes de ti", "adsdasd", Date.valueOf(LocalDate.of(2023, 12, 45)), categories, null);
 
         this.ep1 = new Episode(1, 12, 45);
         this.ep2 = new Episode(2, 2, 45);
