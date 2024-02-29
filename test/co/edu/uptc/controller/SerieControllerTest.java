@@ -20,7 +20,11 @@ import co.edu.uptc.persistence.InMemoryPersistence;
 public class SerieControllerTest {
 
     public SerieController serieController;
+    public SeasonController seasonController;
+    public EpisodeController episodeController;
     public InMemoryPersistence<Serie> inMemoryPersistence;
+    public InMemoryPersistence<Episode> impe;
+    public InMemoryPersistence<Season> imps;
     public static InMemoryPersistence<Category> impc;
     public static CategoryController categoryController;
     private Serie serie1, serie2, serie3;
@@ -35,6 +39,10 @@ public class SerieControllerTest {
         impc = new InMemoryPersistence<Category>();
         categoryController = new CategoryController(impc);
         serieController = new SerieController(inMemoryPersistence, categoryController);
+        this.impe = new InMemoryPersistence<Episode>();
+        this.imps = new InMemoryPersistence<Season>();
+        this.episodeController = new EpisodeController(impe);
+        this.seasonController = new SeasonController(imps, episodeController);
     }
 
     public void setUp2() {
@@ -56,11 +64,18 @@ public class SerieControllerTest {
 
     @Test
     public void testAddSerie() {
-        setUp2();
-        Serie serie = new Serie(3, "New Serie", "New Synopsis", null, cat3,
-                new ArrayList<Season>());
-        assertEquals(false, serieController.add(serie1));
-        // assertTrue(serieController.add(serie));
+
+        ArrayList<Season> seasons = new ArrayList<>();
+        // ArrayList<Episode> episodes = new ArrayList<>();
+        // Season season = new Season(1, 1, episodes);
+        // seasonController.add(season);
+        // seasons.add(season);
+        // Episode episode = new Episode(1, 1, 45);
+        // episodeController.add(episode);
+        // episodes.add(episode);
+        Serie serie = new Serie(3, "New Serie", "New Synopsis", null, cat3, seasons);
+        assertEquals(true, serieController.add(serie));
+
     }
 
     @Test

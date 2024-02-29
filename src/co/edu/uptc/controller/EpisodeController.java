@@ -15,7 +15,7 @@ public class EpisodeController {
 
     public boolean add(Episode episode) {
         if (episode.getId() > 0 && episode.getDuration() > 0 && episode.getNumber() > 0
-                && get(episode.getId()) != null) {
+                && get(episode.getId()) == null) {
             return persistence.persist(episode);
         } else {
             return false;

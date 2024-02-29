@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import co.edu.uptc.model.Episode;
 import co.edu.uptc.model.Season;
+import co.edu.uptc.model.Serie;
 import co.edu.uptc.persistence.Persistence;
 
 public class SeasonController {
@@ -17,6 +18,7 @@ public class SeasonController {
     }
 
     public boolean add(Season season) {
+
         if (season != null && !season.getEpisodes().isEmpty() && get(season.getId()) == null) {
             return persistence.persist(season);
         } else {
