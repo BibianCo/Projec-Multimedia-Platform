@@ -5,58 +5,87 @@ import java.util.ArrayList;
 import co.edu.uptc.model.Movie;
 import co.edu.uptc.model.Multimedia;
 import co.edu.uptc.model.Serie;
-import co.edu.uptc.persistence.Persistence;
+import co.edu.uptc.model.User;
 
 public class ListReproduceController {
-    private Persistence<Multimedia> persistence;
     private MovieController movieController;
     private SerieController serieController;
+    private UserController userController;
 
     public ListReproduceController() {
     }
 
-    public ListReproduceController(Persistence<Multimedia> persistence, MovieController movieController,
-            SerieController serieController) {
-        this.persistence = persistence;
+    public ListReproduceController(MovieController movieController,
+            SerieController serieController, UserController userController) {
         this.movieController = movieController;
         this.serieController = serieController;
+        this.userController = userController;
     }
 
-    public boolean add(Multimedia multimedia) {
-        if (multimedia != null && get(multimedia.getId()) == null) {
-            if (multimedia instanceof Movie && movieController.movieExists((Movie) multimedia)) {
-                return persistence.persist(multimedia);
-            } else if (multimedia instanceof Serie && serieController.serieExists((Serie) multimedia)) {
-                return persistence.persist(multimedia);
+    public boolean add(Multimedia multimedia, int idUser) {
+
+        User user = userController.get(idUser);
+
+        if (multimedia == null || user == null) {
+            return false;
+        } else if (multimedia instanceof Movie && movieController.movieExists((Movie) multimedia)) {
+            user.getListPersonalized().add(multimedia);
+
+            return true;
+        } else if (multimedia instanceof Serie && serieController.serieExists((Serie) multimedia)) {
+            user.getListPersonalized().add(multimedia);
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    public boolean delete(int id, int idUser) {
+        User user = userController.get(idUser);
+        if (user != null) {
+            Multimedia deleteMultimedia = get(id, idUser);
+            if (deleteMultimedia != null) {
+                user.getListPersonalized().remove(deleteMultimedia);
+                return true;
             } else {
                 return false;
             }
-        } else {
-            return false;
         }
+        return false;
 
     }
 
-    public boolean delete(int id) {
-        return persistence.erase(id);
-    }
+    public Multimedia get(int id, int idUser) {
+        User user = userController.get(idUser);
+        if (user != null) {
+            for (Multimedia findMultimedia : user.getListPersonalized()) {
+                if (findMultimedia.getId() == id) {
+                    return findMultimedia;
+                }
 
-    public Multimedia get(int id) {
-        return persistence.obtainById(id);
-    }
-
-    public ArrayList<Multimedia> getAll() {
-        return persistence.obtainAll();
-    }
-
-    public boolean update(int id, Multimedia newsubscription) {
-        Multimedia currentMultimedia = get(id);
-        if (currentMultimedia != null && newsubscription != null) {
-            int index = getAll().indexOf(currentMultimedia);
-            return this.persistence.persist(index, newsubscription);
+            }
+            return null;
         } else {
-            return false;
+            return null;
         }
+    }
+
+    public ArrayList<Multimedia> getAll(int idUser) {
+        return userController.get(idUser).getListPersonalized();
+    }
+
+    public boolean update(int id, Multimedia newSubscription, int idUser) {
+        User user = userController.get(idUser);
+        if (user != null && newSubscription != null) {
+            ArrayList<Multimedia> personalizedList = user.getListPersonalized();
+            for (int i = 0; i < personalizedList.size(); i++) {
+                if (personalizedList.get(i).getId() == id) {
+                    personalizedList.set(i, newSubscription);
+                    return true;
+                }
+            }
+        }
+        return false;
     }
 
 }

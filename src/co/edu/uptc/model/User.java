@@ -1,5 +1,7 @@
 package co.edu.uptc.model;
 
+import java.util.ArrayList;
+
 public class User extends Entity {
 
     private String firstName;
@@ -8,6 +10,7 @@ public class User extends Entity {
     private String password;
     private Role role;
     private Subscription subscription;
+    private ArrayList<Multimedia> listPersonalized = new ArrayList<>();
 
     public User(int id, String firstName, String lastName, String email, String password, Role role,
             Subscription subscription) {
@@ -86,6 +89,14 @@ public class User extends Entity {
 
     public void setSubscription(Subscription subscription) {
         this.subscription = subscription;
+    }
+
+    public ArrayList<Multimedia> getListPersonalized() {
+        return listPersonalized;
+    }
+
+    public void setListPersonalized(ArrayList<Multimedia> listPersonalized) {
+        this.listPersonalized = listPersonalized;
     }
 
 }
