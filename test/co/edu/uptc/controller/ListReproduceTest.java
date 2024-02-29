@@ -59,7 +59,7 @@ public class ListReproduceTest {
         categoryController = new CategoryController(impc);
         serieController = new SerieController(imps, categoryController);
         movieController = new MovieController(impm, categoryController);
-        userController = new UserController(impu);
+        userController = new UserController(impu, subscriptionController);
         listReproduceController = new ListReproduceController(movieController, serieController,
                 userController);
 
