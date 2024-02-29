@@ -18,7 +18,7 @@ public class EpisodeController {
 
     public boolean add(Episode episode) {
         if (episode.getId() > 0 && get(episode.getId()) == null && episode.getDuration() > 0 && episode.getNumber() > 0
-                && setEpisodeToSeason(episode.getIdSeason())) {
+                && setEpisodeToSeason(episode.getIdSeason(), episode)) {
             return persistence.persist(episode);
         } else {
             return false;
@@ -48,10 +48,10 @@ public class EpisodeController {
         }
     }
 
-    public boolean setEpisodeToSeason(int idSeason) {
+    public boolean setEpisodeToSeason(int idSeason, Episode episode) {
         Season season = seasonController.get(idSeason);
         if (season != null) {
-            season.setEpisodes(getAll());
+            season.setEpisodes(episode);
             return true;
         } else {
             return false;

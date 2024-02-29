@@ -5,7 +5,7 @@ import java.util.Date;
 
 public class Serie extends Multimedia {
 
-    private ArrayList<Season> seasons;
+    private ArrayList<Season> seasons = new ArrayList<>();
     private ArrayList<Category> categories;
 
     public Serie() {

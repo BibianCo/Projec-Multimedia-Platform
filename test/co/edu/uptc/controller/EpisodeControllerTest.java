@@ -28,74 +28,87 @@ public class EpisodeControllerTest {
     private InMemoryPersistence<Serie> impserie;
     private InMemoryPersistence<Category> impc;
     private Episode ep1, ep2;
-    private Serie serie1, serie2;
+    private Serie serie, serie2;
+    private Season season, season2;
 
     @Before
     public void setUp() {
-        this.inMemoryPersistence = new InMemoryPersistence<>();
+        this.impe = new InMemoryPersistence<>();
         this.imps = new InMemoryPersistence<>();
         this.impserie = new InMemoryPersistence<>();
         this.impc = new InMemoryPersistence<>();
+
         this.categoryController = new CategoryController(impc);
         this.serieController = new SerieController(impserie, categoryController);
         this.seasonController = new SeasonController(imps, serieController);
         this.episodeController = new EpisodeController(impe, seasonController);
 
         // adicionar categorias
-        ArrayList<Category> categories = new ArrayList<>();
         Category category = new Category(1, "Romantica");
         Category category2 = new Category(2, "Comedia");
         categoryController.add(category);
         categoryController.add(category2);
-        categories.add(category2);
-        categories.add(category2);
 
-        //
         // adicionar serie
+        serie = new Serie(23, "antes de ti", "adsdasd", Date.valueOf("2003-02-03"),
+                categoryController.getAll());
+        serieController.add(serie);
+        serie2 = new Serie(234, "antes de ti", "adsdasd", Date.valueOf(LocalDate.of(2023, 12, 05)),
+                categoryController.getAll());
+        serieController.add(serie2);
 
-        serie1 = new Serie(23, "antes de ti", "adsdasd", Date.valueOf(LocalDate.of(2023, 12, 45)), categories, null);
+        ;
+        // adicionar Season
+        season = new Season(1, 1, 23);
+        seasonController.add(season);
 
-        this.ep1 = new Episode(1, 12, 45);
-        this.ep2 = new Episode(2, 2, 45);
-
+        // adicionar episode
+        ep1 = new Episode(321, 1, 45, 1);
+        ep2 = new Episode(232, 2, 78, 1);
         episodeController.add(ep1);
         episodeController.add(ep2);
+
     }
 
     @Test
     public void addTest() {
-        Episode episode = new Episode(45, 7, 45);
-        Episode episode2 = new Episode(0, 7, 45);
+        serie = new Serie(223, "antes de ti", "adsdasd", Date.valueOf(LocalDate.of(2023, 12, 05)),
+                categoryController.getAll());
+        serieController.add(serie);
+        Season season = new Season(1, 1, 223);
+        Episode episode = new Episode(12, 1, 45, 1);
+        Episode episode2 = new Episode(23, 1, 45, 1);
 
         assertEquals(true, episodeController.add(episode));
+        assertEquals(true, episodeController.add(episode2));
         assertEquals(false, episodeController.add(episode2));
     }
 
     @Test
     public void deleteTest() {
         setUp();
-        assertEquals(true, episodeController.delete(1));
-        assertEquals(false, episodeController.delete(12321));
+        assertEquals(true, episodeController.delete(321));
+        assertEquals(false, episodeController.delete(321));
     }
 
     @Test
     public void getTest() {
         setUp();
-        assertEquals(ep1.getDuration(), episodeController.get(1).getDuration());
+        assertEquals(ep1.getDuration(), episodeController.get(321).getDuration());
         assertEquals(null, episodeController.get(23323));
     }
 
     @Test
     public void getAllTest() {
         setUp();
-        assertEquals(1, episodeController.getAll().get(0).getId());
-        assertEquals(2, episodeController.getAll().get(1).getId());
+        assertEquals(321, episodeController.getAll().get(0).getId());
+        assertEquals(232, episodeController.getAll().get(1).getId());
     }
 
     @Test
     public void update() {
-        Episode episode = new Episode(23, 12, 78);
 
+        Episode episode = new Episode(23245, 2, 78, 1);
         assertEquals(true, episodeController.update(1, episode));
     }
 

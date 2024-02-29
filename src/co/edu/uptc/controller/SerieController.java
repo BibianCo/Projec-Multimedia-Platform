@@ -2,6 +2,7 @@ package co.edu.uptc.controller;
 
 import java.util.ArrayList;
 import co.edu.uptc.model.Category;
+import co.edu.uptc.model.Season;
 import co.edu.uptc.model.Serie;
 import co.edu.uptc.persistence.Persistence;
 
@@ -44,7 +45,7 @@ public class SerieController {
     }
 
     public boolean add(Serie serie) {
-        if (categoriesExists(serie.getCategories()) && serieExists(serie) == false && !serie.getSeasons().isEmpty()) {
+        if (categoriesExists(serie.getCategories()) && serieExists(serie) == false) {
             return this.persistence.persist(serie);
         } else {
             return false;
@@ -106,6 +107,15 @@ public class SerieController {
         } else {
             return null;
         }
+
+    }
+
+    public boolean setSeason(Serie serie, Season season) {
+        if (serie != null && season != null) {
+            serie.setSeasons(season);
+            return true;
+        }
+        return false;
 
     }
 }

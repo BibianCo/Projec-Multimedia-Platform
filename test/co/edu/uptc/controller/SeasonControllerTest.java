@@ -11,86 +11,93 @@ import org.junit.Test;
 
 import co.edu.uptc.controller.EpisodeController;
 import co.edu.uptc.controller.SeasonController;
+import co.edu.uptc.model.Category;
 import co.edu.uptc.model.Episode;
 import co.edu.uptc.model.Season;
+import co.edu.uptc.model.Serie;
 import co.edu.uptc.persistence.InMemoryPersistence;
 
 public class SeasonControllerTest {
 
     private InMemoryPersistence<Season> inMemoryPersistence;
-    private InMemoryPersistence<Episode> impe;
+    private InMemoryPersistence<Serie> imps;
+    private InMemoryPersistence<Category> impc;
+    private CategoryController categoryController;
+    private SerieController serieController;
     private SeasonController seasonController;
-    private EpisodeController episodeController;
     private Season season1, season2, season3;
-    private Episode episode1, episode2;
-    private ArrayList<Episode> episodes;
 
     @Before
     public void setUp() {
-        this.inMemoryPersistence = new InMemoryPersistence<Season>();
-        this.impe = new InMemoryPersistence<Episode>();
-        this.episodeController = new EpisodeController(impe);
-        this.seasonController = new SeasonController(inMemoryPersistence, episodeController);
-        this.episodes = new ArrayList<>();
-        episode1 = new Episode(1, 1, 30);
-        episode2 = new Episode(2, 2, 45);
-        episodes.add(episode1);
-        episodes.add(episode2);
+        this.inMemoryPersistence = new InMemoryPersistence<>();
+        this.imps = new InMemoryPersistence<>();
+        this.impc = new InMemoryPersistence<>();
+        this.categoryController = new CategoryController(impc);
+        this.serieController = new SerieController(imps, categoryController);
+        this.seasonController = new SeasonController(inMemoryPersistence, serieController);
+        Category category = new Category(1, "terror");
+        categoryController.add(category);
 
-        season1 = new Season(1, 1, episodes);
-        season2 = new Season(2, 2, episodes);
-        season3 = new Season(3, 3, new ArrayList<>());
+        Serie serie = new Serie(23, "as", "ad", null, categoryController.getAll());
+        serieController.add(serie);
+
+        Season season = new Season(1123, 1, 23);
+        Season season1 = new Season(2323, 2, 83);
+        Season season2 = new Season(2321, 3, 23);
+
+        seasonController.add(season);
         seasonController.add(season1);
         seasonController.add(season2);
-        seasonController.add(season3);
-
     }
 
     @Test
     public void addTest() {
-        ArrayList<Episode> episodes = new ArrayList<>();
-        Episode episode = new Episode(12, 1, 56);
-        episodeController.add(episode);
-        episodes.add(episode);
-        Season season = new Season(1123, 1, episodes);
-        Season season1 = new Season(1123, 1, episodes);
 
-        System.out.println(season.toString());
+        Category category = new Category(1, "terror");
+        categoryController.add(category);
+
+        Serie serie = new Serie(23, "as", "ad", null, categoryController.getAll());
+
+        serieController.add(serie);
+        Season season = new Season(11123, 1, 23);
+        Season season1 = new Season(21323, 2, 83);
+        Season season2 = new Season(23121, 3, 23);
 
         assertEquals(true, seasonController.add(season));
         assertFalse(seasonController.add(season1));
         assertEquals(false, seasonController.add(null));
-
+        assertEquals(false, seasonController.add(season1));
+        assertEquals(true, seasonController.add(season2));
     }
 
     @Test
     public void deleteTest() {
         setUp();
-        assertEquals(true, seasonController.delete(1));
-        assertEquals(false, seasonController.delete(234234));
+        assertEquals(true, seasonController.delete(1123));
+        assertEquals(false, seasonController.delete(2323));
         assertFalse(seasonController.delete(-5));
     }
 
     @Test
     public void getTest() {
         setUp();
-        assertEquals(1, seasonController.get(1).getNumber());
+        assertEquals(3, seasonController.get(2321).getNumber());
         assertNull(seasonController.get(1323));
-        assertEquals(30, seasonController.get(2).getEpisodes().get(0).getDuration());
+        assertEquals(1, seasonController.get(1123).getNumber());
     }
 
     @Test
     public void getAllTest() {
         setUp();
 
-        assertEquals(1, seasonController.getAll().get(0).getId());
-        assertEquals(2, seasonController.getAll().get(1).getId());
+        assertEquals(1123, seasonController.getAll().get(0).getId());
+        assertEquals(3, seasonController.getAll().get(1).getNumber());
     }
 
     @Test
     public void update() {
-        Season season = new Season(45, 78, episodes);
-        assertEquals(true, seasonController.update(1, season));
+        Season season = new Season(45, 78, 23);
+        assertEquals(true, seasonController.update(1123, season));
         assertEquals(45, seasonController.get(45).getId());
     }
 

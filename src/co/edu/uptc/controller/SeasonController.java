@@ -16,8 +16,8 @@ public class SeasonController {
     }
 
     public boolean add(Season season) {
-        if (season != null && !season.getEpisodes().isEmpty() && get(season.getId()) == null
-                && serieController.get(season.getIdSerie()) != null && setSeasonToSerie(season.getIdSerie())) {
+        if (season != null && get(season.getId()) == null
+                && serieController.get(season.getIdSerie()) != null && setSeasonToSerie(season.getIdSerie(), season)) {
             return persistence.persist(season);
         } else {
             return false;
@@ -47,10 +47,10 @@ public class SeasonController {
         }
     }
 
-    public boolean setSeasonToSerie(int idSerie) {
+    public boolean setSeasonToSerie(int idSerie, Season season) {
         Serie serie = serieController.get(idSerie);
         if (serie != null) {
-            serie.setSeasons(getAll());
+            serie.setSeasons(season);
             return true;
         } else {
             return false;
