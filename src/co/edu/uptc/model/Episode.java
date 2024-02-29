@@ -4,14 +4,16 @@ public class Episode extends Entity {
 
     private int number;
     private int duration;
+    private int idSeason;
 
     public Episode() {
     }
 
-    public Episode(int id, int number, int duration) {
+    public Episode(int id, int number, int duration, int idSeason) {
         super(id);
         this.number = number;
         this.duration = duration;
+        this.idSeason = idSeason;
     }
 
     public int getId() {
@@ -38,9 +40,17 @@ public class Episode extends Entity {
         this.duration = duration;
     }
 
+    public int getIdSeason() {
+        return idSeason;
+    }
+
+    public void setIdSeason(int idSeason) {
+        this.idSeason = idSeason;
+    }
+
     @Override
     public String toString() {
-        return "Episode [id=" + id + ", number=" + number + ", duration=" + duration + "]";
+        return "Episode [number=" + number + ", duration=" + duration + ", idSeason=" + idSeason + "]";
     }
 
 }

@@ -30,7 +30,7 @@ public class FilePersistenceTest {
     }
 
     @Test
-    public void obtainAll() {
+    public void testObtainAll() {
         assertEquals(1, fileManagement.obtainAll().get(0).getId());
         assertEquals("Carla", fileManagement.obtainAll().get(1).getNamePlan());
         assertEquals(4, fileManagement.obtainAll().get(3).getId());

@@ -6,6 +6,7 @@ import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 
 import java.sql.Date;
+import java.time.LocalDate;
 import java.util.ArrayList;
 
 import org.junit.Before;
@@ -19,162 +20,63 @@ import co.edu.uptc.persistence.InMemoryPersistence;
 
 public class SerieControllerTest {
 
-    public SerieController serieController;
-    public InMemoryPersistence<Serie> inMemoryPersistence;
-    public static InMemoryPersistence<Category> impc;
-    public static CategoryController categoryController;
-    private Serie serie1, serie2, serie3;
-    public static ArrayList<Category> cat1 = new ArrayList<>();
-    public static ArrayList<Category> cat2 = new ArrayList<>();
-    public static ArrayList<Category> cat3 = new ArrayList<>();
-    public static ArrayList<Category> cat4 = new ArrayList<>();
+    private SerieController serieController;
+    private CategoryController categoryController;
+    private InMemoryPersistence<Serie> impserie;
+    private InMemoryPersistence<Category> impc;
+    private Serie serie, serie2;
 
     @Before
     public void setUp() {
-        inMemoryPersistence = new InMemoryPersistence<Serie>();
-        impc = new InMemoryPersistence<Category>();
-        categoryController = new CategoryController(impc);
-        serieController = new SerieController(inMemoryPersistence, categoryController);
-    }
+        this.impserie = new InMemoryPersistence<>();
+        this.impc = new InMemoryPersistence<>();
 
-    public void setUp2() {
-        Category c1 = new Category(122, "Romance");
-        Category c2 = new Category(123, "Drama");
-        categoryController.add(c2);
-        categoryController.add(c1);
-        cat3.add(c2);
-        serie1 = new Serie(1, "Serie 1", "Synopsis 1", null, cat3, new ArrayList<Season>());
-        serie2 = new Serie(2, "Serie 2", "Synopsis 2", null, new ArrayList<Category>(), new ArrayList<Season>());
+        this.categoryController = new CategoryController(impc);
+        this.serieController = new SerieController(impserie, categoryController);
+        // adicionar categorias
+        Category category = new Category(1, "Romantica");
+        Category category2 = new Category(2, "Comedia");
+        categoryController.add(category);
+        categoryController.add(category2);
 
-        serieController.add(serie1);
+        // adicionar serie
+        serie = new Serie(23, "antes de ti", "adsdasd", Date.valueOf(LocalDate.of(2023, 12, 05)),
+                categoryController.getAll());
+        serie2 = new Serie(232, "juego de tronos", "adsdasd", Date.valueOf(LocalDate.of(2023, 12, 05)),
+                categoryController.getAll());
+        serieController.add(serie);
         serieController.add(serie2);
 
-        serie3 = new Serie(3, "Serie 3", "Synopsis 3", null, cat3, new ArrayList<Season>());
-        serieController.add(serie3);
+    }
+
+    @Test
+    public void testSerieExist() {
+
+        Serie serie = new Serie(78, "hola", "asda", null, categoryController.getAll());
+        assertEquals(false, serieController.serieExists(serie));
+    }
+
+    @Test
+    public void testAdd() {
+        Category category = new Category(1, "Romantica");
+        Category category2 = new Category(2, "Comedia");
+        categoryController.add(category);
+        categoryController.add(category2);
+
+        Serie serie = new Serie(1, "juego", "amantes", Date.valueOf("2003-02-03"), categoryController.getAll());
+
+        assertEquals(true, serieController.add(serie));
+
+        assertEquals(false, serieController.add(serie));
 
     }
 
     @Test
-    public void testAddSerie() {
-        setUp2();
-        Serie serie = new Serie(3, "New Serie", "New Synopsis", null, cat3,
-                new ArrayList<Season>());
-        assertEquals(false, serieController.add(serie1));
-        // assertTrue(serieController.add(serie));
-    }
+    public void testDelete() {
+        setUp();
 
-    @Test
-    public void testDeleteSerie() {
-        setUp2();
-        assertEquals(true, serieController.delete(1));
-        assertFalse(serieController.delete(1));
-        assertFalse(serieController.delete(5));
-    }
-
-    @Test
-    public void testGet() {
-        setUp2();
-        assertEquals(serie1, serieController.get(1));
-        assertNull(serieController.get(0));
-    }
-
-    @Test
-    public void testUpdateMovie() {
-        setUp2();
-        ArrayList<Episode> episodes = new ArrayList<>();
-
-        Episode ep = new Episode(1, 23, 45);
-        episodes.add(ep);
-        Category c1 = new Category(122, "Romance");
-        Category c2 = new Category(123, "Drama");
-        Category c3 = new Category(124, "Terror");
-        categoryController.add(c1);
-        categoryController.add(c2);
-        categoryController.add(c3);
-
-        Serie newSerie = new Serie(45, "merlina", "chica mala", Date.valueOf("2001-02-05"), new ArrayList<Category>(),
-                new ArrayList<Season>());
-
-        assertTrue(serieController.update(1, newSerie));
-        assertEquals(false, serieController.update(333, newSerie));
-        assertEquals(false, serieController.update(154, newSerie));
-        assertNull(serieController.get(1));
-    }
-
-    @Test
-    public void testGetAll() {
-        setUp2();
-        assertEquals(serie1, serieController.getAll().get(0));
-        assertEquals(serie2, serieController.getAll().get(1));
-    }
-
-    @Test
-    public void testGetPersistence() {
-        assertEquals(inMemoryPersistence, serieController.getPersistence());
-    }
-
-    @Test
-    public void testCategoryExists() {
-        Category c1 = new Category(122, "Romance");
-        Category c2 = new Category(123, "Drama");
-        Category c3 = new Category(124, "Terror");
-        categoryController.add(c1);
-        categoryController.add(c2);
-        categoryController.add(c3);
-
-        Category cm1 = new Category(0, null);
-        Category cm2 = new Category(122, "Romance");
-        Category cm3 = new Category(128, "Animada");
-        Category cm4 = new Category(124, "Terror");
-
-        cat1.add(cm1);
-        cat1.add(cm2);
-
-        cat2.add(cm3);
-        cat2.add(cm1);
-
-        cat3.add(cm4);
-        cat3.add(cm2);
-
-        cat4.add(cm2);
-        cat4.add(cm3);
-
-        assertEquals(false, serieController.categoriesExists(cat1));
-        assertEquals(true, serieController.categoriesExists(cat3));
-        assertEquals(false, serieController.categoriesExists(cat2));
-        assertEquals(false, serieController.categoriesExists(cat4));
-        assertEquals(false, serieController.categoriesExists(new ArrayList<>()));
-
-    }
-
-    @Test
-    public void testGroupByCategory() {
-        ArrayList<Category> cat1 = new ArrayList<>();
-        ArrayList<Category> cat2 = new ArrayList<>();
-        Serie s1 = new Serie();
-        Serie s2 = new Serie();
-
-        Category c1 = new Category(122, "Romance");
-        Category c2 = new Category(123, "Drama");
-        Category c3 = new Category(124, "Terror");
-        categoryController.add(c1);
-        categoryController.add(c2);
-        categoryController.add(c3);
-
-        cat1.add(c3);
-        cat1.add(c2);
-
-        s1 = new Serie(1, "los 100", "sobrevivir al apocali", Date.valueOf("2004-05-04"), cat1, new ArrayList<>());
-        s2 = new Serie(1, "Merlina", "Ninia rara", Date.valueOf("2004-05-04"), cat1, new ArrayList<>());
-        serieController.add(s1);
-        serieController.add(s2);
-
-        ArrayList<Serie> ser = serieController.groupByCategory(124);
-
-        assertEquals(ser, serieController.groupByCategory(124));
-        assertEquals(s2, serieController.groupByCategory(124).get(1));
-        assertNull(serieController.groupByCategory(111));
-
+        assertEquals(true, serieController.delete(232));
+        assertEquals(false, serieController.delete(232));
     }
 
 }

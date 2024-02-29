@@ -4,16 +4,17 @@ import java.util.ArrayList;
 
 public class Season extends Entity {
     private int number;
-    private ArrayList<Episode> episodes;
+    private int idSerie;
+    private ArrayList<Episode> episodes = new ArrayList<>();
 
     public Season() {
 
     }
 
-    public Season(int id, int number, ArrayList<Episode> episodes) {
+    public Season(int id, int number, int idSerie) {
         super(id);
         this.number = number;
-        this.episodes = episodes;
+        this.idSerie = idSerie;
     }
 
     public int getId() {
@@ -32,17 +33,25 @@ public class Season extends Entity {
         this.number = number;
     }
 
-    @Override
-    public String toString() {
-        return "Season{" + "Id= " + id + ", Number= " + number + "}";
-    }
-
     public ArrayList<Episode> getEpisodes() {
         return episodes;
     }
 
-    public void setEpisodes(ArrayList<Episode> episodes) {
-        this.episodes = episodes;
+    public void setEpisodes(Episode episode) {
+        this.episodes.add(episode);
+    }
+
+    public int getIdSerie() {
+        return idSerie;
+    }
+
+    public void setIdSerie(int idSerie) {
+        this.idSerie = idSerie;
+    }
+
+    @Override
+    public String toString() {
+        return "Season [number=" + number + ", idSerie=" + idSerie + ", episodes=" + episodes + "]";
     }
 
 }
