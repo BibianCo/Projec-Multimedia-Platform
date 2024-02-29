@@ -1,8 +1,6 @@
 package co.edu.uptc.controller;
 
 import java.util.ArrayList;
-
-import co.edu.uptc.model.Episode;
 import co.edu.uptc.model.Season;
 import co.edu.uptc.model.Serie;
 import co.edu.uptc.persistence.Persistence;
@@ -10,16 +8,16 @@ import co.edu.uptc.persistence.Persistence;
 public class SeasonController {
 
     private Persistence<Season> persistence;
-    private EpisodeController episodeController;
+    private SerieController serieController;
 
-    public SeasonController(Persistence<Season> persistence, EpisodeController episodeController) {
+    public SeasonController(Persistence<Season> persistence, SerieController serieController) {
         this.persistence = persistence;
-        this.episodeController = episodeController;
+        this.serieController = serieController;
     }
 
     public boolean add(Season season) {
-
-        if (season != null && !season.getEpisodes().isEmpty() && get(season.getId()) == null) {
+        if (season != null && !season.getEpisodes().isEmpty() && get(season.getId()) == null
+                && serieController.get(season.getIdSerie()) != null && setSeasonToSerie(season.getIdSerie())) {
             return persistence.persist(season);
         } else {
             return false;
@@ -44,6 +42,16 @@ public class SeasonController {
         if (currentSeason != null) {
             int index = getAll().indexOf(currentSeason);
             return this.persistence.persist(index, newSeason);
+        } else {
+            return false;
+        }
+    }
+
+    public boolean setSeasonToSerie(int idSerie) {
+        Serie serie = serieController.get(idSerie);
+        if (serie != null) {
+            serie.setSeasons(getAll());
+            return true;
         } else {
             return false;
         }
