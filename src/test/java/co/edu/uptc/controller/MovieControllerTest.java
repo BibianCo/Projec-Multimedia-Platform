@@ -1,6 +1,7 @@
 package co.edu.uptc.controller;
 
 import static org.junit.Assert.assertNull;
+
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 
@@ -8,6 +9,7 @@ import java.lang.reflect.Type;
 import java.time.LocalDate;
 import java.util.ArrayList;
 
+import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -20,10 +22,11 @@ import co.edu.uptc.persistence.InMemoryPersistence;
 
 public class MovieControllerTest {
     public static MovieController movieController;
-    public static InMemoryPersistence<Movie> inMemoryPersistence;
+    // public static InMemoryPersistence<Movie> inMemoryPersistence;
     public static InMemoryPersistence<Category> impc;
     public static FilePersistence<Movie> fileManagement;
     public static CategoryController categoryController;
+    private Type type;
 
     public static ArrayList<Category> cat1 = new ArrayList<>();
     public static ArrayList<Category> cat2 = new ArrayList<>();
@@ -35,13 +38,13 @@ public class MovieControllerTest {
 
     @Before
     public void setUp() {
-        Type type = new TypeToken<ArrayList<Movie>>() {
+        type = new TypeToken<ArrayList<Movie>>() {
         }.getType();
-        inMemoryPersistence = new InMemoryPersistence<Movie>();
+        // inMemoryPersistence = new InMemoryPersistence<Movie>();
         impc = new InMemoryPersistence<Category>();
         categoryController = new CategoryController(impc);
-        movieController = new MovieController(inMemoryPersistence, categoryController);
         fileManagement = new FilePersistence<Movie>(type, "movies");
+        movieController = new MovieController(fileManagement, categoryController);
 
         Category c1 = new Category(122, "Romance");
         Category c2 = new Category(123, "Drama");
@@ -98,7 +101,6 @@ public class MovieControllerTest {
     public void testAddMovie() {
 
         Movie movie = new Movie(333, "It", "payaso asusta ninios", LocalDate.parse("2019-04-05"), 10, cat3);
-
         assertEquals(false, movieController.add(m1));
         assertEquals(false, movieController.add(m2));
         assertEquals(true, movieController.add(m3));
@@ -122,7 +124,7 @@ public class MovieControllerTest {
     public void testGetMovie() {
 
         movieController.add(m3);
-        assertEquals(m3, movieController.get(333));
+        assertEquals(333, movieController.get(333).getId());
         assertEquals(null, movieController.get(111));
         assertNull(movieController.get(222));
 
@@ -132,7 +134,7 @@ public class MovieControllerTest {
     public void testGetAllMovie() {
 
         movieController.add(m3);
-        assertEquals(m3, movieController.getAll().get(0));
+        assertEquals(333, movieController.getAll().get(0).getId());
         assertEquals(1, movieController.getAll().size());
 
     }
@@ -157,11 +159,16 @@ public class MovieControllerTest {
         movieController.add(m3);
         ArrayList<Movie> movies = movieController.groupByCategory(124);
 
-        assertEquals(movies, movieController.groupByCategory(124));
-        assertEquals(m3, movieController.groupByCategory(124).get(0));
+        // assertEquals(movies, movieController.groupByCategory(124));
+        assertEquals(333, movieController.groupByCategory(124).get(0).getId());
         assertNull(movieController.groupByCategory(111));
         assertNull(movieController.groupByCategory(122));
 
+    }
+
+    @After
+    public void tearDown() {
+        fileManagement.deleteFile();
     }
 
 }

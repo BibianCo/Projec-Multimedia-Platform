@@ -15,7 +15,12 @@ public class CategoryController {
     }
 
     public boolean add(Category category) {
-        return persistence.persist(category);
+        if (get(category.getId()) == null) {
+            return persistence.persist(category);
+        } else {
+            return false;
+        }
+
     }
 
     public boolean delete(int id) {

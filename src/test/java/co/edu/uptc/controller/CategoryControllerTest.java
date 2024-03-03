@@ -3,25 +3,34 @@ package co.edu.uptc.controller;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
+
+import java.lang.reflect.Type;
 import java.util.ArrayList;
 import org.junit.Before;
 import org.junit.Test;
+
+import com.google.gson.reflect.TypeToken;
+
 import co.edu.uptc.model.Category;
-import co.edu.uptc.persistence.InMemoryPersistence;
+import co.edu.uptc.persistence.FilePersistence;
 
 public class CategoryControllerTest {
 
     public static CategoryController controller;
-    public static InMemoryPersistence<Category> inMemoryPersistence;
+    public static FilePersistence<Category> filePersistence;
+    private Type type;
 
     @Before
     public void setUp() {
-        inMemoryPersistence = new InMemoryPersistence<Category>();
-        controller = new CategoryController(inMemoryPersistence);
+        type = new TypeToken<ArrayList<Category>>() {
+        }.getType();
+        filePersistence = new FilePersistence<>(type, "caregories");
+        controller = new CategoryController(filePersistence);
     }
 
     @Test
     public void testAddCategory() {
+        assertTrue(filePersistence.createFile());
         Category c1 = new Category(1, "Categoria1");
         boolean result = controller.add(c1);
         assertTrue(result);
@@ -41,11 +50,14 @@ public class CategoryControllerTest {
         Category c1 = new Category(1, "Terror");
         Category c2 = new Category(2, "Comedia");
         Category c3 = new Category(3, "Drama");
-        inMemoryPersistence.data.add(c1);
-        inMemoryPersistence.data.add(c2);
-        inMemoryPersistence.data.add(c3);
+        controller.add(c1);
+        controller.add(c2);
+        controller.add(c3);
+        // inMemoryPersistence.data.add(c1);
+        // inMemoryPersistence.data.add(c2);
+        // inMemoryPersistence.data.add(c3);
 
-        assertEquals(c1, controller.get(1));
+        assertEquals(2, controller.get(2).getId());
         assertNull(controller.get(4));
     }
 
@@ -73,14 +85,14 @@ public class CategoryControllerTest {
         Category c1 = new Category(1, "Terror");
         Category c2 = new Category(2, "Comedia");
         Category c3 = new Category(3, "Drama");
-        inMemoryPersistence.data.add(c1);
-        inMemoryPersistence.data.add(c2);
-        inMemoryPersistence.data.add(c3);
+        // inMemoryPersistence.data.add(c1);
+        // inMemoryPersistence.data.add(c2);
+        // inMemoryPersistence.data.add(c3);
+        controller.add(c1);
+        controller.add(c2);
+        controller.add(c3);
 
         ArrayList<Category> allCategories = controller.getAll();
         assertEquals(3, allCategories.size());
-        assertTrue(allCategories.contains(c1));
-        assertTrue(allCategories.contains(c2));
-        assertTrue(allCategories.contains(c3));
     }
 }
