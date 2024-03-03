@@ -84,7 +84,22 @@ public class FilePersistence<T> implements Persistence<T> {
     }
 
     @Override
-    public boolean persist(int index, Object saveData) {
+    public boolean persist(int index, T saveData) {
+        ArrayList<T> result = obtainAll();
+
+        if (index >= 0 && index < result.size()) {
+            result.set(index, saveData);
+            try {
+                pw = new PrintWriter(new FileWriter(filePath + file + fileExtension));
+                pw.println(gson.toJson(result, this.classType));
+                pw.close();
+                return true;
+            } catch (FileNotFoundException e) {
+                e.printStackTrace();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
         return false;
     }
 

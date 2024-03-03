@@ -75,6 +75,13 @@ public class FilePersistenceTest {
         filePersistence.deleteFile();
     }
 
+    @Test
+    public void testUpdate() {
+        setUp();
+        Plan plan = new Plan(1, "lll", "asd", 45, 12);
+        assertEquals(true, fileManagement.persist(0, plan));
+    }
+
     @After
     public void tearDown() {
         fileManagement.deleteFile();
