@@ -7,6 +7,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.lang.reflect.Type;
+import java.time.LocalDate;
 import java.util.ArrayList;
 
 import com.google.gson.Gson;
@@ -63,6 +64,7 @@ public class FilePersistence<T> implements Persistence<T> {
         if (value != null) {
             ArrayList<T> result = obtainAll();
             GsonBuilder gb = new GsonBuilder();
+            gb.registerTypeAdapter(LocalDate.class, new LocalDateAdapter());
             gb.setPrettyPrinting();
             gb.setDateFormat("YYYY-MM-DD");
             gson = gb.create();
@@ -127,9 +129,11 @@ public class FilePersistence<T> implements Persistence<T> {
     @Override
     public ArrayList<T> obtainAll() {
         ArrayList<T> result = new ArrayList<>();
-        gson = new Gson();
-        result = gson.fromJson(readFile(), this.classType);
 
+        GsonBuilder gb = new GsonBuilder();
+        gb.registerTypeAdapter(LocalDate.class, new LocalDateAdapter());
+        gson = gb.create();
+        result = gson.fromJson(readFile(), this.classType);
         if (result == null) {
             return new ArrayList<>();
         }
