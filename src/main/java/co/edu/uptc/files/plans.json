@@ -1,0 +1,16 @@
+[
+    {
+        "namePlan": "lll",
+        "description": "asd",
+        "price": 45,
+        "duration": 12,
+        "id": 1
+    },
+    {
+        "namePlan": "Plan 2",
+        "description": "Description 2",
+        "price": 200,
+        "duration": 45,
+        "id": 2
+    }
+]
