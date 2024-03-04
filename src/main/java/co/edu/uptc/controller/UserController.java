@@ -68,8 +68,12 @@ public class UserController {
     public boolean logIn(String email, String password) {
         ArrayList<User> users = getAll();
         for (User user : users) {
-            if (user.getEmail().equals(email) && user.getPassword().equals(password)) {
-                return true;
+            if (user.getSubscription() != null && !subscriptionController.expireSubscription(user.getSubscription())) {
+                if (user.getEmail().equals(email) && user.getPassword().equals(password)) {
+                    return true; 
+                } else {
+                    return false;
+                }
             }
         }
         return false;
