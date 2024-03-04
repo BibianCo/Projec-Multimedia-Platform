@@ -70,6 +70,7 @@ public class MovieControllerTest {
         cat4.add(cp2);
         cat4.add(cp3);
 
+        fileManagement.createFile();
         m1 = new Movie(111, "Titanic", "Jack y Ross un amor imposible", LocalDate.parse("2004-05-04"), 10, cat1);
         m2 = new Movie(222, "Pinocho", "padre e hijo", LocalDate.parse("2019-04-05"), 10, cat2);
         m3 = new Movie(333, "It", "payaso asusta ninios", LocalDate.parse("2019-04-05"), 10, cat3);
@@ -142,10 +143,9 @@ public class MovieControllerTest {
     @Test
     public void testUpdateMovie() {
 
-        movieController.add(m3);
         assertEquals(false, movieController.update(333, m1));
         assertEquals(false, movieController.update(154, m1));
-        assertEquals(true, movieController.update(333,
+        assertEquals(true, movieController.update(111,
                 new Movie(123, "Harry Potter", "trio de amigos", LocalDate.parse("2006-06-12"), 10, cat3)));
 
         assertEquals(false, movieController.update(333,

@@ -1,0 +1,50 @@
+[
+  {
+    "dateStart": "2024-03-03",
+    "dateEnd": "2024-04-22",
+    "plan": {
+      "namePlan": "gold",
+      "description": "juansd as",
+      "price": 45,
+      "duration": 50,
+      "id": 12354
+    },
+    "user": {
+      "firstName": "juan",
+      "lastName": "fernandez",
+      "email": "juferi2003@gmail.com",
+      "password": "78956",
+      "role": {
+        "name": "user",
+        "id": 8
+      },
+      "listPersonalized": [],
+      "id": 23
+    },
+    "id": 4
+  },
+  {
+    "dateStart": "2024-03-03",
+    "dateEnd": "2024-04-22",
+    "plan": {
+      "namePlan": "gold",
+      "description": "juansd as",
+      "price": 45,
+      "duration": 50,
+      "id": 12354
+    },
+    "user": {
+      "firstName": "juan",
+      "lastName": "fernandez",
+      "email": "juferi2003@gmail.com",
+      "password": "78956",
+      "role": {
+        "name": "user",
+        "id": 8
+      },
+      "listPersonalized": [],
+      "id": 23
+    },
+    "id": 1
+  }
+]
