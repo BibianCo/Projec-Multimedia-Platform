@@ -18,15 +18,15 @@ import com.google.gson.reflect.TypeToken;
 import co.edu.uptc.model.Category;
 import co.edu.uptc.model.Movie;
 import co.edu.uptc.persistence.FilePersistence;
-import co.edu.uptc.persistence.InMemoryPersistence;
 
 public class MovieControllerTest {
     public static MovieController movieController;
     // public static InMemoryPersistence<Movie> inMemoryPersistence;
-    public static InMemoryPersistence<Category> impc;
-    public static FilePersistence<Movie> fileManagement;
+    public static FilePersistence<Category> ifpc;
+    public static FilePersistence<Movie> inFilePersistence;
     public static CategoryController categoryController;
     private Type type;
+    private Type type2;
 
     public static ArrayList<Category> cat1 = new ArrayList<>();
     public static ArrayList<Category> cat2 = new ArrayList<>();
@@ -40,11 +40,18 @@ public class MovieControllerTest {
     public void setUp() {
         type = new TypeToken<ArrayList<Movie>>() {
         }.getType();
+        type2 = new TypeToken<ArrayList<Category>>() {
+        }.getType();
         // inMemoryPersistence = new InMemoryPersistence<Movie>();
-        impc = new InMemoryPersistence<Category>();
-        categoryController = new CategoryController(impc);
-        fileManagement = new FilePersistence<Movie>(type, "movies");
-        movieController = new MovieController(fileManagement, categoryController);
+        ifpc = new FilePersistence<>(type2, "categories");
+
+        categoryController = new CategoryController(ifpc);
+        inFilePersistence = new FilePersistence<Movie>(type, "movies");
+        movieController = new MovieController(inFilePersistence, categoryController);
+
+        // Create files
+        inFilePersistence.createFile();
+        ifpc.createFile();
 
         Category c1 = new Category(122, "Romance");
         Category c2 = new Category(123, "Drama");
@@ -76,13 +83,8 @@ public class MovieControllerTest {
     }
 
     @Test
-    public void createFileTest() {
-        assertEquals(true, fileManagement.createFile());
-    }
-
-    @Test
     public void readFileTest() {
-        assertFalse(fileManagement.readFile().toString().isEmpty());
+        assertFalse(inFilePersistence.readFile().toString().isEmpty());
     }
 
     @Test
@@ -142,10 +144,9 @@ public class MovieControllerTest {
     @Test
     public void testUpdateMovie() {
 
-        movieController.add(m3);
         assertEquals(false, movieController.update(333, m1));
         assertEquals(false, movieController.update(154, m1));
-        assertEquals(true, movieController.update(333,
+        assertEquals(true, movieController.update(111,
                 new Movie(123, "Harry Potter", "trio de amigos", LocalDate.parse("2006-06-12"), 10, cat3)));
 
         assertEquals(false, movieController.update(333,
@@ -168,7 +169,7 @@ public class MovieControllerTest {
 
     @After
     public void tearDown() {
-        fileManagement.deleteFile();
+        inFilePersistence.deleteFile();
+        ifpc.deleteFile();
     }
-
 }

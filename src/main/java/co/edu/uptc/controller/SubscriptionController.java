@@ -21,7 +21,6 @@ public class SubscriptionController {
 
     public boolean add(Subscription subscription) {
         if (subscription.getPlan() != null && !planController.planExists(subscription.getPlan())
-                && subscription.getUser() != null
                 && setStartDate(subscription) != null
                 && setEndDate(subscription) != null) {
             return persistence.persist(subscription);

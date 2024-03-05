@@ -10,10 +10,10 @@ public class User extends Entity {
     private String password;
     private Role role;
     private Subscription subscription;
-    private ArrayList<Multimedia> listPersonalized = new ArrayList<>();
+    private ArrayList<Multimedia> listPersonalized;
 
     public User(int id, String firstName, String lastName, String email, String password, Role role,
-            Subscription subscription) {
+            Subscription subscription, ArrayList<Multimedia> listPersonalized) {
         super(id);
         this.firstName = firstName;
         this.lastName = lastName;
@@ -21,6 +21,7 @@ public class User extends Entity {
         this.password = password;
         this.role = role;
         this.subscription = subscription;
+        this.listPersonalized = listPersonalized;
     }
 
     public User(int id, String firstName, String lastName, String email, String password, Role role) {
