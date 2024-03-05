@@ -3,42 +3,59 @@ package co.edu.uptc.controller;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
+import java.lang.reflect.Type;
 import java.time.LocalDate;
+import java.util.ArrayList;
 
 import org.junit.Before;
 import org.junit.Test;
+
+import com.google.gson.reflect.TypeToken;
 
 import co.edu.uptc.model.Category;
 import co.edu.uptc.model.Episode;
 import co.edu.uptc.model.Season;
 import co.edu.uptc.model.Serie;
-import co.edu.uptc.persistence.InMemoryPersistence;
+import co.edu.uptc.persistence.FilePersistence;
 
 public class EpisodeControllerTest {
     private EpisodeController episodeController;
     private SeasonController seasonController;
     private SerieController serieController;
     private CategoryController categoryController;
-    private InMemoryPersistence<Episode> impe;
-    private InMemoryPersistence<Season> imps;
-    private InMemoryPersistence<Serie> impserie;
-    private InMemoryPersistence<Category> impc;
+    private FilePersistence<Episode> impe;
+    private FilePersistence<Season> ifps;
+    private FilePersistence<Serie> ifpserie;
+    private FilePersistence<Category> ifpc;
     private Episode ep1, ep2;
     private Serie serie, serie2;
     private Season season;
 
     @Before
     public void setUp() {
-        this.impe = new InMemoryPersistence<>();
-        this.imps = new InMemoryPersistence<>();
-        this.impserie = new InMemoryPersistence<>();
-        this.impc = new InMemoryPersistence<>();
+        Type type = new TypeToken<ArrayList<Episode>>() {
+        }.getType();
+        Type type2 = new TypeToken<ArrayList<Season>>() {
+        }.getType();
+        Type type3 = new TypeToken<ArrayList<Serie>>() {
+        }.getType();
+        Type type4 = new TypeToken<ArrayList<Category>>() {
+        }.getType();
+        this.impe = new FilePersistence<>(type, "episodes");
+        this.ifps = new FilePersistence<>(type2, "seasons");
+        this.ifpserie = new FilePersistence<>(type3, "series");
+        this.ifpc = new FilePersistence<>(type4, "categories");
 
-        this.categoryController = new CategoryController(impc);
-        this.serieController = new SerieController(impserie, categoryController);
-        this.seasonController = new SeasonController(imps, serieController);
+        this.categoryController = new CategoryController(ifpc);
+        this.serieController = new SerieController(ifpserie, categoryController);
+        this.seasonController = new SeasonController(ifps, serieController);
         this.episodeController = new EpisodeController(impe, seasonController);
 
+        // create files
+        impe.createFile();
+        ifps.createFile();
+        ifpc.createFile();
+        ifpserie.createFile();
         // adicionar categorias
         Category category = new Category(1, "Romantica");
         Category category2 = new Category(2, "Comedia");

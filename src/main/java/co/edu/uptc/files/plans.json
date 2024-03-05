@@ -5,5 +5,12 @@
     "price": 45,
     "duration": 50,
     "id": 12354
+  },
+  {
+    "namePlan": "prem",
+    "description": "30 dias adicionales",
+    "price": 7000,
+    "duration": 30,
+    "id": 12
   }
 ]

@@ -5,7 +5,6 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 
-import java.io.File;
 import java.lang.reflect.Type;
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -15,13 +14,11 @@ import org.junit.Test;
 
 import com.google.gson.reflect.TypeToken;
 
-import co.edu.uptc.model.Movie;
 import co.edu.uptc.model.Plan;
 import co.edu.uptc.model.Role;
 import co.edu.uptc.model.Subscription;
 import co.edu.uptc.model.User;
 import co.edu.uptc.persistence.FilePersistence;
-import co.edu.uptc.persistence.InMemoryPersistence;
 
 public class UserControllerTest {
 
@@ -29,9 +26,9 @@ public class UserControllerTest {
     public PlanController planController;
     public Role role;
     public SubscriptionController subscriptionController;
-    public FilePersistence<Subscription> ims;
-    public FilePersistence<User> inMemoryPersistence;
-    public FilePersistence<Plan> imp;
+    public FilePersistence<Subscription> ifs;
+    public FilePersistence<User> inFilePersistence;
+    public FilePersistence<Plan> ifp;
 
     private User user1, user2, user3, user4;
     private Subscription subs1, subs2;
@@ -46,16 +43,17 @@ public class UserControllerTest {
         }.getType();
         Type type3 = new TypeToken<ArrayList<Plan>>() {
         }.getType();
-        this.inMemoryPersistence = new FilePersistence<>(type, "users");
-        this.ims = new FilePersistence<>(type2, "suscription");
-        this.imp = new FilePersistence<>(type3, "plans");
-        this.planController = new PlanController(imp);
-        subscriptionController = new SubscriptionController(ims, planController);
-        this.userController = new UserController(inMemoryPersistence, subscriptionController);
+        this.inFilePersistence = new FilePersistence<>(type, "users");
+        this.ifs = new FilePersistence<>(type2, "suscription");
+        this.ifp = new FilePersistence<>(type3, "plans");
+        this.planController = new PlanController(ifp);
+        subscriptionController = new SubscriptionController(ifs, planController);
+        this.userController = new UserController(inFilePersistence, subscriptionController);
 
-        ims.createFile();
-        inMemoryPersistence.createFile();
-        imp.createFile();
+        ifs.createFile();
+        inFilePersistence.createFile();
+        ifp.createFile();
+
         pl1 = new Plan(12354, "gold", "juansd as", 45, 50);
         planController.add(pl1);
 
@@ -64,8 +62,8 @@ public class UserControllerTest {
         user3 = new User(23, "juan", "fernandez", "juferi2003@gmail.com", "78956", new Role(8, "user"));
         user4 = new User(10542820, "carlos", "alberto", "carlos@gmail", "asdas53", new Role(5, "user"));
 
-        subs1 = new Subscription(4, pl1, user3);
-        subs2 = new Subscription(1, pl1, user3);
+        subs1 = new Subscription(4, pl1);
+        subs2 = new Subscription(1, pl1);
 
         subscriptionController.add(subs1);
         subscriptionController.add(subs2);
@@ -73,7 +71,7 @@ public class UserControllerTest {
         user4.setSubscription(subs1);
         user3.setSubscription(subs2);
 
-        // subs2.setDateStart(LocalDate.now());
+        subs2.setDateStart(LocalDate.now());
         subscriptionController.setEndDate(subs2);
 
         subs1.setDateStart(LocalDate.of(2021, 02, 02));
@@ -90,14 +88,18 @@ public class UserControllerTest {
     public void testAddUser() {
         User user = new User(26, "juan", "fernandez", "juferi2003@gmail.com", "78956", new Role(1, "user"));
 
-        Subscription sb = new Subscription(1, new Plan(12, "prem", "30 dias adicionales", 7000, 30), user);
+        Plan plan = new Plan(12, "prem", "30 dias adicionales", 7000, 30);
+
+        planController.add(plan);
+        Subscription sb = new Subscription(1, plan);
+        subscriptionController.add(sb);
         user.setSubscription(sb);
 
         User user1 = new User(123, "juan", "fernandez", "juferi2003@gmail.com", "78956", new Role(1, "admin"));
         User user2 = new User(123, "juan", "fernandez", "juferi2003@gmail.com", "78956", new Role(1, "admi"));
 
         assertFalse(userController.add(user2));
-        assertEquals(true, userController.add(user));
+        assertTrue(userController.add(user));
         assertTrue(userController.add(user1));
         assertEquals(user.getFirstName(), userController.get(26).getFirstName());
     }
@@ -137,7 +139,7 @@ public class UserControllerTest {
 
     @Test
     public void testGetPersistence() {
-        assertEquals(inMemoryPersistence, userController.getPersistence());
+        assertEquals(inFilePersistence, userController.getPersistence());
     }
 
     @Test
@@ -152,8 +154,8 @@ public class UserControllerTest {
     @Test
     public void testRenewSuscription() {
 
-        Subscription newSubscription = new Subscription(12, new Plan(1, "plas", "asd", 12, 30), user3);
-        Subscription newSubscription2 = new Subscription(12, new Plan(1, "plas", "asd", 12, 0), user4);
+        Subscription newSubscription = new Subscription(12, new Plan(1, "plas", "asd", 12, 30));
+        Subscription newSubscription2 = new Subscription(12, new Plan(1, "plas", "asd", 12, 0));
         System.out.println(user3.getSubscription().getDateEnd());
         assertEquals(false, userController.renewSuscription(newSubscription, 23));
         assertEquals(true, userController.renewSuscription(newSubscription2, 10542820));

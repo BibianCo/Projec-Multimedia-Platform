@@ -66,7 +66,6 @@ public class FilePersistence<T> implements Persistence<T> {
             GsonBuilder gb = new GsonBuilder();
             gb.registerTypeAdapter(LocalDate.class, new LocalDateAdapter());
             gb.setPrettyPrinting();
-            gb.setDateFormat("YYYY-MM-DD");
             gson = gb.create();
 
             try {

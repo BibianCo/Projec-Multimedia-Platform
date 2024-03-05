@@ -2,11 +2,14 @@ package co.edu.uptc.controller;
 
 import static org.junit.Assert.assertEquals;
 
+import java.lang.reflect.Type;
 import java.time.LocalDate;
 import java.util.ArrayList;
 
 import org.junit.Before;
 import org.junit.Test;
+
+import com.google.gson.reflect.TypeToken;
 
 import co.edu.uptc.model.Category;
 import co.edu.uptc.model.Movie;
@@ -16,7 +19,7 @@ import co.edu.uptc.model.Role;
 import co.edu.uptc.model.Serie;
 import co.edu.uptc.model.Subscription;
 import co.edu.uptc.model.User;
-import co.edu.uptc.persistence.InMemoryPersistence;
+import co.edu.uptc.persistence.FilePersistence;
 
 public class ListReproduceTest {
     public static ListReproduceController listReproduceController;
@@ -24,14 +27,14 @@ public class ListReproduceTest {
     public static MovieController movieController;
     public static CategoryController categoryController;
     public static UserController userController;
-    public static InMemoryPersistence<Movie> impm;
-    public static InMemoryPersistence<Serie> imps;
-    public static InMemoryPersistence<Category> impc;
-    public static InMemoryPersistence<User> impu;
+    public static FilePersistence<Movie> impm;
+    public static FilePersistence<Serie> imps;
+    public static FilePersistence<Category> impc;
+    public static FilePersistence<User> impu;
     public static SubscriptionController subscriptionController;
-    public static InMemoryPersistence<Subscription> impsb;
+    public static FilePersistence<Subscription> impsb;
     public static PlanController planController;
-    public static InMemoryPersistence<Plan> impp;
+    public static FilePersistence<Plan> impp;
     public static ArrayList<Category> cat1 = new ArrayList<>();
     public static Movie m1;
     public static Movie m2;
@@ -46,12 +49,26 @@ public class ListReproduceTest {
 
     @Before
     public void setUp() {
-        impm = new InMemoryPersistence<Movie>();
-        impc = new InMemoryPersistence<Category>();
-        imps = new InMemoryPersistence<Serie>();
-        impu = new InMemoryPersistence<User>();
-        impsb = new InMemoryPersistence<Subscription>();
-        impp = new InMemoryPersistence<Plan>();
+
+        Type type = new TypeToken<ArrayList<User>>() {
+        }.getType();
+        Type type2 = new TypeToken<ArrayList<Subscription>>() {
+        }.getType();
+        Type type3 = new TypeToken<ArrayList<Plan>>() {
+        }.getType();
+        Type type4 = new TypeToken<ArrayList<Movie>>() {
+        }.getType();
+        Type type5 = new TypeToken<ArrayList<Category>>() {
+        }.getType();
+        Type type6 = new TypeToken<ArrayList<Serie>>() {
+        }.getType();
+
+        impm = new FilePersistence<>(type4, "movies");
+        impc = new FilePersistence<>(type5, "categories");
+        imps = new FilePersistence<>(type6, "Serie");
+        impu = new FilePersistence<>(type, "users");
+        impsb = new FilePersistence<>(type2, "suscription");
+        impp = new FilePersistence<>(type3, "plan");
         planController = new PlanController(impp);
         subscriptionController = new SubscriptionController(impsb, planController);
         categoryController = new CategoryController(impc);
@@ -60,6 +77,14 @@ public class ListReproduceTest {
         userController = new UserController(impu, subscriptionController);
         listReproduceController = new ListReproduceController(movieController, serieController,
                 userController);
+
+        ArrayList<Multimedia> list = new ArrayList<>();
+        impc.createFile();
+        imps.createFile();
+        impu.createFile();
+        impsb.createFile();
+        impp.createFile();
+        impm.createFile();
 
         c1 = new Category(1, "romance");
         c2 = new Category(2, "drama");
@@ -72,12 +97,14 @@ public class ListReproduceTest {
         s1 = new Serie(1, "Merlina", "serie de netflix", LocalDate.of(2010, 05, 07), cat1);
         s2 = new Serie(2, "Etile", "serie de netflix", LocalDate.of(2019, 04, 05), cat1);
 
+        list.add(m1);
+        list.add(m2);
         plan = new Plan(1, "Basico", "Disfruta tu plataforma de Multimedia en tu smartphone", 39000, 30);
-        sbn = new Subscription(112, plan, u1);
-        u1 = new User(1, "bibian", "Corredor", "bibian@gmail.com", "bsnxsa455", new Role(1, "user"), sbn);
-        sbn = new Subscription(112, plan, u1);
+        sbn = new Subscription(112, plan);
+        u1 = new User(1, "bibian", "Corredor", "bibian@gmail.com", "bsnxsa455", new Role(1, "user"), sbn, list);
+        sbn = new Subscription(112, plan);
 
-        u2 = new User(2, "Alejandra", "Deaquiz", "Ale@gmail.com", "bsnxsa454", new Role(2, "user"), sbn);
+        u2 = new User(2, "Alejandra", "Deaquiz", "Ale@gmail.com", "bsnxsa454", new Role(2, "user"), sbn, list);
 
     }
 

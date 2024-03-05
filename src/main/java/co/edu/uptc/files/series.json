@@ -1,0 +1,36 @@
+[
+  {
+    "seasons": [],
+    "categories": [
+      {
+        "name": "Romantica",
+        "id": 1
+      },
+      {
+        "name": "Comedia",
+        "id": 2
+      }
+    ],
+    "title": "antes de ti",
+    "synopsis": "adsdasd",
+    "releaseDate": "2003-02-03",
+    "id": 23
+  },
+  {
+    "seasons": [],
+    "categories": [
+      {
+        "name": "Romantica",
+        "id": 1
+      },
+      {
+        "name": "Comedia",
+        "id": 2
+      }
+    ],
+    "title": "antes de ti",
+    "synopsis": "adsdasd",
+    "releaseDate": "2023-12-05",
+    "id": 234
+  }
+]

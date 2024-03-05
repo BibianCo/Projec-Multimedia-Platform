@@ -4,31 +4,50 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNull;
 
+import java.lang.reflect.Type;
+import java.util.ArrayList;
+
 import org.junit.Before;
 import org.junit.Test;
+
+import com.google.gson.reflect.TypeToken;
 
 import co.edu.uptc.model.Category;
 import co.edu.uptc.model.Season;
 import co.edu.uptc.model.Serie;
-import co.edu.uptc.persistence.InMemoryPersistence;
+import co.edu.uptc.persistence.FilePersistence;
 
 public class SeasonControllerTest {
 
-    private InMemoryPersistence<Season> inMemoryPersistence;
-    private InMemoryPersistence<Serie> imps;
-    private InMemoryPersistence<Category> impc;
+    private FilePersistence<Season> inFilePersistence;
+    private FilePersistence<Serie> ifps;
+    private FilePersistence<Category> ifpc;
     private CategoryController categoryController;
     private SerieController serieController;
     private SeasonController seasonController;
 
     @Before
     public void setUp() {
-        this.inMemoryPersistence = new InMemoryPersistence<>();
-        this.imps = new InMemoryPersistence<>();
-        this.impc = new InMemoryPersistence<>();
-        this.categoryController = new CategoryController(impc);
-        this.serieController = new SerieController(imps, categoryController);
-        this.seasonController = new SeasonController(inMemoryPersistence, serieController);
+
+        Type type = new TypeToken<ArrayList<Season>>() {
+        }.getType();
+        Type type2 = new TypeToken<ArrayList<Serie>>() {
+        }.getType();
+        Type type3 = new TypeToken<ArrayList<Category>>() {
+        }.getType();
+        this.inFilePersistence = new FilePersistence<>(type, "season");
+        this.ifps = new FilePersistence<>(type2, "serie");
+        this.ifpc = new FilePersistence<>(type3, "category");
+        this.categoryController = new CategoryController(ifpc);
+        this.serieController = new SerieController(ifps, categoryController);
+        this.seasonController = new SeasonController(inFilePersistence, serieController);
+
+        // create Files
+
+        inFilePersistence.createFile();
+        ifpc.createFile();
+        ifps.createFile();
+
         Category category = new Category(1, "terror");
         categoryController.add(category);
 

@@ -5,22 +5,32 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 
+import java.lang.reflect.Type;
+import java.util.ArrayList;
+
 import org.junit.Before;
 import org.junit.Test;
 
+import com.google.gson.reflect.TypeToken;
+
 import co.edu.uptc.model.Role;
-import co.edu.uptc.persistence.InMemoryPersistence;
+import co.edu.uptc.persistence.FilePersistence;
 
 public class RoleControllerTest {
 
-    public InMemoryPersistence<Role> inMemoryPersistence;
+    public FilePersistence<Role> inFilePersistence;
     public RoleController roleController;
     private Role admin, user;
 
     @Before
     public void setUp() {
-        inMemoryPersistence = new InMemoryPersistence<Role>();
-        roleController = new RoleController(inMemoryPersistence);
+        Type type = new TypeToken<ArrayList<Role>>() {
+        }.getType();
+
+        inFilePersistence = new FilePersistence<>(type, "role");
+        roleController = new RoleController(inFilePersistence);
+        // create FIles
+        inFilePersistence.createFile();
 
     }
 
@@ -69,12 +79,12 @@ public class RoleControllerTest {
     @Test
     public void testGetAll() {
         setUp2();
-        assertEquals(admin, roleController.getAll().get(0));
-        assertEquals(user, roleController.getAll().get(1));
+        assertEquals(admin.getName(), roleController.getAll().get(0).getName());
+        assertEquals(user.getId(), roleController.getAll().get(1).getId());
     }
 
     @Test
     public void testGetPersistence() {
-        assertEquals(inMemoryPersistence, roleController.getPersistence());
+        assertEquals(inFilePersistence, roleController.getPersistence());
     }
 }

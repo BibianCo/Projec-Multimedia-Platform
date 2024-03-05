@@ -1,0 +1,104 @@
+[
+  {
+    "firstName": "juan",
+    "lastName": "fernandez",
+    "email": "juferi2003@gmail.com",
+    "password": "78956",
+    "role": {
+      "name": "admin",
+      "id": 1
+    },
+    "id": 123
+  },
+  {
+    "firstName": "laura",
+    "lastName": "garcia",
+    "email": "garcia2003@gmail.com",
+    "password": "7895",
+    "role": {
+      "name": "admin",
+      "id": 2
+    },
+    "id": 1234
+  },
+  {
+    "firstName": "juan",
+    "lastName": "fernandez",
+    "email": "juferi2003@gmail.com",
+    "password": "78956",
+    "role": {
+      "name": "user",
+      "id": 8
+    },
+    "subscription": {
+      "dateStart": "2024-03-04",
+      "dateEnd": "2024-04-23",
+      "plan": {
+        "namePlan": "gold",
+        "description": "juansd as",
+        "price": 45,
+        "duration": 50,
+        "id": 12354
+      },
+      "id": 1
+    },
+    "id": 23
+  },
+  {
+    "firstName": "carlos",
+    "lastName": "alberto",
+    "email": "carlos@gmail",
+    "password": "asdas53",
+    "role": {
+      "name": "user",
+      "id": 5
+    },
+    "subscription": {
+      "dateStart": "2021-02-02",
+      "dateEnd": "2021-03-24",
+      "plan": {
+        "namePlan": "gold",
+        "description": "juansd as",
+        "price": 45,
+        "duration": 50,
+        "id": 12354
+      },
+      "id": 4
+    },
+    "id": 10542820
+  },
+  {
+    "firstName": "juan",
+    "lastName": "fernandez",
+    "email": "juferi2003@gmail.com",
+    "password": "78956",
+    "role": {
+      "name": "user",
+      "id": 1
+    },
+    "subscription": {
+      "dateStart": "2024-03-04",
+      "dateEnd": "2024-04-03",
+      "plan": {
+        "namePlan": "prem",
+        "description": "30 dias adicionales",
+        "price": 7000,
+        "duration": 30,
+        "id": 12
+      },
+      "id": 1
+    },
+    "id": 26
+  },
+  {
+    "firstName": "juan",
+    "lastName": "fernandez",
+    "email": "juferi2003@gmail.com",
+    "password": "78956",
+    "role": {
+      "name": "admin",
+      "id": 1
+    },
+    "id": 123
+  }
+]

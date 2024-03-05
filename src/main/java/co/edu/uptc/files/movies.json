@@ -1,0 +1,19 @@
+[
+  {
+    "duration": 10,
+    "categories": [
+      {
+        "name": "Terror",
+        "id": 124
+      },
+      {
+        "name": "Romance",
+        "id": 122
+      }
+    ],
+    "title": "It",
+    "synopsis": "payaso asusta ninios",
+    "releaseDate": "2019-04-05",
+    "id": 333
+  }
+]
