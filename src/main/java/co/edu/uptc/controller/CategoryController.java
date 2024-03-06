@@ -35,11 +35,18 @@ public class CategoryController {
         Category currentCategory = get(id);
 
         if (currentCategory != null) {
-            int index = getAll().indexOf(currentCategory);
-            return this.persistence.persist(index, newCategory);
+            int index = 0;
+            for (Category category : getAll()) {
+                if (category.getId() == id) {
+                    return this.persistence.persist(index, newCategory);
+                }
+                index++;
+            }
+
         } else {
             return false;
         }
+        return false;
 
     }
 

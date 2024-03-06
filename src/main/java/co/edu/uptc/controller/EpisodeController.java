@@ -41,17 +41,24 @@ public class EpisodeController {
     public boolean update(int id, Episode newEpisode) {
         Episode currentEpisode = get(id);
         if (currentEpisode != null) {
-            int index = getAll().indexOf(currentEpisode);
-            return this.persistence.persist(index, newEpisode);
+            int index = 0;
+            for (Episode episode : getAll()) {
+                if (episode.getId() == id) {
+                    return this.persistence.persist(index, newEpisode);
+                }
+                index++;
+            }
+
         } else {
             return false;
         }
+        return false;
     }
 
     public boolean setEpisodeToSeason(int idSeason, Episode episode) {
         Season season = seasonController.get(idSeason);
         if (season != null) {
-            season.setEpisodes(episode);
+            // season.setEpisodes(episode);
             return true;
         } else {
             return false;

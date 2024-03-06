@@ -11,6 +11,10 @@ public class Movie extends Multimedia {
 
     }
 
+    public Movie(int id, String title, String synopsis, LocalDate releaseDate) {
+        super(id, title, synopsis, releaseDate);
+    }
+
     public Movie(int id, String title, String synopsis, LocalDate releaseDate, int duration,
             ArrayList<Category> categories) {
         super(id, title, synopsis, releaseDate);

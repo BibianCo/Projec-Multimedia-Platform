@@ -12,15 +12,15 @@ public class Serie extends Multimedia {
         super();
     }
 
+    public Serie(int id, String title, String synopsis, LocalDate releaseDate) {
+        super(id, title, synopsis, releaseDate);
+    }
+
     public Serie(int id, String title, String synopsis, LocalDate releaseDate, ArrayList<Category> categories,
             ArrayList<Season> seasons) {
         super(id, title, synopsis, releaseDate);
         this.categories = categories;
         this.seasons = seasons;
-    }
-
-    public Serie(int id, String title, String synopsis, LocalDate releaseDate) {
-        super(id, title, synopsis, releaseDate);
     }
 
     public ArrayList<Season> getSeasons() {

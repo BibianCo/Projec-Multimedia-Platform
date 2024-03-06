@@ -67,12 +67,18 @@ public class MovieController {
     public boolean update(int id, Movie newMovie) {
         Movie currentMovie = get(id);
         if (currentMovie != null && categoriesExists(newMovie.getCategories())) {
-            int index = getAll().indexOf(currentMovie);
-            return this.persistence.persist(index, newMovie);
+            int index = 0;
+            for (Movie movie : getAll()) {
+                if (movie.getId() == id) {
+                    return this.persistence.persist(index, newMovie);
+                }
+                index++;
+            }
 
         } else {
             return false;
         }
+        return false;
     }
 
     public ArrayList<Movie> groupByCategory(int idCategory) {

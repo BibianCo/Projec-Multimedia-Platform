@@ -2,7 +2,7 @@ package co.edu.uptc.model;
 
 import java.time.LocalDate;
 
-public abstract class Multimedia extends Entity {
+public class Multimedia extends Entity {
 
     protected String title, synopsis;
     protected LocalDate releaseDate;

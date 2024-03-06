@@ -70,8 +70,8 @@ public class SerieControllerTest {
 
         assertTrue(seasonControllers.add(season));
         serie.setSeasons(seasonControllers.getAll());
-        System.out.println();
-        serieController.update(45, serie);
+
+        assertTrue(serieController.update(45, serie));
 
     }
 

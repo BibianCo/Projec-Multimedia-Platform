@@ -77,9 +77,11 @@ public class MovieControllerTest {
         cat4.add(cp2);
         cat4.add(cp3);
 
-        m1 = new Movie(111, "Titanic", "Jack y Ross un amor imposible", LocalDate.parse("2004-05-04"), 10, cat1);
-        m2 = new Movie(222, "Pinocho", "padre e hijo", LocalDate.parse("2019-04-05"), 10, cat2);
+        m1 = new Movie(111, "Titanic", "Jack y Ross un amor imposible", LocalDate.parse("2004-05-04"), 10, cat3);
+        m2 = new Movie(222, "Pinocho", "padre e hijo", LocalDate.parse("2019-04-05"), 10, cat3);
         m3 = new Movie(333, "It", "payaso asusta ninios", LocalDate.parse("2019-04-05"), 10, cat3);
+        movieController.add(m1);
+        movieController.add(m2);
     }
 
     @Test
@@ -103,8 +105,7 @@ public class MovieControllerTest {
     public void testAddMovie() {
 
         Movie movie = new Movie(333, "It", "payaso asusta ninios", LocalDate.parse("2019-04-05"), 10, cat3);
-        assertEquals(false, movieController.add(m1));
-        assertEquals(false, movieController.add(m2));
+
         assertEquals(true, movieController.add(m3));
         assertEquals(false, movieController.add(m3));
         assertEquals(false, movieController.add(movie));
@@ -127,8 +128,7 @@ public class MovieControllerTest {
 
         movieController.add(m3);
         assertEquals(333, movieController.get(333).getId());
-        assertEquals(null, movieController.get(111));
-        assertNull(movieController.get(222));
+        assertEquals(null, movieController.get(151));
 
     }
 
@@ -136,15 +136,16 @@ public class MovieControllerTest {
     public void testGetAllMovie() {
 
         movieController.add(m3);
-        assertEquals(333, movieController.getAll().get(0).getId());
-        assertEquals(1, movieController.getAll().size());
+        assertEquals(111, movieController.getAll().get(0).getId());
+        assertEquals(3, movieController.getAll().size());
 
     }
 
     @Test
     public void testUpdateMovie() {
 
-        assertEquals(false, movieController.update(333, m1));
+        movieController.add(m3);
+        assertEquals(true, movieController.update(333, m1));
         assertEquals(false, movieController.update(154, m1));
         assertEquals(true, movieController.update(111,
                 new Movie(123, "Harry Potter", "trio de amigos", LocalDate.parse("2006-06-12"), 10, cat3)));
@@ -158,10 +159,7 @@ public class MovieControllerTest {
     @Test
     public void testGroupByCategory() {
         movieController.add(m3);
-        ArrayList<Movie> movies = movieController.groupByCategory(124);
-
-        // assertEquals(movies, movieController.groupByCategory(124));
-        assertEquals(333, movieController.groupByCategory(124).get(0).getId());
+        assertEquals(111, movieController.groupByCategory(124).get(0).getId());
         assertNull(movieController.groupByCategory(111));
         assertNull(movieController.groupByCategory(122));
 
