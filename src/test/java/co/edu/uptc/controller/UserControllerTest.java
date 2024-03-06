@@ -162,17 +162,15 @@ public class UserControllerTest {
     }
 
     @Test
-    public void testLoginSub () {
-        setUp2();
+    public void testLoginSub() {
 
         User user5 = new User(10542821, "lucas", "lopez", "lucas@gmail.com", "pass123", new Role(6, "user"));
-        Subscription subs3 = new Subscription(5, new Plan(0, "basic", "basic plan", 10, 20), user5);
+        Subscription subs3 = new Subscription(5, new Plan(0, "basic", "basic plan", 10, 20));
         subscriptionController.add(subs3);
 
         assertTrue(userController.logIn("juferi2003@gmail.com", "78956")); // Usuario válido con suscripción activa
         assertFalse(userController.logIn("juferi2003@gmail.com", "asda")); // Contraseña incorrecta
         assertFalse(userController.logIn("garcia2003@gmail.com", "7895")); // Usuario con correo incorrecto
         assertFalse(userController.logIn("lucas@gmail.com", "pass123")); // Usuario con suscripción inactiva
-    }     
+    }
 }
-

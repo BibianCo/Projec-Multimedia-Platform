@@ -4,7 +4,9 @@ module co.edu.uptc {
     requires com.google.gson;
 
     opens co.edu.uptc to javafx.fxml;
+    opens co.edu.uptc.view.movies to javafx.fxml;
     opens co.edu.uptc.model to com.google.gson;
 
     exports co.edu.uptc;
+    exports co.edu.uptc.view.movies;
 }
