@@ -5,10 +5,17 @@ import java.util.ArrayList;
 public class Season extends Entity {
     private int number;
     private int idSerie;
-    private ArrayList<Episode> episodes = new ArrayList<>();
+    private ArrayList<Episode> episodes;
 
     public Season() {
 
+    }
+
+    public Season(int id, int number, int idSerie, ArrayList<Episode> episodes) {
+        super(id);
+        this.number = number;
+        this.idSerie = idSerie;
+        this.episodes = episodes;
     }
 
     public Season(int id, int number, int idSerie) {
@@ -37,8 +44,8 @@ public class Season extends Entity {
         return episodes;
     }
 
-    public void setEpisodes(Episode episode) {
-        this.episodes.add(episode);
+    public void setEpisodes(ArrayList<Episode> episodes) {
+        this.episodes = episodes;
     }
 
     public int getIdSerie() {

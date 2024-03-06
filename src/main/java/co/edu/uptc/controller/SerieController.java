@@ -63,13 +63,20 @@ public class SerieController {
 
     public boolean update(int id, Serie newSerie) {
         Serie currentSerie = get(id);
-        if (currentSerie != null && categoriesExists(newSerie.getCategories())) {
-            int index = getAll().indexOf(currentSerie);
-            return this.persistence.persist(index, newSerie);
+        if (currentSerie != null) {
+            System.out.println(getAll().size());
+            int index = 0;
+            for (Serie serie : getAll()) {
+                if (serie.getId() == id) {
+                    return this.persistence.persist(index, newSerie);
+                }
+                index++;
+            }
 
         } else {
             return false;
         }
+        return false;
     }
 
     public ArrayList<Serie> getAll() {
@@ -112,7 +119,7 @@ public class SerieController {
 
     public boolean setSeason(Serie serie, Season season) {
         if (serie != null && season != null) {
-            serie.setSeasons(season);
+            // serie.setSeasons(season);
             return true;
         }
         return false;

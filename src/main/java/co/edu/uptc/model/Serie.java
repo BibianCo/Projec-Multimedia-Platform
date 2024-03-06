@@ -5,24 +5,30 @@ import java.util.ArrayList;
 
 public class Serie extends Multimedia {
 
-    private ArrayList<Season> seasons = new ArrayList<>();
+    private ArrayList<Season> seasons;
     private ArrayList<Category> categories;
 
     public Serie() {
         super();
     }
 
-    public Serie(int id, String title, String synopsis, LocalDate releaseDate, ArrayList<Category> categories) {
+    public Serie(int id, String title, String synopsis, LocalDate releaseDate, ArrayList<Category> categories,
+            ArrayList<Season> seasons) {
         super(id, title, synopsis, releaseDate);
         this.categories = categories;
+        this.seasons = seasons;
+    }
+
+    public Serie(int id, String title, String synopsis, LocalDate releaseDate) {
+        super(id, title, synopsis, releaseDate);
     }
 
     public ArrayList<Season> getSeasons() {
         return seasons;
     }
 
-    public void setSeasons(Season season) {
-        seasons.add(season);
+    public void setSeasons(ArrayList<Season> seasons) {
+        this.seasons = seasons;
     }
 
     public ArrayList<Category> getCategories() {
@@ -30,7 +36,7 @@ public class Serie extends Multimedia {
     }
 
     public void setCategories(ArrayList<Category> categories) {
-
+        this.categories = categories;
     }
 
 }

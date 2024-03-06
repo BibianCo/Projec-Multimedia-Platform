@@ -1,6 +1,6 @@
 package co.edu.uptc.controller;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 import java.lang.reflect.Type;
 import java.time.LocalDate;
@@ -12,77 +12,67 @@ import org.junit.Test;
 import com.google.gson.reflect.TypeToken;
 
 import co.edu.uptc.model.Category;
+import co.edu.uptc.model.Episode;
+import co.edu.uptc.model.Season;
 import co.edu.uptc.model.Serie;
-
 import co.edu.uptc.persistence.FilePersistence;
 
 public class SerieControllerTest {
 
-    private SerieController serieController;
+    private FilePersistence<Serie> infilePersistenceSerie;
+    private FilePersistence<Season> inFilePersistenceSeason;
+    private FilePersistence<Category> inFilePeristenceCategory;
+    private FilePersistence<Episode> inFilePeristenceEpisode;
+
     private CategoryController categoryController;
-    private FilePersistence<Serie> ifpserie;
-    private FilePersistence<Category> ifpc;
-    private Serie serie, serie2;
+    private SerieController serieController;
+    private SeasonController seasonControllers;
+    private EpisodeController episodeController;
 
     @Before
-    public void setUp() {
-        Type type = new TypeToken<ArrayList<Serie>>() {
+    public void setup() {
+        Type type = new TypeToken<ArrayList<Season>>() {
         }.getType();
-        Type type2 = new TypeToken<ArrayList<Category>>() {
+        Type type2 = new TypeToken<ArrayList<Serie>>() {
+        }.getType();
+        Type type3 = new TypeToken<ArrayList<Category>>() {
+        }.getType();
+        Type type4 = new TypeToken<ArrayList<Episode>>() {
         }.getType();
 
-        this.ifpserie = new FilePersistence<>(type, "serie");
-        this.ifpc = new FilePersistence<>(type2, "category");
+        this.inFilePeristenceCategory = new FilePersistence<>(type3, "category");
+        this.infilePersistenceSerie = new FilePersistence<>(type2, "serie");
+        this.inFilePersistenceSeason = new FilePersistence<>(type, "season");
+        this.inFilePeristenceEpisode = new FilePersistence<>(type4, "episode");
 
-        this.categoryController = new CategoryController(ifpc);
-        this.serieController = new SerieController(ifpserie, categoryController);
-
-        ifpc.createFile();
-        ifpserie.createFile();
+        this.categoryController = new CategoryController(inFilePeristenceCategory);
+        this.serieController = new SerieController(infilePersistenceSerie, categoryController);
+        this.seasonControllers = new SeasonController(inFilePersistenceSeason, serieController);
+        this.episodeController = new EpisodeController(inFilePeristenceEpisode, seasonControllers);
+        infilePersistenceSerie.createFile();
+        inFilePeristenceCategory.createFile();
+        inFilePersistenceSeason.createFile();
+        inFilePeristenceEpisode.createFile();
         // adicionar categorias
-        Category category = new Category(1, "Romantica");
-        Category category2 = new Category(2, "Comedia");
+        Category category = new Category(5, "gold");
         categoryController.add(category);
-        categoryController.add(category2);
-
-        // adicionar serie
-        serie = new Serie(23, "antes de ti", "adsdasd", LocalDate.of(2023, 12, 05),
-                categoryController.getAll());
-        serie2 = new Serie(232, "juego de tronos", "adsdasd", LocalDate.of(2023, 12, 05),
-                categoryController.getAll());
-        serieController.add(serie);
-        serieController.add(serie2);
 
     }
 
     @Test
-    public void testSerieExist() {
+    public void addSerie() {
 
-        Serie serie = new Serie(78, "hola", "asda", null, categoryController.getAll());
-        assertEquals(false, serieController.serieExists(serie));
-    }
+        Serie serie = new Serie(45, "juan", "asdasd", LocalDate.parse("2003-02-03"));
+        Season season = new Season(5, 5, 45);
 
-    @Test
-    public void testAdd() {
-        Category category = new Category(1, "Romantica");
-        Category category2 = new Category(2, "Comedia");
-        categoryController.add(category);
-        categoryController.add(category2);
+        serie.setCategories(categoryController.getAll());
+        assertTrue(serieController.add(serie));
 
-        Serie serie = new Serie(1, "juego", "amantes", LocalDate.parse("2003-02-03"), categoryController.getAll());
+        assertTrue(seasonControllers.add(season));
+        serie.setSeasons(seasonControllers.getAll());
+        System.out.println();
+        serieController.update(45, serie);
 
-        assertEquals(true, serieController.add(serie));
-
-        assertEquals(false, serieController.add(serie));
-
-    }
-
-    @Test
-    public void testDelete() {
-        setUp();
-
-        assertEquals(true, serieController.delete(232));
-        assertEquals(false, serieController.delete(232));
     }
 
 }

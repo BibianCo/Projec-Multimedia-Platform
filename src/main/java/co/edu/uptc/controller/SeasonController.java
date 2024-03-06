@@ -49,12 +49,17 @@ public class SeasonController {
 
     public boolean setSeasonToSerie(int idSerie, Season season) {
         Serie serie = serieController.get(idSerie);
-        if (serie != null) {
-            serie.setSeasons(season);
+        if (serie != null && season != null) {
+            ArrayList<Season> seasons = serie.getSeasons();
+            if (seasons == null) {
+                seasons = new ArrayList<>();
+            }
+            seasons.add(season);
+            serie.setSeasons(seasons);
+
             return true;
         } else {
             return false;
         }
     }
-
 }
