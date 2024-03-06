@@ -64,7 +64,6 @@ public class SerieController {
     public boolean update(int id, Serie newSerie) {
         Serie currentSerie = get(id);
         if (currentSerie != null) {
-            System.out.println(getAll().size());
             int index = 0;
             for (Serie serie : getAll()) {
                 if (serie.getId() == id) {

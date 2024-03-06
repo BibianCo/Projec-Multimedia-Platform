@@ -51,8 +51,8 @@ public class SeasonControllerTest {
         Category category = new Category(1, "terror");
         categoryController.add(category);
 
-        Serie serie = new Serie(23, "as", "ad", null, categoryController.getAll());
-        serieController.add(serie);
+        // Serie serie = new Serie(23, "as", "ad", null, categoryController.getAll());
+        // serieController.add(serie);
 
         Season season = new Season(1123, 1, 23);
         Season season1 = new Season(2323, 2, 83);
@@ -69,9 +69,9 @@ public class SeasonControllerTest {
         Category category = new Category(1, "terror");
         categoryController.add(category);
 
-        Serie serie = new Serie(23, "as", "ad", null, categoryController.getAll());
+        // Serie serie = new Serie(23, "as", "ad", null, categoryController.getAll());
 
-        serieController.add(serie);
+        // serieController.add(serie);
         Season season = new Season(11123, 1, 23);
         Season season1 = new Season(21323, 2, 83);
         Season season2 = new Season(23121, 3, 23);

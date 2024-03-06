@@ -163,8 +163,6 @@ public class UserControllerTest {
 
     @Test
     public void testLoginSub() {
-
-        User user5 = new User(10542821, "lucas", "lopez", "lucas@gmail.com", "pass123", new Role(6, "user"));
         Subscription subs3 = new Subscription(5, new Plan(0, "basic", "basic plan", 10, 20));
         subscriptionController.add(subs3);
 

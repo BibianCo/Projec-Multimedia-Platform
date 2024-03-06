@@ -22,33 +22,45 @@ public class ListReproduceController {
         this.userController = userController;
     }
 
-    public boolean add(Multimedia multimedia, int idUser) {
+    public boolean add(int idMultimedia, int idUser) {
 
         User user = userController.get(idUser);
-
-        if (multimedia == null || user == null) {
-            return false;
-        } else if (multimedia instanceof Movie && movieController.movieExists((Movie) multimedia)) {
-            user.getListPersonalized().add(multimedia);
-
-            return true;
-        } else if (multimedia instanceof Serie && serieController.serieExists((Serie) multimedia)) {
-            user.getListPersonalized().add(multimedia);
-            return true;
-        } else {
+        if (user == null) {
             return false;
         }
+
+        if (user.getListPersonalized() == null) {
+            user.setListPersonalized(new ArrayList<Multimedia>());
+        }
+
+        if (movieController.get(idMultimedia) != null) {
+            Movie movie = movieController.get(idMultimedia);
+            user.getListPersonalized().add(movie);
+            userController.updateUserById(idUser, user);
+            return true;
+
+        } else if (serieController.get(idMultimedia) != null) {
+            Serie serie = serieController.get(idMultimedia);
+            user.getListPersonalized().add(serie);
+            userController.updateUserById(idUser, user);
+            return true;
+
+        }
+
+        return false;
+
     }
 
     public boolean delete(int id, int idUser) {
         User user = userController.get(idUser);
         if (user != null) {
-            Multimedia deleteMultimedia = get(id, idUser);
-            if (deleteMultimedia != null) {
-                user.getListPersonalized().remove(deleteMultimedia);
-                return true;
-            } else {
-                return false;
+            for (int i = 0; i < getAll(idUser).size(); i++) {
+                if (getAll(idUser).get(i).getId() == id) {
+                    user.getListPersonalized().remove(i);
+                    userController.updateUserById(idUser, user);
+                    return true;
+
+                }
             }
         }
         return false;
@@ -72,20 +84,6 @@ public class ListReproduceController {
 
     public ArrayList<Multimedia> getAll(int idUser) {
         return userController.get(idUser).getListPersonalized();
-    }
-
-    public boolean update(int id, Multimedia newSubscription, int idUser) {
-        User user = userController.get(idUser);
-        if (user != null && newSubscription != null) {
-            ArrayList<Multimedia> personalizedList = user.getListPersonalized();
-            for (int i = 0; i < personalizedList.size(); i++) {
-                if (personalizedList.get(i).getId() == id) {
-                    personalizedList.set(i, newSubscription);
-                    return true;
-                }
-            }
-        }
-        return false;
     }
 
 }
