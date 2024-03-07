@@ -102,4 +102,14 @@ public class SubscriptionControllerTest {
         assertEquals(false, subscriptionController.expireSubscription(subscriptionController.get(111)));
 
     }
+
+    @Test
+    public void testSimulatePayment() {
+        setUp();
+        subscriptionController.add(sc1);
+        assertEquals(-1, subscriptionController.simulatePayment("4554545454", 45, sc1));
+        assertEquals(6000, subscriptionController.simulatePayment("4554545454", 45000, sc1));
+        assertEquals(6000, subscriptionController.simulatePayment("4554545454", 45000, sc1));
+        assertEquals(-1, subscriptionController.simulatePayment("32", 45000, sc1));
+    }
 }
