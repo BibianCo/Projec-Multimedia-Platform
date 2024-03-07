@@ -1,6 +1,7 @@
 package co.edu.uptc.controller;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 
@@ -36,10 +37,12 @@ public class CategoryControllerTest {
         c2 = new Category(123, "romantica");
         c3 = new Category(2, "Comedia");
         c4 = new Category(3, "Drama");
+
     }
 
     @Test
     public void testMethods() {
+        assertTrue(filePersistence.createFile());
         testAddCategory();
         testDeleteCategory();
         testGet();
@@ -48,7 +51,6 @@ public class CategoryControllerTest {
     }
 
     public void testAddCategory() {
-        assertTrue(filePersistence.createFile());
         boolean result = controller.add(c1);
         assertTrue(result);
         assertTrue(controller.add(c2));

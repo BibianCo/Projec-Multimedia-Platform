@@ -60,7 +60,7 @@ public class SubscriptionControllerTest {
         deleteSubscriptionTest();
         getSubscriptionTest();
         getAllSubscriptionTest();
-        // updateSubscriptionTest();
+        updateSubscriptionTest();
         expireSubscriptionTest();
     }
 

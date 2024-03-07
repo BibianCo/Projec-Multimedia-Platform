@@ -54,7 +54,7 @@ public class EpisodeControllerTest {
         // create files
         impe.createFile();
         ifps.createFile();
-        ifpc.createFile();
+        // ifpc.createFile();
         ifpserie.createFile();
         // adicionar categorias
         Category category = new Category(111, "Romantica");
@@ -88,6 +88,7 @@ public class EpisodeControllerTest {
     public void addTest() {
 
         serie = new Serie(223, "antes de ti", "adsdasd", LocalDate.of(2023, 12, 05));
+        serie.setCategories(categoryController.getAll());
         serieController.add(serie);
 
         Episode episode = new Episode(12, 1, 45, 1);
@@ -115,14 +116,14 @@ public class EpisodeControllerTest {
     @Test
     public void getAllTest() {
         setUp();
-        assertEquals(321, episodeController.getAll().get(0).getId());
-        assertEquals(232, episodeController.getAll().get(1).getId());
+        assertEquals(232, episodeController.getAll().get(0).getId());
+        assertEquals(12, episodeController.getAll().get(1).getId());
     }
 
     @Test
     public void update() {
 
-        Episode episode = new Episode(321, 1, 45, 1);
+        Episode episode = new Episode(321, 2, 45, 1);
         assertTrue(episodeController.update(321, episode));
     }
 

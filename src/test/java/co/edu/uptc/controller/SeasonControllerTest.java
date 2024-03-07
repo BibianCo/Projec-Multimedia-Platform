@@ -54,11 +54,9 @@ public class SeasonControllerTest {
         Category category = new Category(12, "comedia");
         categoryController.add(category);
 
-
         Serie serie = new Serie(23, "as", "ad", LocalDate.parse("2003-02-03"));
         serie.setCategories(categoryController.getAll());
         serieController.add(serie);
-
 
         season = new Season(788, 4, 23);
         season2 = new Season(245, 4, 23);
@@ -72,7 +70,6 @@ public class SeasonControllerTest {
 
         Category category = new Category(1, "terror");
         assertTrue(categoryController.add(category));
-
 
         Serie serie = new Serie(234, "as", "ad", LocalDate.parse("2003-02-03"));
         serie.setCategories(categoryController.getAll());
@@ -112,7 +109,7 @@ public class SeasonControllerTest {
         setUp();
 
         assertEquals(788, seasonController.getAll().get(0).getId());
-        assertEquals(4, seasonController.getAll().get(1).getNumber());
+        assertEquals(78, seasonController.getAll().get(1).getNumber());
     }
 
     @Test
