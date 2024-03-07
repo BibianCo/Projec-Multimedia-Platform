@@ -64,8 +64,11 @@ public class EpisodeControllerTest {
 
         // adicionar serie
         serie = new Serie(23, "antes de ti", "adsdasd", LocalDate.parse("2003-02-03"));
+        serie.setCategories(categoryController.getAll());
         serieController.add(serie);
-        serie2 = new Serie(234, "antes de ti", "adsdasd", LocalDate.of(2023, 12, 05));
+        serie2 = new Serie(234, "antes de ti", "adsdasd", LocalDate.parse("2000-02-03"));
+        serie2.setCategories(categoryController.getAll());
+
         serieController.add(serie2);
 
         ;
@@ -83,8 +86,10 @@ public class EpisodeControllerTest {
 
     @Test
     public void addTest() {
+
         serie = new Serie(223, "antes de ti", "adsdasd", LocalDate.of(2023, 12, 05));
         serieController.add(serie);
+
         Episode episode = new Episode(12, 1, 45, 1);
         Episode episode2 = new Episode(23, 1, 45, 1);
 
