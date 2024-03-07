@@ -88,6 +88,7 @@ public class SerieControllerTest {
         serie.setCategories(categoryController.getAll());
         assertTrue(serieController.add(serie));
         assertTrue(seasonControllers.add(season));
+
         assertTrue(episodeController.add(episode));
 
     }
@@ -131,6 +132,7 @@ public class SerieControllerTest {
 
         assertEquals(445, serieController.groupByCategory(5).get(0).getId());
         assertNull(serieController.groupByCategory(0));
+
 
     }
 

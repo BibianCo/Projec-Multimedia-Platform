@@ -52,6 +52,7 @@ public class EpisodeController {
             for (Episode episode : getAll()) {
                 if (episode.getId() == id) {
 
+
                     if (!this.persistence.persist(index, newEpisode)) {
                         return false;
                     }
@@ -68,6 +69,7 @@ public class EpisodeController {
                     season.setEpisodes(episodes);
                     seasonController.update(episode.getIdSeason(), season);
                     return true;
+
                 }
                 index++;
             }
@@ -80,6 +82,7 @@ public class EpisodeController {
 
     public boolean setEpisodeToSeason(int idSeason, Episode episode) {
         Season season = seasonController.get(idSeason);
+
         if (season != null && episode != null) {
             ArrayList<Episode> episodes = season.getEpisodes();
             if (episodes == null) {
@@ -88,6 +91,7 @@ public class EpisodeController {
             episodes.add(episode);
             season.setEpisodes(episodes);
             seasonController.update(idSeason, season);
+
 
             return true;
         } else {

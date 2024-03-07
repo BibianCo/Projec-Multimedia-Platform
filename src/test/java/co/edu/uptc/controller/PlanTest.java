@@ -25,11 +25,11 @@ public class PlanTest {
         Type type = new TypeToken<ArrayList<Plan>>() {
         }.getType();
 
-        inFilePersistence = new FilePersistence<>(type, "plan");
+        inFilePersistence = new FilePersistence<>(type, "plans");
         planController = new PlanController(inFilePersistence);
 
         // create Files
-        inFilePersistence.createFile();
+        // inFilePersistence.createFile();
 
         p1 = new Plan(0, null, null, 0, 0);
         p2 = new Plan(1, "Basico", "un plan para toda la familia", 20000, 10);

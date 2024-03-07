@@ -43,11 +43,18 @@ public class UserController {
         User currentUser = get(userId);
 
         if (currentUser != null) {
-            int index = getAll().indexOf(currentUser);
-            return this.persistence.persist(index, newUser);
+            int index = 0;
+            for (User user : getAll()) {
+                if (user.getId() == userId) {
+                    return this.persistence.persist(index, newUser);
+                }
+                index++;
+            }
+
         } else {
             return false;
         }
+        return false;
 
     }
 
@@ -70,7 +77,7 @@ public class UserController {
         for (User user : users) {
             if (user.getSubscription() != null && !subscriptionController.expireSubscription(user.getSubscription())) {
                 if (user.getEmail().equals(email) && user.getPassword().equals(password)) {
-                    return true; 
+                    return true;
                 } else {
                     return false;
                 }
