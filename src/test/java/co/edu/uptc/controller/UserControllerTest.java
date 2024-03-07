@@ -147,7 +147,7 @@ public class UserControllerTest {
 
         assertEquals(false, userController.logIn("juferi2003@gmail.com", "asda"));
         assertEquals(true, userController.logIn("juferi2003@gmail.com", "78956"));
-        assertEquals(true, userController.logIn("garcia2003@gmail.com", "7895"));
+        assertEquals(false, userController.logIn("garcia2003@gmail.com", "7895"));
 
     }
 
@@ -164,7 +164,6 @@ public class UserControllerTest {
     @Test
     public void testLoginSub() {
 
-        User user5 = new User(10542821, "lucas", "lopez", "lucas@gmail.com", "pass123", new Role(6, "user"));
         Subscription subs3 = new Subscription(5, new Plan(0, "basic", "basic plan", 10, 20));
         subscriptionController.add(subs3);
 

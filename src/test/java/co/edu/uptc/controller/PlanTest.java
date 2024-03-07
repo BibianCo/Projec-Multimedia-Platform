@@ -42,7 +42,7 @@ public class PlanTest {
         deletePlanTest();
         getPlanTest();
         getAllPlanTest();
-        // updatePlanTest();
+        updatePlanTest();
     }
 
     private void addPlanTest() {

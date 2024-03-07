@@ -3,8 +3,10 @@ package co.edu.uptc.controller;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertTrue;
 
 import java.lang.reflect.Type;
+import java.time.LocalDate;
 import java.util.ArrayList;
 
 import org.junit.Before;
@@ -25,6 +27,7 @@ public class SeasonControllerTest {
     private CategoryController categoryController;
     private SerieController serieController;
     private SeasonController seasonController;
+    private Season season, season2;
 
     @Before
     public void setUp() {
@@ -48,33 +51,33 @@ public class SeasonControllerTest {
         ifpc.createFile();
         ifps.createFile();
 
-        Category category = new Category(1, "terror");
+        Category category = new Category(12, "comedia");
         categoryController.add(category);
 
-        Serie serie = new Serie(23, "as", "ad", null, categoryController.getAll());
+        Serie serie = new Serie(23, "as", "ad", LocalDate.parse("2003-02-03"));
+        serie.setCategories(categoryController.getAll());
         serieController.add(serie);
 
-        Season season = new Season(1123, 1, 23);
-        Season season1 = new Season(2323, 2, 83);
-        Season season2 = new Season(2321, 3, 23);
-
+        season = new Season(788, 4, 23);
+        season2 = new Season(245, 4, 23);
         seasonController.add(season);
-        seasonController.add(season1);
         seasonController.add(season2);
+
     }
 
     @Test
     public void addTest() {
 
         Category category = new Category(1, "terror");
-        categoryController.add(category);
+        assertTrue(categoryController.add(category));
 
-        Serie serie = new Serie(23, "as", "ad", null, categoryController.getAll());
+        Serie serie = new Serie(234, "as", "ad", LocalDate.parse("2003-02-03"));
+        serie.setCategories(categoryController.getAll());
 
-        serieController.add(serie);
-        Season season = new Season(11123, 1, 23);
+        assertTrue(serieController.add(serie));
+        Season season = new Season(11123, 1, 234);
         Season season1 = new Season(21323, 2, 83);
-        Season season2 = new Season(23121, 3, 23);
+        Season season2 = new Season(23121, 3, 234);
 
         assertEquals(true, seasonController.add(season));
         assertFalse(seasonController.add(season1));
@@ -86,32 +89,33 @@ public class SeasonControllerTest {
     @Test
     public void deleteTest() {
         setUp();
-        assertEquals(true, seasonController.delete(1123));
-        assertEquals(false, seasonController.delete(2323));
-        assertFalse(seasonController.delete(-5));
+        assertTrue(seasonController.delete(788));
+        assertFalse(seasonController.delete(5454));
+        assertFalse(seasonController.delete(788));
+
     }
 
     @Test
     public void getTest() {
         setUp();
-        assertEquals(3, seasonController.get(2321).getNumber());
+        assertEquals(4, seasonController.get(788).getNumber());
         assertNull(seasonController.get(1323));
-        assertEquals(1, seasonController.get(1123).getNumber());
+        assertEquals(season2.getId(), seasonController.get(245).getId());
     }
 
     @Test
     public void getAllTest() {
         setUp();
 
-        assertEquals(1123, seasonController.getAll().get(0).getId());
-        assertEquals(3, seasonController.getAll().get(1).getNumber());
+        assertEquals(788, seasonController.getAll().get(0).getId());
+        assertEquals(4, seasonController.getAll().get(1).getNumber());
     }
 
     @Test
     public void update() {
         Season season = new Season(45, 78, 23);
-        assertEquals(true, seasonController.update(1123, season));
-        assertEquals(45, seasonController.get(45).getId());
+        assertTrue(seasonController.update(245, season));
+        assertEquals(78, seasonController.get(45).getNumber());
     }
 
 }
