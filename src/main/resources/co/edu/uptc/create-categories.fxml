@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Separator?>
+
+<StackPane id="pane" prefHeight="500" prefWidth="500" stylesheets="@css/style.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="co.edu.uptc.view.categories.CreateCategoryView">
+    <children>
+        <HBox spacing="20">
+            <!-- VBox para la sección de categorías a la izquierda -->
+            <VBox spacing="10" HBox.hgrow="ALWAYS">
+                <Label id="title" text="Existing Categories" textFill="#4D4031"/>
+                
+                <children>
+                    <TableView fx:id="tableView">
+                        <columns>
+                            <TableColumn text="id" fx:id="idColumn" />
+                            <TableColumn text="Name" fx:id="nameColumn" />
+                        </columns>
+                    </TableView>
+                </children>
+                
+            </VBox>
+
+            <Separator orientation="VERTICAL"/>
+            
+            <!-- VBox para la sección de crear categoría a la derecha -->
+            <VBox  spacing="10" HBox.hgrow="ALWAYS">
+                <Label id="title" text="Enter category name" textFill="#4D4031"/>
+                <TextField fx:id="categoryName" promptText="Name Category" />
+                <Button fx:id="primaryButton" text="Create" onAction="#createCategory"/>
+            </VBox>
+        </HBox>
+    </children>
+</StackPane>

@@ -33,6 +33,9 @@ public class FilePersistence<T> implements Persistence<T> {
     public boolean createFile() {
         file = new File(this.fileName);
         try {
+            if (isFileExist()) {
+                return true;
+            }
             pw = new PrintWriter(new FileWriter(filePath + file + fileExtension));
             pw.close();
             return true;
@@ -44,6 +47,11 @@ public class FilePersistence<T> implements Persistence<T> {
             return false;
         }
 
+    }
+
+    private boolean isFileExist() {
+        file = new File(filePath + this.fileName + fileExtension);
+        return file.exists();
     }
 
     public JsonReader readFile() {
