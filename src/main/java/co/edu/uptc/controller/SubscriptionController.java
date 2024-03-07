@@ -42,15 +42,23 @@ public class SubscriptionController {
         return persistence.obtainAll();
     }
 
-    public boolean update(int id, Subscription newsubscription) {
+    public boolean update(int id, Subscription newSubscription) {
         Subscription currentSubscription = get(id);
+    
         if (currentSubscription != null) {
-            int index = getAll().indexOf(currentSubscription);
-            return this.persistence.persist(index, newsubscription);
+            int index = 0;
+            for (Subscription subscription : getAll()) {
+                if (subscription.getId() == id) {
+                    return this.persistence.persist(index, newSubscription);
+                }
+                index++;
+            }
         } else {
             return false;
         }
+        return false;
     }
+    
 
     public LocalDate setStartDate(Subscription subscription) {
         subscription.setDateStart(LocalDate.now());
