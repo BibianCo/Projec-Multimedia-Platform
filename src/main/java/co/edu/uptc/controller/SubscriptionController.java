@@ -86,4 +86,15 @@ public class SubscriptionController {
 
     }
 
+    public int simulatePayment(String target, int quantity, Subscription subscription) {
+
+        if ((target.length() == 10 || !target.matches("[0-9]+")) &&
+                (subscription != null && get(subscription.getId()).getPlan().getPrice() <= quantity) && quantity > 0) {
+            int result = quantity - get(subscription.getId()).getPlan().getPrice();
+            if (result > 0) {
+                return result;
+            }
+        }
+        return -1;
+    }
 }
