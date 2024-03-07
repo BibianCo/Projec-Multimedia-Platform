@@ -1,0 +1,8 @@
+#pane {
+    -fx-background-color: #A8937C;
+    -fx-border-color: #373736;
+}
+
+#title {
+    -fx-font-size: 20px;
+}
