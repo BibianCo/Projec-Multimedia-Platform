@@ -83,3 +83,8 @@ nb-configuration.xml
 ## OS X
 ##############################
 .DS_Store
+
+##############################
+## CUSTOM
+##############################
+src/main/java/co/edu/uptc/files/*.json
