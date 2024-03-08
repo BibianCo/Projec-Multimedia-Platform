@@ -156,7 +156,6 @@ public class UserControllerTest {
 
         Subscription newSubscription = new Subscription(12, new Plan(1, "plas", "asd", 12, 30));
         Subscription newSubscription2 = new Subscription(12, new Plan(1, "plas", "asd", 12, 0));
-        System.out.println(user3.getSubscription().getDateEnd());
         assertEquals(false, userController.renewSuscription(newSubscription, 23));
         assertEquals(true, userController.renewSuscription(newSubscription2, 10542820));
     }

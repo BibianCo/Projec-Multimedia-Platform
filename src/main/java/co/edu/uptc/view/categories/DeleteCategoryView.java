@@ -20,9 +20,10 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 
-public class CreateCategoryView implements Initializable {
+public class DeleteCategoryView implements Initializable {
+
     @FXML
-    private TextField categoryName;
+    private TextField categoryId;
 
     @FXML
     private TableView<Category> tableView;
@@ -32,7 +33,6 @@ public class CreateCategoryView implements Initializable {
 
     @FXML
     private TableColumn<Category, String> nameColumn;
-
     @FXML
     private Label messageError;
 
@@ -41,17 +41,18 @@ public class CreateCategoryView implements Initializable {
     private Type type;
 
     @FXML
-    private void createCategory() throws IOException {
-        if (categoryName.getText().isEmpty() || !categoryName.getText().matches("[a-zA-Z]+")) {
-            messageError.setText("error empty string or only letters accepted");
+    private void deleteCategory() throws IOException {
+        if (categoryId.getText().isEmpty() || !categoryId.getText().matches("[0-9]+")) {
+            messageError.setText("error empty string or only numbers accepted");
+            categoryId.clear();
 
+        } else if (controller.delete(Integer.parseInt(categoryId.getText()))) {
+            categoryId.clear();
+            messageError.setText("");
+            loadItems();
         } else {
-            Category category = new Category(setId(), categoryName.getText());
-            if (controller.add(category)) {
-                categoryName.clear();
-                messageError.setText("");
-                loadItems();
-            }
+            messageError.setText("The category does not exist");
+            categoryId.clear();
         }
     }
 
@@ -67,7 +68,6 @@ public class CreateCategoryView implements Initializable {
 
     @Override
     public void initialize(URL arg0, ResourceBundle arg1) {
-
         idColumn.setCellValueFactory(new PropertyValueFactory<>("id"));
         nameColumn.setCellValueFactory(new PropertyValueFactory<>("name"));
         tableView.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
@@ -75,13 +75,6 @@ public class CreateCategoryView implements Initializable {
         }.getType();
         filePersistence = new FilePersistence<>(type, "categories");
         controller = new CategoryController(filePersistence);
-        filePersistence.createFile();
         loadItems();
-
     }
-
-    public int setId() {
-        return controller.getAll().get(controller.getAll().size() - 1).getId() + 1;
-    }
-
 }

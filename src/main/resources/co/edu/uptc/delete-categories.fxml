@@ -10,32 +10,25 @@
 <?import javafx.scene.control.TextField?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Separator?>
-<?import javafx.scene.image.ImageView?>
-<?import javafx.scene.image.Image?>
 
-<StackPane id="pane" prefHeight="500" prefWidth="500" stylesheets="@css/style.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="co.edu.uptc.view.categories.CreateCategoryView">
+<StackPane id="pane" prefHeight="600" prefWidth="600" stylesheets="@css/style.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="co.edu.uptc.view.categories.DeleteCategoryView">
     <children>
         <HBox spacing="20">
-          <VBox id="vbox" spacing="10" HBox.hgrow="ALWAYS" alignment="CENTER">
-                <ImageView fitWidth="250" fitHeight="250">
-                    <image>
-                        <Image url="@images/imagenCategorias.png" />
-                    </image>
-                </ImageView>
-                <Label id="title" text="Enter category name"/>
-                <TextField fx:id="categoryName" promptText="Name Category" />
+         <VBox id="vbox" spacing="10" HBox.hgrow="ALWAYS" alignment="CENTER">
+                <Label id="title" text="Enter the id of the category you want to delete"/>
+                <TextField fx:id="categoryId" promptText="Id Category" />
                 <Label fx:id="messageError"/>
-                <Button fx:id="createButton" text="Create" onAction="#createCategory"/>
+                <Button fx:id="deleteButton" text="Delete" onAction="#deleteCategory"/>
                 <Button fx:id="backButton" text="Back" onAction="#sceneMenu"/>
-                
             </VBox>
-           
-            <Separator styleClass="line" orientation="VERTICAL"/>
 
-             <VBox id="vbox" spacing="10" HBox.hgrow="ALWAYS" alignment="CENTER">
+            <Separator orientation="VERTICAL"/>
+            
+           <VBox id="vbox" spacing="10" alignment="CENTER" HBox.hgrow="ALWAYS" >
                 <Label id="title" alignment="CENTER" text="Existing Categories"/>
+                
                 <children>
-                    <TableView fx:id="tableView"  styleClass="table-view">
+                    <TableView fx:id="tableView">
                         <columns>
                             <TableColumn text="id" fx:id="idColumn" />
                             <TableColumn text="Name" fx:id="nameColumn" />

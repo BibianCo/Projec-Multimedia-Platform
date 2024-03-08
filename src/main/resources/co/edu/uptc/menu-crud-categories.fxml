@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.geometry.Insets?>
+
+<StackPane id="pane" prefHeight="500" prefWidth="500" stylesheets="@css/style.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="co.edu.uptc.view.categories.MenuCategoryView">
+    <children>
+            <VBox id="vbox" spacing="10" alignment="CENTER">
+                <Label id="title" text=" CATEGORIES "/>
+                <Button fx:id="createButton" text="Create Category" onAction="#sceneCreate" />
+                <Button fx:id="deleteButton" text="Delete Category" onAction="#sceneDelete"/>
+                <Button fx:id="updateButton" text="Update Category" onAction ="#sceneUpdate"/>
+                <Button fx:id="findButton" text="Find Category" onAction="#sceneFind"/>
+                <Button fx:id="obtainAllButton" text="Obtain All Category" onAction="#sceneObtainAll"/>
+            </VBox>
+    </children>
+</StackPane>
