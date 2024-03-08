@@ -11,10 +11,10 @@
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Separator?>
 
-<StackPane id="pane" prefHeight="500" prefWidth="500" stylesheets="@css/style.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="co.edu.uptc.view.categories.CreateCategoryView">
+<StackPane id="pane" prefHeight="500" prefWidth="500" stylesheets="@css/style.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="co.edu.uptc.view.categories.DeleteCategoryView">
     <children>
         <HBox spacing="20">
-         
+        
             <VBox spacing="10" HBox.hgrow="ALWAYS" alignment="CENTER">
                 <Label id="title" alignment="CENTER" text="Existing Categories"/>
                 
@@ -31,14 +31,13 @@
 
             <Separator orientation="VERTICAL"/>
             
-          
+           
             <VBox id="VBox" spacing="10" HBox.hgrow="ALWAYS">
-                <Label id="title" text="Enter category name"/>
-                <TextField fx:id="categoryName" promptText="Name Category" />
+                <Label id="title" text="Enter the id of the category you want to delete"/>
+                <TextField fx:id="categoryId" promptText="Id Category" />
                 <Label fx:id="messageError"/>
-                <Button fx:id="createButton" text="Create" onAction="#createCategory"/>
+                <Button fx:id="deleteButton" text="Delete" onAction="#deleteCategory"/>
                 <Button fx:id="backButton" text="Back" onAction="#sceneMenu"/>
-                
             </VBox>
         </HBox>
     </children>

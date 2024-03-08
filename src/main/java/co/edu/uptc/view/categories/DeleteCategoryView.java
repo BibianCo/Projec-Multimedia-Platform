@@ -20,9 +20,10 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 
-public class CreateCategoryView implements Initializable {
+public class DeleteCategoryView implements Initializable {
+
     @FXML
-    private TextField categoryName;
+    private TextField categoryId;
 
     @FXML
     private TableView<Category> tableView;
@@ -40,19 +41,18 @@ public class CreateCategoryView implements Initializable {
     private Type type;
 
     @FXML
-    private void createCategory() throws IOException {
-        if (categoryName.getText().isEmpty()) {
-            messageError.setText("error empty string ");
+    private void deleteCategory() throws IOException {
+        if (categoryId.getText().isEmpty() || !categoryId.getText().matches("[0-9]+")) {
+            messageError.setText("error empty string or only numbers accepted");
+            categoryId.clear();
 
+        } else if (controller.delete(Integer.parseInt(categoryId.getText()))) {
+            categoryId.clear();
+            loadItems();
         } else {
-            Category category = new Category(setId(), categoryName.getText());
-            if (controller.add(category)) {
-                categoryName.clear();
-                loadItems();
-
-            }
+            messageError.setText("The category does not exist");
+            categoryId.clear();
         }
-
     }
 
     @FXML
@@ -73,13 +73,6 @@ public class CreateCategoryView implements Initializable {
         }.getType();
         filePersistence = new FilePersistence<>(type, "categories");
         controller = new CategoryController(filePersistence);
-        filePersistence.createFile();
         loadItems();
-
     }
-
-    public int setId() {
-        return controller.getAll().size() + 1;
-    }
-
 }
