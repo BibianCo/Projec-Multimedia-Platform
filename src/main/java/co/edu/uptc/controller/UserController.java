@@ -91,7 +91,6 @@ public class UserController {
         User user = get(id);
         if (user != null && user.getSubscription() != null) {
             if (subscriptionController.expireSubscription(user.getSubscription())) {
-                System.out.println("juan");
 
                 subscriptionController.update(user.getSubscription().getId(), newSuscription);
                 user.setSubscription(subscriptionController.get(user.getSubscription().getId()));
