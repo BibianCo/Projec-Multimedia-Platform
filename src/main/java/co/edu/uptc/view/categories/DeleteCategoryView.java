@@ -69,6 +69,7 @@ public class DeleteCategoryView implements Initializable {
     public void initialize(URL arg0, ResourceBundle arg1) {
         idColumn.setCellValueFactory(new PropertyValueFactory<>("id"));
         nameColumn.setCellValueFactory(new PropertyValueFactory<>("name"));
+        tableView.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
         type = new TypeToken<ArrayList<Category>>() {
         }.getType();
         filePersistence = new FilePersistence<>(type, "categories");

@@ -1,18 +1,18 @@
 #pane {
-    -fx-background-color: #db0000;
+    -fx-background-color: #ffffff;
     -fx-border-color: #000000;
 }
 
 #title {
     -fx-font-size: 15px;
     -fx-font-family: sans-serif;
-    -fx-text-fill: #ffffff;
+    -fx-text-fill: #000000;
     -fx-alignment: CENTER;
 }
 
-#VBox {
+#vbox {
     -fx-padding: 20px;
-    -fx-alignment: CENTER;
+
 }
 
 #categoryName {
@@ -25,17 +25,45 @@
 }
 
 .button {
-    -fx-font-size: 13px;
-    -fx-pref-width: 200px;
+    -fx-font-size: 16px;
+    -fx-pref-width: 130px;
     -fx-pref-height: 10px;
-    -fx-background-color: #f0f0f0;
-    -fx-text-fill: #333333;
-    -fx-background-radius: 5px;
-    -fx-border-radius: 5px;
+    -fx-background-color: #db0000;
+    -fx-text-fill: #cccccc;
+    -fx-background-radius: 50px;
+    -fx-border-radius: 50px;
     -fx-border-color: #cccccc;
     -fx-border-width: 1px;
 }
 
 .button:hover {
-    -fx-background-color: #bf3333;
+    -fx-background-color: #cccccc;
+}
+
+.table-view .column-header .label,
+.table-view .filler {
+    -fx-background-color: #db0000;
+    -fx-size: 30px;
+    -fx-text-fill: #cccccc;
+    -fx-border-color: -fx-box-border;
+    -fx-border-width: 0 1 0 0;
+    -fx-border-insets: 0;
+}
+
+
+.table-cell {
+    -fx-alignment: CENTER;
+}
+
+.table-column {
+    -fx-alignment: CENTER;
+}
+
+.table-row-cell:even {
+    -fx-background-color: #eeeeee;
+
+}
+
+.table-row-cell:odd {
+    -fx-background-color: #F4F4F4F4;
 }

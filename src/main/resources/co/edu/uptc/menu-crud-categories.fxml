@@ -9,7 +9,7 @@
 
 <StackPane id="pane" prefHeight="500" prefWidth="500" stylesheets="@css/style.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="co.edu.uptc.view.categories.MenuCategoryView">
     <children>
-            <VBox id="VBox" spacing="10">
+            <VBox id="vbox" spacing="10" alignment="CENTER">
                 <Label id="title" text=" CATEGORIES "/>
                 <Button fx:id="createButton" text="Create Category" onAction="#sceneCreate" />
                 <Button fx:id="deleteButton" text="Delete Category" onAction="#sceneDelete"/>
