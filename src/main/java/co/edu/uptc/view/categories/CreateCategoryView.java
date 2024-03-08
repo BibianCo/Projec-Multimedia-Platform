@@ -14,6 +14,7 @@ import co.edu.uptc.model.Category;
 import co.edu.uptc.persistence.FilePersistence;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
@@ -32,15 +33,25 @@ public class CreateCategoryView implements Initializable {
     @FXML
     private TableColumn<Category, String> nameColumn;
 
+    @FXML
+    private Label messageError;
+
     public CategoryController controller;
     public FilePersistence<Category> filePersistence;
     private Type type;
 
     @FXML
     private void createCategory() throws IOException {
-        Category category = new Category(setId(), categoryName.getText());
-        if (controller.add(category)) {
-            loadItems();
+        if (categoryName.getText().isEmpty() || !categoryName.getText().matches("[a-zA-Z]+")) {
+            messageError.setText("error empty string or only letters accepted");
+
+        } else {
+            Category category = new Category(setId(), categoryName.getText());
+            if (controller.add(category)) {
+                categoryName.clear();
+                messageError.setText("");
+                loadItems();
+            }
         }
     }
 
@@ -70,7 +81,7 @@ public class CreateCategoryView implements Initializable {
     }
 
     public int setId() {
-        return controller.getAll().size() + 1;
+        return controller.getAll().get(controller.getAll().size() - 1).getId() + 1;
     }
 
 }

@@ -15,7 +15,7 @@ public class CategoryController {
     }
 
     public boolean add(Category category) {
-        if (get(category.getId()) == null) {
+        if (get(category.getId()) == null && exitCategoryName(category.getName())) {
             return persistence.persist(category);
         } else {
             return false;
@@ -62,4 +62,16 @@ public class CategoryController {
         this.persistence = persistence;
     }
 
+    public boolean exitCategoryName(String nameCategory) {
+
+        for (Category category : getAll()) {
+
+            if (category.getName().equalsIgnoreCase(nameCategory)) {
+                return false;
+
+            }
+        }
+        return true;
+
+    }
 }

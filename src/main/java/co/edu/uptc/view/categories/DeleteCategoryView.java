@@ -48,6 +48,7 @@ public class DeleteCategoryView implements Initializable {
 
         } else if (controller.delete(Integer.parseInt(categoryId.getText()))) {
             categoryId.clear();
+            messageError.setText("");
             loadItems();
         } else {
             messageError.setText("The category does not exist");
