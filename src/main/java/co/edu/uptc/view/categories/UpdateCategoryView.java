@@ -22,11 +22,9 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 
-public class DeleteCategoryView implements Initializable {
-
+public class UpdateCategoryView implements Initializable {
     @FXML
-    private TextField categoryId;
-
+    private TextField categoryName;
     @FXML
     private TableView<Category> tableView;
 
@@ -38,31 +36,45 @@ public class DeleteCategoryView implements Initializable {
 
     @FXML
     private TableColumn<Category, String> nameColumn;
+
     @FXML
     private Label messageError;
+    @FXML
+    private Label messageError1;
 
     public CategoryController controller;
     public FilePersistence<Category> filePersistence;
     private Type type;
-    private Category deleteCategory;
+
+    private Category updateCategory;
 
     @FXML
-    private void deleteCategory() throws IOException {
-
-        if (deleteCategory == null) {
-            messageError.setText("Error, select category to delete");
-        } else if (controller.delete(deleteCategory.getId())) {
-            loadItems();
-            messageError.setText("");
+    private void updateCategory() throws IOException {
+        if (updateCategory == null) {
+            messageError1.setText("Error, select category to update");
+            messageError1.setText("");
+        } else if (categoryName.getText().isEmpty() || categoryName.getText().trim().isEmpty()) {
+            messageError.setText("Error empty string, enter name");
+        } else if (!categoryName.getText().matches("[a-zA-Z]+")) {
+            messageError.setText("Only letters are accepted");
         } else {
-            messageError.setText("The category does not exist");
-        }
+            Category category = new Category(updateCategory.getId(), categoryName.getText());
+            boolean existCategory = controller.update(updateCategory.getId(), category);
 
+            if (existCategory == true) {
+                loadItems();
+                categoryName.clear();
+                messageError.setText("");
+                comboBoxCategory.getItems().clear();
+                comboBoxCategory.getItems().addAll(controller.getAll());
+            } else {
+                messageError.setText("The category does exist");
+            }
+        }
         if (controller.getAll().isEmpty() || controller.getAll() == null) {
             messageError.setText("There are no categories created to delete, please create categories.");
             comboBoxCategory.getItems().clear();
         }
-
     }
 
     @FXML
@@ -91,7 +103,7 @@ public class DeleteCategoryView implements Initializable {
     }
 
     public void comboBoxCategoryAction(ActionEvent event) {
-        deleteCategory = comboBoxCategory.getValue();
+        updateCategory = comboBoxCategory.getValue();
         comboBoxCategory.getEditor().clear();
 
     }

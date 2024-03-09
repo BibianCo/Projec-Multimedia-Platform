@@ -19,16 +19,16 @@ public class MenuCategoryView {
 
     @FXML
     private void sceneUpdate() throws IOException {
-        System.out.println("hola");
+        Main.setRoot("update-categories");
     }
 
     @FXML
     private void sceneFind() throws IOException {
-        System.out.println("hola");
+        Main.setRoot("find-categories");
     }
 
     @FXML
     private void sceneObtainAll() throws IOException {
-        System.out.println("hola");
+        Main.setRoot("obtainall-categories");
     }
 }

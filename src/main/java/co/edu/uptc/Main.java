@@ -13,8 +13,9 @@ public class Main extends Application {
 
     @Override
     public void start(Stage stage) throws IOException {
-        scene = new Scene(loadFXML("create-categories"), 640, 480);
+        scene = new Scene(loadFXML("menu-crud-categories"), 640, 480);
         stage.setScene(scene);
+        stage.setTitle("Menu de categorias");
         stage.show();
     }
 
