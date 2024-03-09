@@ -59,8 +59,8 @@ public class CreateCategoryView implements Initializable {
     private void createCategory() throws IOException {
         if (categoryName.getText().isEmpty() || categoryName.getText().trim().isEmpty()) {
             messageError.setText("Error empty string, enter name");
-        } else if (!categoryName.getText().matches("[a-zA-Z]+")) {
-            messageError.setText("Only letters are accepted");
+        } else if (!categoryName.getText().matches("\\b[a-zA-Z]+(\\s+[a-zA-Z]+)*\\b")) {
+            messageError.setText("Only words are accepted.");
         } else {
             Category category = new Category(setId(), categoryName.getText());
             if (controller.add(category)) {

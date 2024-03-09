@@ -45,36 +45,44 @@ public class UpdateCategoryView implements Initializable {
     public CategoryController controller;
     public FilePersistence<Category> filePersistence;
     private Type type;
-
     private Category updateCategory;
 
     @FXML
     private void updateCategory() throws IOException {
+
         if (updateCategory == null) {
             messageError1.setText("Error, select category to update");
-            messageError1.setText("");
+
         } else if (categoryName.getText().isEmpty() || categoryName.getText().trim().isEmpty()) {
             messageError.setText("Error empty string, enter name");
-        } else if (!categoryName.getText().matches("[a-zA-Z]+")) {
-            messageError.setText("Only letters are accepted");
+            messageError1.setText("");
+
+        } else if (!categoryName.getText().matches("\\b[a-zA-Z]+(\\s+[a-zA-Z]+)*\\b")) {
+            messageError.setText("Only words are accepted.");
+            messageError1.setText("");
+
         } else {
             Category category = new Category(updateCategory.getId(), categoryName.getText());
             boolean existCategory = controller.update(updateCategory.getId(), category);
 
             if (existCategory == true) {
-                loadItems();
                 categoryName.clear();
                 messageError.setText("");
+                messageError1.setText("");
                 comboBoxCategory.getItems().clear();
                 comboBoxCategory.getItems().addAll(controller.getAll());
+                loadItems();
             } else {
                 messageError.setText("The category does exist");
             }
         }
+
         if (controller.getAll().isEmpty() || controller.getAll() == null) {
             messageError.setText("There are no categories created to delete, please create categories.");
             comboBoxCategory.getItems().clear();
         }
+        categoryName.clear();
+
     }
 
     @FXML

@@ -38,8 +38,8 @@ public class FindCategoryView implements Initializable {
         if (categoryName.getText().isEmpty() || categoryName.getText().trim().isEmpty()) {
             messageError.setText("Error empty string, enter name");
             categoryName.clear();
-        } else if (!categoryName.getText().matches("[a-zA-Z]+")) {
-            messageError.setText("Only letters are accepted");
+        } else if (!categoryName.getText().matches("\\b[a-zA-Z]+(\\s+[a-zA-Z]+)*\\b")) {
+            messageError.setText("Only words are accepted.");
             categoryName.clear();
         } else {
             Category category = controller.get(getId(categoryName.getText()));

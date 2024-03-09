@@ -19,13 +19,9 @@ import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
-import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 
 public class DeleteCategoryView implements Initializable {
-
-    @FXML
-    private TextField categoryId;
 
     @FXML
     private TableView<Category> tableView;
@@ -54,6 +50,8 @@ public class DeleteCategoryView implements Initializable {
         } else if (controller.delete(deleteCategory.getId())) {
             loadItems();
             messageError.setText("");
+            comboBoxCategory.getItems().clear();
+            comboBoxCategory.getItems().addAll(controller.getAll());
         } else {
             messageError.setText("The category does not exist");
         }
