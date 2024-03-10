@@ -43,7 +43,7 @@ public class DeleteEpisodeView implements Initializable {
     private TableView<Episode> tableView;
 
     @FXML
-    private Label messageError;
+    private Label messageError1, messageError2, messageError3;
 
     @FXML
     private TableColumn<Episode, Integer> idColumn, numberColumn, durationColumn;
@@ -108,10 +108,12 @@ public class DeleteEpisodeView implements Initializable {
         viewSerie();
         if (findEpisode != null && episodeController.delete(findEpisode.getId(), findSeason.getId())) {
             comboBoxEpisode.getItems().setAll(new ArrayList<>());
+            messageError3.setText("");
+
             loadItems();
 
         } else {
-            messageError.setText("Error, select to delete episode");
+            messageError3.setText("Error, select to delete episode");
         }
 
     }
@@ -133,12 +135,11 @@ public class DeleteEpisodeView implements Initializable {
             loadItems();
             viewSerie();
             return;
-        } else {
-            viewSerie();
         }
         findSerie = comboBox.getValue();
 
         if (findSerie != null) {
+            messageError1.setText("");
             List<Season> seasons = serieController.get(findSerie.getId()).getSeasons();
             comboBoxSeason.getItems().addAll(seasons);
             findSeason = comboBoxSeason.getValue();
@@ -152,13 +153,18 @@ public class DeleteEpisodeView implements Initializable {
 
     private void viewSerie() {
         if (findSerie == null) {
-            messageError.setText("Error, select series to add episode");
+            messageError1.setText("");
+            messageError1.setText("Error, select series to add episode");
+
         } else if (findSeason == null) {
-            messageError.setText("Error, select season to add episode");
+            messageError2.setText("Error, select season to add episode");
+
         } else {
+
             comboBoxEpisode.getItems().addAll(seasonController.get(findSeason.getId()).getEpisodes());
             findEpisode = comboBoxEpisode.getValue();
-            messageError.setText("");
+
+            messageError2.setText("");
         }
 
     }

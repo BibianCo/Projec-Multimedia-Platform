@@ -15,7 +15,6 @@
                 <Label styleClass="title" text= "Click on the action you want to perform" style="-fx-font-size: 18px"/>
                 <Button fx:id="createButton" text="Create Episode" onAction="#sceneCreate" />
                 <Button fx:id="deleteButton" text="Delete Episode" onAction="#sceneDelete"/>
-                <Button fx:id="updateButton" text="Update Episode" onAction ="#sceneUpdate"/>
                 <Button fx:id="findButtonMain" text="Find Episode" onAction="#sceneFind"/>
                 <Button fx:id="obtainAllButton" text="Obtain All Episode" onAction="#sceneObtainAll"/>
             </VBox>

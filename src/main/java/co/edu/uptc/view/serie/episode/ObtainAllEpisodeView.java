@@ -40,7 +40,7 @@ public class ObtainAllEpisodeView implements Initializable {
     private TableView<Episode> tableView;
 
     @FXML
-    private Label messageError;
+    private Label messageError1, messageError2;
 
     @FXML
     private TableColumn<Episode, Integer> idColumn, numberColumn, durationColumn;
@@ -106,13 +106,14 @@ public class ObtainAllEpisodeView implements Initializable {
 
     private void viewSerie() {
         if (findSerie == null) {
-            messageError.setText("Error, select series to add episode");
+            messageError1.setText("Error, select series to add episode");
         } else if (findSeason == null) {
-            messageError.setText("Error, select season to add episode");
+            messageError2.setText("Error, select season to add episode");
         } else {
             try {
                 obtainAllEpisode();
-                messageError.setText("");
+                messageError1.setText("");
+                messageError2.setText("");
             } catch (IOException e) {
                 // TODO Auto-generated catch block
                 e.printStackTrace();
@@ -134,8 +135,6 @@ public class ObtainAllEpisodeView implements Initializable {
             loadItems();
             viewSerie();
             return;
-        } else {
-            viewSerie();
         }
         findSerie = comboBox.getValue();
 
