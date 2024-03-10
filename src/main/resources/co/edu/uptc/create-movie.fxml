@@ -37,7 +37,7 @@
                  <DatePicker fx:id="date" promptText="Date"/>
                 <Label  styleClass="message" fx:id="messageDate"/>
 
-                 <Label  styleClass="title" text="Enter Categories"/>
+                 <Label  id="title" text="Enter Categories"/>
                  <ComboBox styleClass="chosseCategory" fx:id="comoboBoxMovies" prefWidth="150">   </ComboBox> 
                 <Label  styleClass="message" fx:id="messageCategory"/>
 
@@ -49,7 +49,7 @@
             <Separator styleClass="line" orientation="VERTICAL"/>
 
              <VBox id="vbox" spacing="10" HBox.hgrow="ALWAYS" alignment="CENTER">
-                <Label id="title" alignment="CENTER" text="Existing Categories"/>
+                <Label id="title" alignment="CENTER" text="Existing Movies"/>
                 <children>
                     <TableView fx:id="tableView"  styleClass="table-view">
                         <columns>
