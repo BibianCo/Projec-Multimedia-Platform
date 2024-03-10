@@ -1,6 +1,7 @@
 package co.edu.uptc.controller;
 
 import java.util.ArrayList;
+
 import co.edu.uptc.model.Season;
 import co.edu.uptc.model.Serie;
 import co.edu.uptc.persistence.Persistence;
@@ -40,11 +41,37 @@ public class SeasonController {
     public boolean update(int id, Season newSeason) {
         Season currentSeason = get(id);
         if (currentSeason != null) {
-            int index = getAll().indexOf(currentSeason);
-            return this.persistence.persist(index, newSeason);
+            int index = 0;
+            for (Season season : getAll()) {
+                if (season.getId() == id) {
+
+                    if (!this.persistence.persist(index, newSeason)) {
+                        return false;
+                    }
+
+                    Serie serie = serieController.get(season.getIdSerie());
+
+                    ArrayList<Season> seasons = serie.getSeasons();
+                    int index2 = 0;
+                    for (Season season2 : seasons) {
+                        if (season2.getId() == id) {
+                            seasons.set(index2, newSeason);
+                            break;
+                        }
+                        index2++;
+                    }
+
+                    serie.setSeasons(seasons);
+                    serieController.update(season.getIdSerie(), serie);
+                    return true;
+
+                }
+                index++;
+            }
         } else {
             return false;
         }
+        return false;
     }
 
     public boolean setSeasonToSerie(int idSerie, Season season) {
@@ -54,8 +81,10 @@ public class SeasonController {
             if (seasons == null) {
                 seasons = new ArrayList<>();
             }
+            System.out.println(season);
             seasons.add(season);
             serie.setSeasons(seasons);
+            serieController.update(idSerie, serie);
 
             return true;
         } else {

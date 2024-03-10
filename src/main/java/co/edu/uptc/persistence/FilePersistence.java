@@ -165,7 +165,7 @@ public class FilePersistence<T> implements Persistence<T> {
     }
 
     public void deleteFile() {
-        file = new File(filePath + this.fileName + fileExtension);
+        File file = new File(filePath + this.fileName + fileExtension);
         file.delete();
     }
 

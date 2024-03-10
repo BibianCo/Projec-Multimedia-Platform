@@ -1,6 +1,7 @@
 package co.edu.uptc.controller;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import co.edu.uptc.model.Role;
 import co.edu.uptc.persistence.Persistence;
@@ -29,15 +30,19 @@ public class RoleController {
     }
 
     public boolean updateRoleById(int roleId, Role newRole) {
-
         Role currentRole = get(roleId);
 
         if (currentRole != null) {
-            int index = getAll().indexOf(currentRole);
-            return this.persistence.persist(index, newRole);
+            List<Role> allRoles = getAll();
+            int index = 0;
+            for (Role role : allRoles) {
+                if (role.getId() == roleId) {
+                    return this.persistence.persist(index, newRole);
+                }
+                index++;
+            }
         }
         return false;
-
     }
 
     public ArrayList<Role> getAll() {

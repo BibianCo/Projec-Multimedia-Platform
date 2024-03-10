@@ -1,6 +1,7 @@
 package co.edu.uptc.controller;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import co.edu.uptc.model.Plan;
 import co.edu.uptc.persistence.Persistence;
@@ -48,12 +49,17 @@ public class PlanController {
 
     public boolean update(int id, Plan newPlan) {
         Plan currentPlan = get(id);
+    
         if (currentPlan != null) {
-            int index = getAll().indexOf(currentPlan);
-            return this.persistence.persist(index, newPlan);
-        } else {
-            return false;
+            int index = 0;
+            for (Plan plan : getAll()) {
+                if (plan.getId() == id) {
+                    return this.persistence.persist(index, newPlan);
+                }
+                index++;
+            }
         }
+        return false;
     }
 
 }

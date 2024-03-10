@@ -20,6 +20,16 @@
     -fx-padding: 10px;
 }
 
+#messageError {
+    -fx-text-fill: #db0000;
+    -fx-tab-size: 25px;
+}
+
+.message {
+    -fx-text-fill: #db0000;
+    -fx-tab-size: 25px;
+}
+
 #messageError,
 #messageError1 {
     -fx-alignment: "center";
@@ -31,6 +41,7 @@
 
 .button {
     -fx-font-size: 15px;
+
     -fx-pref-width: 250px;
     -fx-pref-height: 10px;
     -fx-background-color: #db0000;
@@ -74,9 +85,18 @@
     -fx-background-color: #F4F4F4F4;
 }
 
+
+.chosseCategory {
+    -fx-background-color: white;
+    -fx-border-color: #c0c0c0;
+    -fx-border-width: 1px;
+    -fx-pref-width: 250px;
+}
+
 #showCategory,
 #showSerie,
-#showSeason {
+#showSeason,
+#showCategory {
     -fx-font-size: 17px;
     -fx-font-weight: bold;
     -fx-text-fill: #db0000;
@@ -139,6 +159,7 @@
     -fx-border-color: #db0000;
     -fx-background-radius: 0px;
     -fx-border-radius: 0px;
+
 }
 
 #showSerie,

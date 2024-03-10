@@ -42,15 +42,23 @@ public class SubscriptionController {
         return persistence.obtainAll();
     }
 
-    public boolean update(int id, Subscription newsubscription) {
+    public boolean update(int id, Subscription newSubscription) {
         Subscription currentSubscription = get(id);
+    
         if (currentSubscription != null) {
-            int index = getAll().indexOf(currentSubscription);
-            return this.persistence.persist(index, newsubscription);
+            int index = 0;
+            for (Subscription subscription : getAll()) {
+                if (subscription.getId() == id) {
+                    return this.persistence.persist(index, newSubscription);
+                }
+                index++;
+            }
         } else {
             return false;
         }
+        return false;
     }
+    
 
     public LocalDate setStartDate(Subscription subscription) {
         subscription.setDateStart(LocalDate.now());
@@ -85,4 +93,15 @@ public class SubscriptionController {
 
     }
 
+    public int simulatePayment(String target, int quantity, Subscription subscription) {
+
+        if ((target.length() == 10 || !target.matches("[0-9]+")) &&
+                (subscription != null && get(subscription.getId()).getPlan().getPrice() <= quantity) && quantity > 0) {
+            int result = quantity - get(subscription.getId()).getPlan().getPrice();
+            if (result > 0) {
+                return result;
+            }
+        }
+        return -1;
+    }
 }
