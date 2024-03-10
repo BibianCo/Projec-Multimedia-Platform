@@ -2,6 +2,7 @@ package co.edu.uptc.model;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Arrays;
 
 public class Movie extends Multimedia {
     private int duration;
@@ -32,8 +33,7 @@ public class Movie extends Multimedia {
 
     @Override
     public String toString() {
-        return "\nId: " + super.getId() + "\nTitle: " + super.getTitle() + "\nSynopsis: "
-                + super.getSynopsis() + "\nDate: " + super.getReleaseDate() + "\nDuration: " + duration;
+        return super.getTitle();
     }
 
     public ArrayList<Category> getCategories() {
@@ -43,5 +43,4 @@ public class Movie extends Multimedia {
     public void setCategories(ArrayList<Category> categories) {
         this.categories = categories;
     }
-
 }
