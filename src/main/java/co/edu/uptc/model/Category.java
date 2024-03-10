@@ -18,7 +18,7 @@ public class Category extends Entity {
 
     @Override
     public String toString() {
-        return "Category{" + " id=" + super.getId() + ", Name='" + name + '}';
+        return name;
     }
 
 }

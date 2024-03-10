@@ -20,13 +20,18 @@
 }
 
 #messageError {
-    -fx-text-fill: #831010;
-    -fx-tab-size: 20px;
+    -fx-text-fill: #db0000;
+    -fx-tab-size: 25px;
+}
+
+.message {
+    -fx-text-fill: #db0000;
+    -fx-tab-size: 25px;
 }
 
 .button {
     -fx-font-size: 16px;
-    -fx-pref-width: 130px;
+    -fx-pref-width: 250px;
     -fx-pref-height: 10px;
     -fx-background-color: #db0000;
     -fx-text-fill: #cccccc;
@@ -66,4 +71,11 @@
 
 .table-row-cell:odd {
     -fx-background-color: #F4F4F4F4;
+}
+
+.chosseCategory {
+    -fx-background-color: white;
+    -fx-border-color: #c0c0c0;
+    -fx-border-width: 1px;
+    -fx-pref-width: 250px;
 }
