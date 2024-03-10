@@ -16,10 +16,6 @@
 
 }
 
-#categoryName {
-    -fx-padding: 10px;
-}
-
 #messageError {
     -fx-text-fill: #db0000;
     -fx-tab-size: 25px;
@@ -96,7 +92,7 @@
 #showCategory,
 #showSerie,
 #showSeason,
-#showCategory {
+#showEpisode {
     -fx-font-size: 17px;
     -fx-font-weight: bold;
     -fx-text-fill: #db0000;
@@ -109,6 +105,10 @@
     -fx-text-alignment: center;
 }
 
+
+
+#comboBoxSeason,
+#comboBoxEpisode,
 #comboBox {
     -fx-alignment: center;
     -fx-pref-width: 200px;
@@ -118,29 +118,15 @@
     -fx-border-radius: 0px;
 }
 
+#comboBoxSeason .arrow,
+#comboBoxEpisode .arrow,
 #comboBox .arrow {
     -fx-background-color: #564d4d;
 }
 
+#comboBoxSeason .arrow-button,
+#comboBoxEpisode .arrow-button,
 #comboBox .arrow-button {
-    -fx-padding: 1px;
-
-}
-
-#comboBoxSeason {
-    -fx-alignment: center;
-    -fx-pref-width: 200px;
-    -fx-font-size: 14px;
-    -fx-background-color: white;
-    -fx-border-color: #db0000;
-    -fx-border-radius: 0px;
-}
-
-#comboBoxSeason .arrow {
-    -fx-background-color: #564d4d;
-}
-
-#comboBoxSeason .arrow-button {
     -fx-padding: 1px;
 
 }
@@ -153,7 +139,9 @@
 }
 
 #categoryName,
-#episodeDuration {
+#episodeDuration,
+#episodeNumber {
+    -fx-padding: 10px;
     -fx-pref-width: 250px;
     -fx-max-height: 100px;
     -fx-border-color: #db0000;
@@ -175,4 +163,16 @@
     -fx-border-radius: 5px;
 
     -fx-text-alignment: center;
+}
+
+#episodeDuration {
+    -fx-background-color: #f0f0f0;
+    -fx-text-inner-color: #333333;
+    -fx-prompt-text-fill: #999999;
+    -fx-font-size: 14px;
+    -fx-padding: 6px;
+    -fx-border-color: #db0000;
+    -fx-border-width: 1px;
+    -fx-border-radius: 3px;
+
 }

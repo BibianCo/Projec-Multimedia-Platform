@@ -17,7 +17,7 @@
         <HBox spacing="20">
          <VBox id="vbox" spacing="10" HBox.hgrow="ALWAYS" alignment="CENTER">
                 <Label id="title" text="Choose the movie you want to delete"/>
-    <ComboBox fx:id="comoboBoxMovies" prefWidth="150">   </ComboBox> 
+             <ComboBox fx:id="comoboBoxMovies" prefWidth="150">   </ComboBox> 
                 <Label fx:id="messageError"/>
                 <Button fx:id="deleteButton" text="Delete" onAction="#deleteMovie"/>
                 <Button fx:id="backButton" text="Back" onAction="#sceneMenu"/>

@@ -58,7 +58,7 @@ public class Season extends Entity {
 
     @Override
     public String toString() {
-        return "Season [number=" + number + ", idSerie=" + idSerie + ", episodes=" + episodes + "]";
+        return "Season" + number;
     }
 
 }

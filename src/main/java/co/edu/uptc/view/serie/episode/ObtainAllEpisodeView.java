@@ -1,4 +1,4 @@
-package co.edu.uptc.view.categories;
+package co.edu.uptc.view.serie.episode;
 
 import java.io.IOException;
 import java.lang.reflect.Type;
@@ -26,23 +26,21 @@ import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
-import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 
-public class CreateEpisodeView implements Initializable {
+public class ObtainAllEpisodeView implements Initializable {
 
     @FXML
     private ComboBox<Serie> comboBox;
+
     @FXML
     private ComboBox<Season> comboBoxSeason;
 
     @FXML
-    private Label showSerie, showSeason, messageError;
+    private TableView<Episode> tableView;
 
     @FXML
-    private TextField episodeDuration;
-    @FXML
-    private TableView<Episode> tableView;
+    private Label messageError;
 
     @FXML
     private TableColumn<Episode, Integer> idColumn, numberColumn, durationColumn;
@@ -69,6 +67,7 @@ public class CreateEpisodeView implements Initializable {
         numberColumn.setCellValueFactory(new PropertyValueFactory<>("Number"));
         durationColumn.setCellValueFactory(new PropertyValueFactory<>("Duration"));
         tableView.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
+
         typeEpisode = new TypeToken<ArrayList<Episode>>() {
         }.getType();
         typeSeason = new TypeToken<ArrayList<Season>>() {
@@ -79,16 +78,14 @@ public class CreateEpisodeView implements Initializable {
         }.getType();
 
         filePersistence = new FilePersistence<>(typeEpisode, "episodes");
-        fpsn = new FilePersistence<>(typeSeason, "season");
-        fpse = new FilePersistence<>(typeSerie, "serie");
+        fpsn = new FilePersistence<>(typeSeason, "seasons");
+        fpse = new FilePersistence<>(typeSerie, "series");
         fpcy = new FilePersistence<>(typeCategory, "categories");
 
         categoryController = new CategoryController(fpcy);
         serieController = new SerieController(fpse, categoryController);
         seasonController = new SeasonController(fpsn, serieController);
         episodeController = new EpisodeController(filePersistence, seasonController);
-
-        filePersistence.createFile();
 
         comboBox.getItems().addAll(serieController.getAll());
         comboBox.setOnAction(this::comboBoxEpisodeAction);
@@ -97,96 +94,48 @@ public class CreateEpisodeView implements Initializable {
     }
 
     @FXML
-    private void createEpisode() throws IOException {
-        if (findSerie == null || findSeason == null) {
-            viewSerie();
-            return;
-        }
+    private void obtainAllEpisode() throws IOException {
+        tableView.getItems().setAll(new ArrayList<>());
+        tableView.getItems().addAll(episodeController.getAll(findSeason.getId()));
+    }
 
-        if (episodeDuration.getText().isEmpty() || episodeDuration.getText().trim().isEmpty()) {
-            messageError.setText("Error empty string, enter number");
-        } else if (episodeDuration.getText().matches("[0-9]+")) {
-            Episode episode = new Episode(setId(), numberEpisode(), Integer.valueOf(episodeDuration.getText()),
-                    findSeason.getId());
-
-            if (episodeController.add(episode)) {
-                episodeDuration.clear();
-                messageError.setText("");
-                loadItems();
-
-            }
-
-        } else {
-            messageError.setText("Only numbers are accepted.");
-
-        }
-
-        messageError.setText("");
-
+    @FXML
+    private void sceneMenu() throws IOException {
+        Main.setRoot("menu-crud-episode");
     }
 
     private void viewSerie() {
         if (findSerie == null) {
             messageError.setText("Error, select series to add episode");
-
-        } else if (serieController.get(findSerie.getId()) == null) {
-            messageError.setText(" The serie does not exisy");
-        } else {
-            showSerie.setWrapText(true);
-            showSerie.setText("The serie " + findSerie.getTitle());
-            messageError.setText("");
-            showSeason();
-        }
-
-    }
-
-    private void showSeason() {
-
-        if (findSeason == null) {
+        } else if (findSeason == null) {
             messageError.setText("Error, select season to add episode");
-        } else if (serieController.get(findSerie.getId()) == null) {
-            messageError.setText(" The season does not exisy");
         } else {
-            showSeason.setWrapText(true);
-            showSeason.setText("Season " + String.valueOf(findSeason.getNumber()));
-            messageError.setText("");
+            try {
+                obtainAllEpisode();
+                messageError.setText("");
+            } catch (IOException e) {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
+            }
+
         }
+
     }
 
     private void loadItems() {
         tableView.getItems().setAll(new ArrayList<>());
-        tableView.getItems().addAll(episodeController.getAll());
-    }
-
-    public int numberEpisode() {
-        ArrayList<Episode> episodes = seasonController.get(findSeason.getId()).getEpisodes();
-        if (episodes == null || episodes.isEmpty()) {
-            return 1;
-        }
-        return episodes.size() + 1;
-    }
-
-    public int setId() {
-        if (episodeController.getAll().isEmpty()) {
-            return 1;
-        } else {
-            return episodeController.getAll().get(episodeController.getAll().size() - 1).getId() + 1;
-        }
-
-    }
-
-    @FXML
-    private void sceneMenu() throws IOException {
-        Main.setRoot("menu-crud-categories");
+        tableView.getItems().addAll(seasonController.get(findSeason.getId()).getEpisodes());
     }
 
     public void comboBoxEpisodeAction(ActionEvent event) {
         if (findSerie != null || findSeason != null) {
             findSeason = comboBoxSeason.getValue();
             findSerie = comboBox.getValue();
-            showSeason();
             loadItems();
+            viewSerie();
             return;
+        } else {
+            viewSerie();
         }
         findSerie = comboBox.getValue();
 
@@ -194,7 +143,10 @@ public class CreateEpisodeView implements Initializable {
             List<Season> seasons = serieController.get(findSerie.getId()).getSeasons();
             comboBoxSeason.getItems().addAll(seasons);
             findSeason = comboBoxSeason.getValue();
-            viewSerie();
+            if (findSeason != null) {
+                viewSerie();
+            }
+
         }
 
     }
