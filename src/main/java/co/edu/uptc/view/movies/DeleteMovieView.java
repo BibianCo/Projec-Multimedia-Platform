@@ -107,7 +107,6 @@ public class DeleteMovieView implements Initializable {
         movieController.delete(movie.getId());
 
         loadItems();
-
     }
 
     public void handleComboBoxAction(ActionEvent event) {

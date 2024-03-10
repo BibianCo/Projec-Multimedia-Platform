@@ -41,7 +41,7 @@
                  <DatePicker fx:id="date" promptText="Date"/>
                 <Label  styleClass="message" fx:id="messageDate"/>
 
-                 <Label  styleClass="title" text="Enter Categories"/>
+                 <Label  id="title" text="Enter Categories"/>
                  <ComboBox styleClass="chosseCategory" fx:id="comboBoxCategories" prefWidth="150">   </ComboBox> 
                 <Label  styleClass="message" fx:id="messageCategory"/>
 
