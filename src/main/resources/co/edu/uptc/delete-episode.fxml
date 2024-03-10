@@ -19,15 +19,15 @@
                
                     <Label id="title" text="I selected the series you want to delete episode." />
                     <ComboBox fx:id="comboBox" xmlns:fx="http://javafx.com/fxml" />
-                    <Label fx:id="messageError"/>
+                    <Label fx:id="messageError1"/>
               
                     <Label id="title" text="I selected the season you want to delete episode." />
                     <ComboBox fx:id="comboBoxSeason" xmlns:fx="http://javafx.com/fxml"/>
-                    <Label fx:id="messageError"/>
+                    <Label fx:id="messageError2"/>
 
                     <Label id="title" text="Select the episode you want to delete"/>
                     <ComboBox fx:id="comboBoxEpisode" xmlns:fx="http://javafx.com/fxml"/>
-                    <Label fx:id="messageError"/>
+                    <Label fx:id="messageError3"/>
 
                 <Button fx:id="deleteButton" text="Delete" onAction="#deleteEpisode"/>
                 <Button fx:id="backButton" text="Back" onAction="#sceneMenu"/>

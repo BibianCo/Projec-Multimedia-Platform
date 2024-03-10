@@ -20,18 +20,18 @@
             <VBox id="vbox" spacing="10" HBox.hgrow="ALWAYS" alignment="CENTER">
                 <Label id="title" text="I selected the series you want to find episode." />
                     <ComboBox fx:id="comboBox" xmlns:fx="http://javafx.com/fxml" />
-                    <Label fx:id="messageError"/>
+                    <Label fx:id="messageError1"/>
               
                     <Label id="title" text="I selected the season you want to find episode." />
                     <ComboBox fx:id="comboBoxSeason" xmlns:fx="http://javafx.com/fxml"/>
-                    <Label fx:id="messageError"/>
+                    <Label fx:id="messageError2"/>
 
                     <Label id="title" text="Enter the number of the episode you want to find"/>
                         <HBox spacing="0" alignment="CENTER">
                             <TextField fx:id="episodeNumber" promptText="Number episode" />
                             <Button fx:id="findButton" text="Find" onAction="#findEpisode"/>
                         </HBox>
-                <Label fx:id="messageError"/>
+                <Label fx:id="messageError3"/>
                 <Button fx:id="backButton" text="Back" onAction="#sceneMenu"/>
                 
             </VBox>

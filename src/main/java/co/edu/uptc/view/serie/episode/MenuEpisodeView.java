@@ -18,11 +18,6 @@ public class MenuEpisodeView {
     }
 
     @FXML
-    private void sceneUpdate() throws IOException {
-        Main.setRoot("update-episode");
-    }
-
-    @FXML
     private void sceneFind() throws IOException {
         Main.setRoot("find-episode");
     }

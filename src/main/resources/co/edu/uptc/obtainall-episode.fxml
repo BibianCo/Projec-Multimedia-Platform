@@ -17,16 +17,17 @@
 <StackPane id="pane" prefHeight="500" prefWidth="500" stylesheets="@css/style.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="co.edu.uptc.view.serie.episode.ObtainAllEpisodeView">
     <children>
      <VBox id="vbox" spacing="10" alignment="TOP_CENTER">
+       <Label id="title" text="Select the series and then season of the episodes you want to watch." />
             <HBox spacing="20" >
                 <VBox id="vbox" spacing="10" HBox.hgrow="ALWAYS" alignment="CENTER">
                     <Label id="title" text="I selected the series." />
                     <ComboBox fx:id="comboBox" xmlns:fx="http://javafx.com/fxml" />
-                    <Label fx:id="messageError"/>
+                    <Label fx:id="messageError1"/>
                 </VBox>  
                 <VBox id="vbox" spacing="10" HBox.hgrow="ALWAYS" alignment="CENTER">
                     <Label id="title" text="I selected the season." />
                     <ComboBox fx:id="comboBoxSeason" xmlns:fx="http://javafx.com/fxml"/>
-                    <Label fx:id="messageError"/>
+                    <Label fx:id="messageError2"/>
                 </VBox>
             </HBox>
              <VBox id="vbox" spacing="10" HBox.hgrow="ALWAYS" alignment="CENTER">

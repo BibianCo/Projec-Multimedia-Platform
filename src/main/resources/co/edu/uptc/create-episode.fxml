@@ -20,15 +20,15 @@
           <VBox id="vbox" spacing="10" HBox.hgrow="ALWAYS" alignment="CENTER">
                 <Label id="title" text="I selected the series you want to add episode." />
                     <ComboBox fx:id="comboBox" xmlns:fx="http://javafx.com/fxml" />
-                    <Label fx:id="messageError"/>
+                    <Label fx:id="messageError1"/>
               
                     <Label id="title" text="I selected the season you want to add episode." />
                     <ComboBox fx:id="comboBoxSeason" xmlns:fx="http://javafx.com/fxml"/>
-                    <Label fx:id="messageError"/>
+                    <Label fx:id="messageError2"/>
 
                     <Label id="title" text="Enter the duration of the episode" />
                     <TextField fx:id="episodeDuration" promptText="Episode duration" />
-                    <Label fx:id="messageError"/>
+                    <Label fx:id="messageError3"/>
 
                <Button fx:id="createButton" text="create" onAction="#createEpisode"/>
                 <Button fx:id="backButton" text="Back" onAction="#sceneMenu"/>  
