@@ -36,8 +36,8 @@ public class CreateCategoryView implements Initializable {
     @FXML
     private Label messageError;
 
-    public CategoryController controller;
-    public FilePersistence<Category> filePersistence;
+    private CategoryController controller;
+    private FilePersistence<Category> filePersistence;
     private Type type;
 
     @Override
@@ -89,19 +89,6 @@ public class CreateCategoryView implements Initializable {
             return 1;
         } else {
             return controller.getAll().get(controller.getAll().size() - 1).getId() + 1;
-        }
-
-    }
-
-    public boolean validateEntries(String entrie) {
-        if (entrie.isEmpty()) {
-            messageError.setText("Error empty string");
-            return true;
-        } else if (entrie.matches("[a-zA-Z]+")) {
-            messageError.setText("Only letters are accepted");
-            return true;
-        } else {
-            return false;
         }
 
     }

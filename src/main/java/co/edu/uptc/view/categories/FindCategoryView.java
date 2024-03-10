@@ -72,7 +72,7 @@ public class FindCategoryView implements Initializable {
     }
 
     public int getId(String nameCategory) {
-        Category category = controller.exitCategoryName(nameCategory);
+        Category category = controller.existsCategoryName(nameCategory);
 
         if (category == null) {
             return -1;

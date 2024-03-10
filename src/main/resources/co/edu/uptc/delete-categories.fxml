@@ -18,7 +18,7 @@
          <VBox id="vbox" spacing="10" HBox.hgrow="ALWAYS" alignment="CENTER">
                  <Label fx:id="messageError"/>
                 <Label id="title" text="Select the category you want to delete"/>
-                <ComboBox fx:id="comboBoxCategory" xmlns:fx="http://javafx.com/fxml"/>
+                <ComboBox fx:id="comboBox" xmlns:fx="http://javafx.com/fxml"/>
                  <Label fx:id="messageError"/>
                 <Button fx:id="deleteButton" text="Delete" onAction="#deleteCategory"/>
                 <Button fx:id="backButton" text="Back" onAction="#sceneMenu"/>

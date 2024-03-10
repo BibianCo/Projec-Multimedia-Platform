@@ -15,7 +15,7 @@ public class CategoryController {
     }
 
     public boolean add(Category category) {
-        if (get(category.getId()) == null && exitCategoryName(category.getName()) == null) {
+        if (get(category.getId()) == null && existsCategoryName(category.getName()) == null) {
             return persistence.persist(category);
         } else {
             return false;
@@ -34,7 +34,7 @@ public class CategoryController {
     public boolean update(int id, Category newCategory) {
         Category currentCategory = get(id);
 
-        if (currentCategory != null && exitCategoryName(newCategory.getName()) == null) {
+        if (currentCategory != null && existsCategoryName(newCategory.getName()) == null) {
             int index = 0;
             for (Category category : getAll()) {
                 if (category.getId() == id) {
@@ -62,7 +62,7 @@ public class CategoryController {
         this.persistence = persistence;
     }
 
-    public Category exitCategoryName(String nameCategory) {
+    public Category existsCategoryName(String nameCategory) {
 
         for (Category category : getAll()) {
 
