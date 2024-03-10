@@ -4,10 +4,11 @@
 }
 
 #title {
-    -fx-font-size: 15px;
+    -fx-font-size: 17px;
     -fx-font-family: sans-serif;
     -fx-text-fill: #000000;
-    -fx-alignment: CENTER;
+    -fx-text-alignment: CENTER;
+    -fx-wrap-text: "true";
 }
 
 #vbox {
@@ -29,8 +30,18 @@
     -fx-tab-size: 25px;
 }
 
+#messageError,
+#messageError1 {
+    -fx-alignment: "center";
+    -fx-text-fill: #db0000;
+    -fx-font-size: 15px;
+    -fx-wrap-text: "true"
+
+}
+
 .button {
-    -fx-font-size: 16px;
+    -fx-font-size: 15px;
+
     -fx-pref-width: 250px;
     -fx-pref-height: 10px;
     -fx-background-color: #db0000;
@@ -45,11 +56,12 @@
     -fx-background-color: #cccccc;
 }
 
+
 .table-view .column-header .label,
 .table-view .filler {
     -fx-background-color: #db0000;
     -fx-size: 30px;
-    -fx-text-fill: #cccccc;
+    -fx-text-fill: #ffffff;
     -fx-border-color: -fx-box-border;
     -fx-border-width: 0 1 0 0;
     -fx-border-insets: 0;
@@ -78,4 +90,32 @@
     -fx-border-color: #c0c0c0;
     -fx-border-width: 1px;
     -fx-pref-width: 250px;
+
+#showCategory {
+    -fx-font-size: 17px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #db0000;
+    -fx-background-color: #f0f0f0;
+    -fx-padding: 10px;
+    -fx-border-color: #db0000;
+    -fx-border-width: 2px;
+    -fx-border-radius: 5px;
+
+    -fx-text-alignment: center;
+}
+
+#findButton {
+    -fx-pref-width: 100px;
+    -fx-max-height: 100px;
+    -fx-background-radius: 0px;
+    -fx-border-radius: 0px;
+}
+
+#categoryName {
+    -fx-pref-width: 250px;
+    -fx-max-height: 100px;
+    -fx-border-color: #db0000;
+    -fx-background-radius: 0px;
+    -fx-border-radius: 0px;
+
 }
