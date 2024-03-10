@@ -19,7 +19,7 @@
         <HBox spacing="20">
    <VBox id="vbox" spacing="10" HBox.hgrow="ALWAYS" alignment="CENTER">
                 <Label id="title" text="Select the category you want to update"/>
-                <ComboBox fx:id="comboBoxCategory" xmlns:fx="http://javafx.com/fxml"/>
+                <ComboBox fx:id="comboBox" xmlns:fx="http://javafx.com/fxml"/>
                  <Label fx:id="messageError1"/>
                  <HBox spacing="0" alignment="CENTER">
                     <TextField fx:id="categoryName" promptText="New name Category" />

@@ -29,7 +29,7 @@ public class UpdateCategoryView implements Initializable {
     private TableView<Category> tableView;
 
     @FXML
-    private ComboBox<Category> comboBoxCategory;
+    private ComboBox<Category> comboBox;
 
     @FXML
     private TableColumn<Category, Integer> idColumn;
@@ -69,8 +69,8 @@ public class UpdateCategoryView implements Initializable {
                 categoryName.clear();
                 messageError.setText("");
                 messageError1.setText("");
-                comboBoxCategory.getItems().clear();
-                comboBoxCategory.getItems().addAll(controller.getAll());
+                comboBox.getItems().clear();
+                comboBox.getItems().addAll(controller.getAll());
                 loadItems();
             } else {
                 messageError.setText("The category does exist");
@@ -79,7 +79,7 @@ public class UpdateCategoryView implements Initializable {
 
         if (controller.getAll().isEmpty() || controller.getAll() == null) {
             messageError.setText("There are no categories created to delete, please create categories.");
-            comboBoxCategory.getItems().clear();
+            comboBox.getItems().clear();
         }
         categoryName.clear();
 
@@ -104,15 +104,15 @@ public class UpdateCategoryView implements Initializable {
         }.getType();
         filePersistence = new FilePersistence<>(type, "categories");
         controller = new CategoryController(filePersistence);
-        comboBoxCategory.getItems().addAll(controller.getAll());
+        comboBox.getItems().addAll(controller.getAll());
 
-        comboBoxCategory.setOnAction(this::comboBoxCategoryAction);
+        comboBox.setOnAction(this::comboBoxCategoryAction);
         loadItems();
     }
 
     public void comboBoxCategoryAction(ActionEvent event) {
-        updateCategory = comboBoxCategory.getValue();
-        comboBoxCategory.getEditor().clear();
+        updateCategory = comboBox.getValue();
+        comboBox.getEditor().clear();
 
     }
 }
