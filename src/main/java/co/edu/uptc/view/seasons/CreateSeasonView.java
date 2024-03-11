@@ -69,14 +69,10 @@ public class CreateSeasonView implements Initializable {
         }.getType();
         this.filePersistenceCategory = new FilePersistence<>(type3, "categories");
         this.categoryController = new CategoryController(filePersistenceCategory);
-        this.filePersistenceSerie = new FilePersistence<>(type2, "serie");
+        this.filePersistenceSerie = new FilePersistence<>(type2, "series");
         this.serieController = new SerieController(filePersistenceSerie, categoryController);
-        this.filePersistence = new FilePersistence<>(type, "season");
+        this.filePersistence = new FilePersistence<>(type, "seasons");
         this.seasonController = new SeasonController(filePersistence, serieController);
-
-        filePersistenceCategory.createFile();
-        filePersistenceSerie.createFile();
-        filePersistence.createFile();
 
         idColumn.setCellValueFactory(new PropertyValueFactory<>("id"));
         numberColumn.setCellValueFactory(new PropertyValueFactory<>("number"));
@@ -117,7 +113,7 @@ public class CreateSeasonView implements Initializable {
         } else {
             showMovie.setWrapText(true);
             showMovie.setText(serie.getTitle());
-            Season season = new Season(setId(), setId(), serie.getId());
+            Season season = new Season(setId(), setId(), serie.getId(), new ArrayList<>());
             showMovie.setWrapText(true);
             showMovie.setText("Movie Information:\n" +
                     "Name: " + serie.getTitle() + "\n" +

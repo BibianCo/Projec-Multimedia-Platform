@@ -37,4 +37,9 @@ public class MenuSeasonView {
     private void createEpiosode() throws IOException {
         Main.setRoot("create-episode");
     }
+
+    @FXML
+    private void sceneMenuSeries() throws IOException {
+        Main.setRoot("menu-crud-series");
+    }
 }

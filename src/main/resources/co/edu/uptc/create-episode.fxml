@@ -30,8 +30,9 @@
                     <TextField fx:id="episodeDuration" promptText="Episode duration" />
                     <Label fx:id="messageError3"/>
 
-               <Button fx:id="createButton" text="create" onAction="#createEpisode"/>
-                <Button fx:id="backButton" text="Back" onAction="#sceneMenu"/>  
+               <Button fx:id="createButton" text="Create" onAction="#createEpisode"/>
+                <Button fx:id="backButton" text="Back" onAction="#createSeason"/>  
+                <Button fx:id="nemuButton" text="Tools" onAction="#sceneMenu"/>  
             </VBox>
            
             <Separator styleClass="line" orientation="VERTICAL"/>

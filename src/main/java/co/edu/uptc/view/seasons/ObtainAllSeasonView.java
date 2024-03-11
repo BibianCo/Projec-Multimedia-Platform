@@ -66,9 +66,9 @@ public class ObtainAllSeasonView implements Initializable {
         }.getType();
         this.filePersistenceCategory = new FilePersistence<>(type3, "categories");
         this.categoryController = new CategoryController(filePersistenceCategory);
-        this.filePersistenceSerie = new FilePersistence<>(type2, "serie");
+        this.filePersistenceSerie = new FilePersistence<>(type2, "series");
         this.serieController = new SerieController(filePersistenceSerie, categoryController);
-        this.filePersistence = new FilePersistence<>(type, "season");
+        this.filePersistence = new FilePersistence<>(type, "seasons");
         this.seasonController = new SeasonController(filePersistence, serieController);
 
         filePersistenceCategory.createFile();

@@ -16,6 +16,7 @@
                 <Button fx:id="updateButton" text="Update season" onAction="#sceneUpdate"/>
                 <Button fx:id="findButtonMain" text="Find season" onAction="#sceneFind"/>
                 <Button fx:id="obtainAllButton" text="Obtain All season" onAction="#sceneObtainAll"/>
+                <Button fx:id="backButton" text=" Back " onAction="#sceneMenuSeries"/>
             </VBox>
     </children>
 </StackPane>
