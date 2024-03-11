@@ -173,3 +173,74 @@
     -fx-border-radius: 3px;
 
 }
+
+#centerPane {
+    -fx-background-color: #F08A80;
+    /* color de fondo */
+}
+
+.menu-bar {
+    -fx-background-color: #db0000;
+    /* color de fondo de la barra de menú */
+    -fx-text-fill: #f0f0f0;
+    ;
+    -fx-font-size: 17px;
+    -fx-font-family: sans-serif;
+    -fx-text-alignment: center;
+    /* color del texto de la barra de menú */
+}
+
+.menu {
+    -fx-background-color: transparent;
+    /* color de fondo del menú desplegable */
+}
+
+.menu-item {
+    -fx-text-fill: #db0000;
+    -fx-font-size: 15px;
+    /* color del texto de los elementos del menú */
+}
+
+.vbox {
+    -fx-background-color: #db0000;
+    /* color de fondo de los VBox */
+    -fx-border-color: #ccc;
+    /* color del borde */
+    -fx-border-width: 1px;
+    /* ancho del borde */
+    -fx-border-radius: 20px;
+    /* radio de los bordes */
+    -fx-padding: 10px;
+    /* espacio interno */
+}
+
+.vbox>label {
+    -fx-font-size: 100px;
+    /* tamaño de fuente */
+    -fx-font-weight: bold;
+    /* negrita */
+}
+
+.vbox>image-view {
+    -fx-effect: dropshadow(gaussian, #333, 5, 0.5, 0, 0);
+    /* sombra */
+}
+
+.scroll-pane {
+    -fx-background-color: transparent;
+    /* color de fondo transparente */
+    -fx-padding: 5px;
+    /* espacio interno */
+}
+
+#rightPane,
+#rightPane2 {
+    -fx-background-color: #333;
+    /* Color de fondo que deseas aplicar */
+}
+
+#buttonimg {
+    -fx-background-color: transparent;
+    -fx-border-style: none;
+    -fx-border-radius: 0px;
+}

@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.control.Menu?>
+<?import javafx.scene.control.MenuBar?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.control.SeparatorMenuItem?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.control.Hyperlink?>
+<?import javafx.scene.control.Button?>
+
+<BorderPane prefHeight="600" prefWidth="800" stylesheets="@css/style.css" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="co.edu.uptc.view.users.MainUserView">
+    <left>
+        <VBox fx:id="rightPane2" prefWidth="160" spacing="10">
+            <MenuBar>
+                <menus>
+                    <Menu text="Options" fx:id="menu">
+                        <items>
+                            <MenuItem text="Search movies by categories" onAction="#sceneSearchMovies"/>
+                            <MenuItem text="Search series by categories" onAction="#sceneSearchSerie"/>
+                            <SeparatorMenuItem/>
+                            <MenuItem text="Movies" onAction="#sceneShowMovies"/>
+                            <MenuItem text="Serie" onAction="#sceneShowSerie"/>
+                            <MenuItem text="Custom List" onAction="#sceneCostomList"/>
+                            <SeparatorMenuItem/>
+                            <MenuItem text="Exit" onAction="#sceneExit"/>
+                        </items>
+                    </Menu>
+                </menus>
+            </MenuBar>
+        </VBox>
+    </left>
+    <center>
+    <StackPane id="rightPane">
+        <VBox alignment="TOP_CENTER" spacing="10">
+            <!-- Sección para el texto -->
+            
+                
+                <Label text="Texto superior" textFill="#ccc" />
+
+            <ScrollPane fitToWidth="true" fx:id="rightPane" id="rightPane">
+                <HBox spacing="20" id="rightPane">
+                    <VBox >
+                        <Button onAction="#sceneShowMovies" id="buttonimg">
+                                <graphic>
+                                    <ImageView fitWidth="200" fitHeight="250">
+                                        <image>
+                                            <Image url="@images/movie1.jpg"/>
+                                        </image>
+                                    </ImageView>
+                                </graphic>
+                        </Button>
+                    </VBox>
+                    <VBox >
+                        <Label text="Movie " alignment="CENTER" textFill="#ccc" />
+                        <ImageView fitWidth="200" fitHeight="250">
+                            <image>
+                                <Image url="@images/movie2.jpg"/>
+                            </image>
+                        </ImageView>
+                    </VBox>
+                    <VBox id="rightPane">
+                        <Label text="Serie" alignment="CENTER" textFill="#ccc"/>
+                        <ImageView fitWidth="200" fitHeight="250">
+                            <image>
+                                <Image url="@images/imag3.jpg"/>
+                            </image>
+                        </ImageView>
+                    </VBox> 
+                    <VBox>
+                </VBox>
+                    <!-- Agrega más elementos VBox para más películas y programas de TV -->
+                </HBox>
+            </ScrollPane>
+        </VBox> 
+        </StackPane>
+    </center>
+</BorderPane>

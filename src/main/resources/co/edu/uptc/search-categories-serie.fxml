@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Separator?>
+
+<StackPane id="pane" prefHeight="600" prefWidth="600" stylesheets="@css/style.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="co.edu.uptc.view.users.SearchByCategorySerie">
+    <children>
+        <HBox spacing="20">
+         <VBox id="vbox" spacing="10" HBox.hgrow="ALWAYS" alignment="CENTER">
+                 <Label fx:id="messageError"/>
+                <Label id="title" text="Select the category."/>
+                <ComboBox fx:id="comboBox" xmlns:fx="http://javafx.com/fxml"/>
+                 <Label fx:id="messageError"/>
+               
+                <Button fx:id="backButton" text="Back" onAction="#sceneMenu"/>
+            </VBox>
+
+            <Separator orientation="VERTICAL"/>
+            
+            <VBox id="vbox" spacing="10" alignment="CENTER" HBox.hgrow="ALWAYS" >
+                <Label id="title" alignment="CENTER" text="Existing Movies"/>
+                
+                <children>
+                    <TableView fx:id="tableView">
+                        <columns>
+                         <TableColumn text="id" fx:id="idColumn" />
+                            <TableColumn text="Name " fx:id="nameColumn" />
+                            <TableColumn text="Synopsisp" fx:id="synopsispColumn" />
+                             <TableColumn text="Categories" fx:id="categoryColum" />
+                            <TableColumn text="Date" fx:id="dateColumn" />
+                        </columns>
+                    </TableView>
+                </children>
+                
+            </VBox>
+        </HBox>
+    </children>
+</StackPane>
