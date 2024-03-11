@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.image.Image?>
+
+<StackPane id="pane" prefHeight="500" prefWidth="500" stylesheets="@css/style.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="co.edu.uptc.view.series.ObtainAllSeriesView">
+    <children>
+             <VBox id="vbox" spacing="10" HBox.hgrow="ALWAYS" alignment="CENTER">
+                <Label id="title" alignment="CENTER" text="Existing Series"/>
+                <children>
+                    <TableView fx:id="tableView"  styleClass="table-view">
+                        <columns>
+                          <TableColumn text="id" fx:id="idColumn" />
+                            <TableColumn text="Name " fx:id="titleColumn" />
+                            <TableColumn text="Synopsis" fx:id="synopsisColumn" />
+                            <TableColumn text="Categories" fx:id="categoryColum" />
+                            <TableColumn text="Date" fx:id="dateColumn" />
+                        </columns>
+                    </TableView>
+
+                     <Button fx:id="backButton" text="Back" onAction="#sceneMenu"/>
+                </children>
+            </VBox>
+    </children>
+</StackPane>
