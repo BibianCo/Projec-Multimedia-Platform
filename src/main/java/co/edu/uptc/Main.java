@@ -13,7 +13,7 @@ public class Main extends Application {
 
     @Override
     public void start(Stage stage) throws IOException {
-        scene = new Scene(loadFXML("users-main"), 700, 600);
+        scene = new Scene(loadFXML("menu-crud-season"), 700, 600);
 
         stage.setScene(scene);
         stage.setTitle("Menu de categorias");

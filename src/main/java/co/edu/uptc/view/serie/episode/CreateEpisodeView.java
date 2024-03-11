@@ -81,8 +81,8 @@ public class CreateEpisodeView implements Initializable {
         }.getType();
 
         filePersistence = new FilePersistence<>(typeEpisode, "episodes");
-        fpsn = new FilePersistence<>(typeSeason, "seasons");
-        fpse = new FilePersistence<>(typeSerie, "series");
+        fpsn = new FilePersistence<>(typeSeason, "season");
+        fpse = new FilePersistence<>(typeSerie, "serie");
         fpcy = new FilePersistence<>(typeCategory, "categories");
 
         categoryController = new CategoryController(fpcy);
@@ -190,6 +190,10 @@ public class CreateEpisodeView implements Initializable {
             return;
         }
         findSerie = comboBox.getValue();
+        findSeason = comboBoxSeason.getValue();
+
+        // Limpiar el ComboBox de temporadas antes de agregar nuevas temporadas
+        comboBoxSeason.getItems().clear();
 
         if (findSerie != null) {
             messageError1.setText("");
@@ -199,6 +203,9 @@ public class CreateEpisodeView implements Initializable {
 
         }
 
+        // Mostrar la serie y la temporada seleccionada
+        viewSerie();
+        showSeason();
     }
 
 }
