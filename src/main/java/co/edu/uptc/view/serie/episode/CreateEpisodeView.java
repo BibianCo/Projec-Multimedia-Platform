@@ -187,21 +187,21 @@ public class CreateEpisodeView implements Initializable {
     }
 
     public void comboBoxEpisodeAction(ActionEvent event) {
-        if (findSerie != null || findSeason != null) {
-            findSeason = comboBoxSeason.getValue();
-            findSerie = comboBox.getValue();
-            showSeason();
-            return;
-        }
         findSerie = comboBox.getValue();
+        findSeason = comboBoxSeason.getValue();
+
+        // Limpiar el ComboBox de temporadas antes de agregar nuevas temporadas
+        comboBoxSeason.getItems().clear();
 
         if (findSerie != null) {
+            // Obtener las temporadas asociadas a la serie seleccionada
             List<Season> seasons = serieController.get(findSerie.getId()).getSeasons();
             comboBoxSeason.getItems().addAll(seasons);
-            findSeason = comboBoxSeason.getValue();
-            viewSerie();
         }
 
+        // Mostrar la serie y la temporada seleccionada
+        viewSerie();
+        showSeason();
     }
 
 }
