@@ -81,8 +81,8 @@ public class CreateEpisodeView implements Initializable {
         }.getType();
 
         filePersistence = new FilePersistence<>(typeEpisode, "episodes");
-        fpsn = new FilePersistence<>(typeSeason, "seasons");
-        fpse = new FilePersistence<>(typeSerie, "series");
+        fpsn = new FilePersistence<>(typeSeason, "season");
+        fpse = new FilePersistence<>(typeSerie, "serie");
         fpcy = new FilePersistence<>(typeCategory, "categories");
 
         categoryController = new CategoryController(fpcy);

@@ -39,4 +39,9 @@ public class Serie extends Multimedia {
         this.categories = categories;
     }
 
+    @Override
+    public String toString() {
+        return super.getTitle();
+    }
+
 }

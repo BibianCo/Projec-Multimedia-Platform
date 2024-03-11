@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Separator?>
+
+<StackPane id="pane" prefHeight="600" prefWidth="600" stylesheets="@css/style.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="co.edu.uptc.view.seasons.DeleteSeasonView">
+    <children>
+        <HBox spacing="20">
+         <VBox id="vbox" spacing="10" HBox.hgrow="ALWAYS" alignment="CENTER">
+                 <Label fx:id="messageError"/>
+                <Label id="title" text="Select the season you want to delete"/>
+                <ComboBox fx:id="comboBox" xmlns:fx="http://javafx.com/fxml"/>
+                 <Label fx:id="messageError" prefWidth="150"/>
+                <Button fx:id="deleteButton" text="Delete" onAction="#deleteSeason"/>
+                <Button fx:id="backButton" text="Back" onAction="#sceneMenu"/>
+            </VBox>
+
+            <Separator orientation="VERTICAL"/>
+            
+           <VBox id="vbox" spacing="10" alignment="CENTER" HBox.hgrow="ALWAYS" >
+                <Label id="title" alignment="CENTER" text="Existing Season"/>
+                
+                <children>
+                    <TableView fx:id="tableView">
+                        <columns>
+                           <TableColumn text="id" fx:id="idColumn" />
+                            <TableColumn text="number" fx:id="numberColumn" />
+                            <TableColumn text="idSerie" fx:id="idSerieColumn" />
+                            <TableColumn text="episodes" fx:id="episodesColumn" />
+                        </columns>
+                    </TableView>
+                </children>
+                
+            </VBox>
+           
+        </HBox>
+    </children>
+</StackPane>
