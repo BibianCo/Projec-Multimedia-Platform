@@ -13,7 +13,7 @@
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.image.Image?>
 
-<StackPane id="pane" prefHeight="500" prefWidth="500" stylesheets="@css/style.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="co.edu.uptc.view.movies.FindMovieView">
+<StackPane id="pane" prefHeight="500" prefWidth="500" stylesheets="@css/style.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="co.edu.uptc.view.movies.FindMovieViewUser">
     <children>
         <HBox spacing="20">
           <VBox id="vbox" spacing="10" HBox.hgrow="ALWAYS" alignment="CENTER">
@@ -23,6 +23,7 @@
                             <Button  fx:id="findButton" text="Find" onAction="#findMovie"/>
                         </HBox>
                 <Label fx:id="messageError"/>
+                <Button fx:id="createButton" text="Reproduce" onAction="#reproduce"/>
                 <Button fx:id="createButton" text="Back" onAction="#sceneMenu"/>
                 
                 

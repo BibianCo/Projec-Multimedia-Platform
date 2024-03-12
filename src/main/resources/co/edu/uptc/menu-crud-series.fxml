@@ -12,9 +12,10 @@
                 <Label id="title" text=" SERIES "/>
                 <Button fx:id="createButton" text="Create Serie" onAction="#sceneCreate" />
                 <Button fx:id="deleteButton" text="Delete Serie" onAction="#sceneDelete"/>
-                <Button fx:id="updateButton" text="Update Serie" onAction ="#sceneUpdate"/>
-                <Button fx:id="findButton" text="Find Serie" onAction="#sceneFind"/>
-                <Button fx:id="obtainAllButton" text="Obtain All Serie" onAction="#sceneObtainAll"/>
+                <Button fx:id="findButtonMain" text="Find Serie" onAction="#sceneFind"/>
+                 <Button fx:id="createSeason" text="Create Season" onAction="#createSeason"/>
+                <Button fx:id="createEpisode" text="Create Episode" onAction="#createEpisode"/>
+                  <Button fx:id="salir" text="Back" onAction="#atras"/>
             </VBox>
     </children>
 </StackPane>

@@ -19,7 +19,7 @@
         <HBox spacing="20">
           <VBox id="vbox" spacing="10" HBox.hgrow="ALWAYS" alignment="CENTER">
                 <Label id="title" text="Enter the name of the plan you want to create" />
-                <TextField fx:id="planName" promptText="Name plan" />
+                <TextField fx:id="namePlan" promptText="Name plan" />
                 <Label fx:id="messageError1"/>
                 <Label id="title" text="Enter the description of the plan you want to create" />
                 <TextField fx:id="descriptionName" promptText="Description plan " />
@@ -31,7 +31,7 @@
                 <TextField fx:id="daysName" promptText="Duration Plan" />
                 <Label fx:id="messageError4"/>
                 <Button fx:id="createButton" text="Create" onAction="#createPlan"/>
-                <Button fx:id="backButton" text="Back"/>
+                <Button fx:id="backButton" text="Back" onAction="#salir"/>
                 
             </VBox>
            

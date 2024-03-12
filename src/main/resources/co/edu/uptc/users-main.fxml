@@ -20,7 +20,7 @@
       <MenuButton fx:id="playlists" layoutX="33.0" layoutY="45.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="133.0" text="Search">
         <items>
           <MenuItem mnemonicParsing="false" onAction="#sceneShowMovies" text="Movies" />
-          <MenuItem mnemonicParsing="false" text="Serie" />
+          <MenuItem mnemonicParsing="false" text="Serie" onAction="#sceneShowSerie" />
         </items>
       </MenuButton>
       <ImageView fitHeight="293.0" fitWidth="309.0" layoutX="217.0" layoutY="9.0" pickOnBounds="true" preserveRatio="true">

@@ -1,11 +1,11 @@
 package co.edu.uptc.view.users;
+
 import java.io.IOException;
 
 import co.edu.uptc.Main;
 import javafx.fxml.FXML;
 
 public class MenuUsersView {
-
 
     @FXML
     private void sceneCreate() throws IOException {
@@ -32,5 +32,3 @@ public class MenuUsersView {
         Main.setRoot("obtainAll-series");
     }
 }
-
-

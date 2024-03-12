@@ -90,7 +90,8 @@
 #showCategory,
 #showSerie,
 #showSeason,
-#showEpisode {
+#showEpisode,
+#showMovie {
     -fx-font-size: 17px;
     -fx-font-weight: bold;
     -fx-text-fill: #db0000;

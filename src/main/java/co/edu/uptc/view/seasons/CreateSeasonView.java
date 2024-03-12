@@ -124,7 +124,6 @@ public class CreateSeasonView implements Initializable {
                 comoboBoxMovies.getItems().clear();
                 comoboBoxMovies.getItems().addAll(serieController.getAll());
                 loadItems();
-                Main.setRoot("create-episode");
             }
         }
     }

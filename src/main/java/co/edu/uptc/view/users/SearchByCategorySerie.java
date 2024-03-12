@@ -86,7 +86,7 @@ public class SearchByCategorySerie implements Initializable {
 
     @FXML
     private void sceneMenu() throws IOException {
-        Main.setRoot("menu-crud-categories");
+        Main.setRoot("users-main");
     }
 
     public void comboBoxCategoryAction(ActionEvent event) {

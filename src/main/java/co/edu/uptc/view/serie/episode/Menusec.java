@@ -31,4 +31,10 @@ public class Menusec {
 
     }
 
+    @FXML
+    private void salir() throws IOException {
+        Main.setRoot("visitante-view");
+
+    }
+
 }

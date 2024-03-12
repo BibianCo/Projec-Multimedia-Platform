@@ -39,7 +39,7 @@ public class Reproduce implements Initializable {
 
         try {
             file = new File(
-                    "C:\\Users\\juan3\\Documents\\Project-Multimedia-Platform\\src\\main\\resources\\co\\edu\\uptc\\images\\video .mp4");
+                    "C:\\Users\\juan3\\Documents\\Project-Multimedia-Platform\\src\\main\\resources\\co\\edu\\uptc\\images\\video.mp4");
             // Crear un objeto Media con la ruta del archivo multimedia
         } catch (Exception e) {
             e.printStackTrace();

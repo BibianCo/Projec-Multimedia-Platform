@@ -23,11 +23,12 @@ public class MainUserView {
 
     @FXML
     private void sceneShowMovies() throws IOException {
-        Main.setRoot("obtainAll-movies");
+        Main.setRoot("find-movieUser");
     }
 
     @FXML
-    private void sceneShowSerie() {
+    private void sceneShowSerie() throws IOException {
+        Main.setRoot("find-seriesUser");
 
     }
 

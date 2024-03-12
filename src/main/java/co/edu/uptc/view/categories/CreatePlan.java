@@ -8,6 +8,7 @@ import java.util.ResourceBundle;
 
 import com.google.gson.reflect.TypeToken;
 
+import co.edu.uptc.Main;
 import co.edu.uptc.controller.PlanController;
 import co.edu.uptc.model.Plan;
 import co.edu.uptc.persistence.FilePersistence;
@@ -21,7 +22,7 @@ import javafx.scene.control.cell.PropertyValueFactory;
 
 public class CreatePlan implements Initializable {
     @FXML
-    private TextField planName;
+    private TextField namePlan;
     @FXML
     private TextField descriptionName;
     @FXML
@@ -47,7 +48,7 @@ public class CreatePlan implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         idColumn.setCellValueFactory(new PropertyValueFactory<>("id"));
-        nameColumn.setCellValueFactory(new PropertyValueFactory<>("name"));
+        nameColumn.setCellValueFactory(new PropertyValueFactory<>("namePlan"));
         descriptionColumn.setCellValueFactory(new PropertyValueFactory<>("description"));
         priceColumn.setCellValueFactory(new PropertyValueFactory<>("price"));
         durationColumn.setCellValueFactory(new PropertyValueFactory<>("duration"));
@@ -68,17 +69,17 @@ public class CreatePlan implements Initializable {
 
     @FXML
     private void createPlan() throws IOException {
-        if (validarString(planName.getText(), messageError1) || validarString(descriptionName.getText(), messageError2)
+        if (validarString(namePlan.getText(), messageError1) || validarString(descriptionName.getText(), messageError2)
                 || validarNumber(priceName.getText(), messageError3)
                 || validarNumber(daysName.getText(), messageError4)) {
 
         } else {
 
-            Plan plan = new Plan(setId(), planName.getText(), descriptionName.getText(),
+            Plan plan = new Plan(setId(), namePlan.getText(), descriptionName.getText(),
                     Integer.parseInt(priceName.getText()), Integer.parseInt(daysName.getText()));
 
             if (planController.add(plan)) {
-                planName.clear();
+                namePlan.clear();
                 descriptionName.clear();
                 priceName.clear();
                 daysName.clear();
@@ -133,6 +134,11 @@ public class CreatePlan implements Initializable {
             return planController.getAll().get(planController.getAll().size() - 1).getId() + 1;
         }
 
+    }
+
+    @FXML
+    private void salir() throws IOException {
+        Main.setRoot("menuadmi-view");
     }
 
 }

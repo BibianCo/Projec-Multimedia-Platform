@@ -9,7 +9,7 @@
 
 <Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" stylesheets="@css/style.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="co.edu.uptc.view.serie.episode.Menusec">
    <children>
-      <ImageView fitHeight="434.0" fitWidth="645.0" layoutY="-22.0" opacity="0.46" pickOnBounds="true" preserveRatio="true">
+      <ImageView fitHeight="524.0" fitWidth="779.0" layoutY="-22.0" opacity="0.46" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@images/Free%20Vector%20_%20Gradient%20liquid%20abstract%20background.jpeg" />
          </image>
@@ -19,9 +19,10 @@
             <Font name="Arial Bold" size="13.0" />
          </font>
       </Label>
-      <Button fx:id="categories" layoutX="151.0" layoutY="105.0" mnemonicParsing="false" text="Category management" onAction="#menuCaregories" />
-      <Button fx:id="movies" layoutX="151.0" layoutY="200.0" mnemonicParsing="false" text="Movies management" onAction="#menuMovie" />
-      <Button fx:id="series" layoutX="151.0" layoutY="303.0" mnemonicParsing="false" text="Series management" onAction="#menuSerie" />
-      <Button fx:id="planes" layoutX="151.0" layoutY="303.0" mnemonicParsing="false" text="Planes create" onAction="#menuPlanes" />
+      <Button fx:id="categories" layoutX="300.0" layoutY="87.0" mnemonicParsing="false" onAction="#menuCaregories" text="Category management" />
+      <Button fx:id="movies" layoutX="312.0" layoutY="200.0" mnemonicParsing="false" onAction="#menuMovie" text="Movies management" />
+      <Button fx:id="planes" layoutX="14.0" layoutY="257.0" mnemonicParsing="false" onAction="#menuPlanes" text="Planes create" />
+      <Button fx:id="salir" layoutX="322.0" layoutY="334.0" mnemonicParsing="false" onAction="#salir" text="Back" />
+      <Button fx:id="serie" layoutX="14.0" layoutY="145.0" mnemonicParsing="false" onAction="#menuSerie" text="Serie management" />
    </children>
 </Pane>

@@ -14,24 +14,15 @@ import co.edu.uptc.controller.SerieController;
 import co.edu.uptc.model.Category;
 import co.edu.uptc.model.Serie;
 import co.edu.uptc.persistence.FilePersistence;
-import co.edu.uptc.view.seasons.CreateSeasonView;
-import javafx.beans.property.SimpleStringProperty;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
-import javafx.scene.Node;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.ComboBox;
-import javafx.scene.control.DateCell;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.input.MouseEvent;
-import javafx.stage.Stage;
 
 public class CreateSeriesView implements Initializable {
     @FXML
@@ -116,7 +107,6 @@ public class CreateSeriesView implements Initializable {
                 serieCategoriesComboBox.setValue(null);
                 messageError.setText("");
                 loadItems();
-                Main.setRoot("create-season");
             } else {
                 messageError.setText("Error: failed to create serie");
             }
@@ -140,22 +130,4 @@ public class CreateSeriesView implements Initializable {
         }
     }
 
-    @FXML
-    private void enviarDatos(MouseEvent event) {
-        Serie enviarSerie = serie;
-        Node node = (Node) event.getSource();
-        Stage stage = (Stage) node.getScene().getWindow();
-        stage.close();
-        try {
-            Parent root = FXMLLoader.load(CreateSeriesView.class.getClassLoader().getResource("fxml/Destino.fxml"));
-            stage.setUserData(enviarSerie);
-            Scene scene = new Scene(root);
-            stage.setTitle("Tutorial JavaFX");
-            stage.setScene(scene);
-            stage.show();
-        } catch (IOException e) {
-            System.err.println(String.format("Error creando ventana: %s", e.getMessage()));
-        }
-
-    }
 }

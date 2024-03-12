@@ -32,4 +32,9 @@ public class MenuMovieView {
     private void sceneObtainAll() throws IOException {
         Main.setRoot("obtainAll-movies");
     }
+
+    @FXML
+    private void salir() throws IOException {
+        Main.setRoot("menuadmi-view");
+    }
 }

@@ -20,7 +20,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 
-public class FindMovieView implements Initializable {
+public class FindMovieViewUser implements Initializable {
 
     @FXML
     private TextField movieName;
@@ -37,7 +37,12 @@ public class FindMovieView implements Initializable {
 
     @FXML
     private void sceneMenu() throws IOException {
-        Main.setRoot("menu-crud-movies");
+        Main.setRoot("users-main");
+    }
+
+    @FXML
+    private void reproduce() throws IOException {
+        Main.setRoot("reproduce");
     }
 
     public void initialize(URL arg0, ResourceBundle arg1) {
