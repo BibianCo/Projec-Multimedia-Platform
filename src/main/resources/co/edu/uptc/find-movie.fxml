@@ -23,8 +23,8 @@
                             <Button  fx:id="findButton" text="Find" onAction="#findMovie"/>
                         </HBox>
                 <Label fx:id="messageError"/>
-                <Button fx:id="backButton" text="Back" onAction="#sceneMenu"/>
-                
+                <Button fx:id="createButton" text="Back" onAction="#sceneMenu"/>
+                s
                 
             </VBox>
            
