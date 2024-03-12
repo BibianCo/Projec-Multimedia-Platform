@@ -27,7 +27,7 @@ public class PlanController {
 
     public boolean add(Plan plan) {
         if (plan.getId() > 0 && !plan.getNamePlan().isEmpty() && plan.getDuration() > 0
-                && !plan.getDescription().isEmpty() && plan.getPrice() > 0 && planExists(plan)) {
+                && !plan.getDescription().isEmpty() && plan.getPrice() > 1000 && planExists(plan)) {
             return persistence.persist(plan);
         } else {
             return false;
@@ -49,7 +49,7 @@ public class PlanController {
 
     public boolean update(int id, Plan newPlan) {
         Plan currentPlan = get(id);
-    
+
         if (currentPlan != null) {
             int index = 0;
             for (Plan plan : getAll()) {

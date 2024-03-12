@@ -27,4 +27,9 @@ public class MenuEpisodeView {
         Main.setRoot("obtainAll-episode");
     }
 
+    @FXML
+    private void sceneMenuSeries() throws IOException {
+        Main.setRoot("menu-crud-series");
+    }
+
 }
