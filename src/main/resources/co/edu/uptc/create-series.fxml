@@ -1,53 +1,47 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.layout.StackPane?>
-<?import javafx.scene.layout.HBox?>
-<?import javafx.scene.layout.VBox?>
-<?import javafx.scene.control.Label?>
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
 <?import javafx.scene.control.ComboBox?>
-<?import javafx.scene.control.DatePicker?>
-<?import javafx.geometry.Insets?>
-<?import javafx.scene.control.Separator?>
 
-<StackPane id="pane" prefHeight="400" prefWidth="700" stylesheets="@css/style.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="co.edu.uptc.view.series.CreateSeriesView">
+<AnchorPane id="pane" prefHeight="400" prefWidth="700" stylesheets="@css/style.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="co.edu.uptc.view.users.CreateUsersView">
     <children>
         <HBox spacing="20">
-          <VBox id="vbox" spacing="10" HBox.hgrow="ALWAYS" alignment="CENTER">
-                <Label id="title" text="Enter the title" />
-                <TextField fx:id="serieTitle" promptText="Title" />
-                <Label id="title" text="Enter the synopsis" />
-                <TextField fx:id="serieSynopsis" promptText="Synopsis" />
-                <Label id="title" text="Select the release date" />
-                <DatePicker fx:id="releaseDate" />
-                <Label id="title" text="Select the category" />
-                <ComboBox fx:id="serieCategoriesComboBox" promptText="Select Category" />
-                <Label fx:id="messageError"/>
-                <Button fx:id="createButton" text="Create" onAction="#createSerie"/>
-                <Button fx:id="backButton" text="Back" onAction="#sceneMenu"/>
-            </VBox>
-           
-            <Separator styleClass="line" orientation="VERTICAL"/>
+            <children>
+                <VBox spacing="10" HBox.hgrow="ALWAYS" alignment="CENTER">
+                    <children>
+                        <Label text="Users" />
+                        <TextField fx:id="firstName" promptText="First Name" />
+                        <TextField fx:id="lastName" promptText="Last Name" />
+                        <TextField fx:id="email" promptText="Email" />
+                        <TextField fx:id="password" promptText="Password"/>
+                        <ComboBox fx:id="planComboBox" promptText="Select a plan" />
+                        <Button mnemonicParsing="false" onAction="#createUser" text="Create" />
+                        <Label fx:id="messageError" />
+                    </children>
+                </VBox>
 
-             <VBox id="vbox" spacing="10" HBox.hgrow="ALWAYS" alignment="CENTER">
-                <Label id="title" alignment="CENTER" text="Existing Series"/>
-                <children>
-                    <TableView fx:id="tableView"  styleClass="table-view">
-                        <columns>
-                            <TableColumn text="ID" fx:id="idColumn" />
-                            <TableColumn text="Title" fx:id="titleColumn" />
-                            <TableColumn text="Synopsis" fx:id="synopsisColumn" />
-                            <TableColumn text ="Category" fx:id="categoryColumn"/>
-                            <TableColumn text ="Release Date" fx:id="dateColumn"/>
-                        </columns>
-                    </TableView>
-                </children>
-                
-            </VBox>
-           
+                <VBox spacing="10" HBox.hgrow="ALWAYS" alignment="CENTER">
+                    <children>
+                        <Label alignment="CENTER" text="Users"/>
+                        <TableView fx:id="tableView" prefHeight="400" prefWidth="500">
+                            <columns>
+                                <TableColumn fx:id="idColumn" prefWidth="75.0" text="ID" />
+                                <TableColumn fx:id="firstNameColumn" prefWidth="150.0" text="First Name" />
+                                <TableColumn fx:id="lastNameColumn" prefWidth="150.0" text="Last Name" />
+                                <TableColumn fx:id="emailColumn" prefWidth="200.0" text="Email" />
+                                <TableColumn fx:id="passwordColumn" prefWidth="200.0" text="Password" />
+                            </columns>
+                        </TableView>
+                    </children>
+                </VBox>
+            </children>
         </HBox>
     </children>
-</StackPane>
+</AnchorPane>
