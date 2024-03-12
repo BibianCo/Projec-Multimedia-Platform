@@ -138,4 +138,9 @@ public class CreateSeasonView implements Initializable {
 
     }
 
+    public void setSerie(Serie serie) {
+        this.serie = serie;
+
+    }
+
 }

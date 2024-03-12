@@ -19,7 +19,8 @@
 #messageError,
 #messageError1,
 #messageError2,
-#messageError3 {
+#messageError3,
+#messageError4 {
     -fx-text-fill: #db0000;
     -fx-font-size: 16px;
     -fx-alignment: "center";
@@ -269,4 +270,14 @@
         -fx-pref-width: 100;
         -fx-pref-height: 100;
     }
+}
+
+#register {
+    -fx-text-fill: #3404f5;
+    -fx-background-color: transparent;
+    -fx-border-color: transparent;
+}
+
+#register:hover {
+    -fx-cursor: hand;
 }
