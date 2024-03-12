@@ -244,3 +244,29 @@
     -fx-border-style: none;
     -fx-border-radius: 0px;
 }
+
+#serchCategory,
+#playlists,
+#search,
+#profile {
+    -fx-font-size: 15px;
+    -fx-pref-width: 140px;
+    -fx-pref-height: 10px;
+    -fx-background-color: #db0000;
+    -fx-text-fill: #333;
+    -fx-background-radius: 0px;
+    -fx-border-radius: 0px;
+    -fx-border-color: #333333;
+    -fx-border-width: 1px;
+}
+
+#hola {
+    -fx-padding: 11px;
+}
+
+@media only screen and (min-width:600px) {
+    .imagen {
+        -fx-pref-width: 100;
+        -fx-pref-height: 100;
+    }
+}

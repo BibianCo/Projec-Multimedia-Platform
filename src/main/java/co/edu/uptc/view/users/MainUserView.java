@@ -9,10 +9,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.ScrollPane;
 
-public class MainUserView implements Initializable {
-
-    @FXML
-    private ScrollPane rightPane;
+public class MainUserView {
 
     @FXML
     private void sceneSearchMovies() throws IOException {
@@ -25,7 +22,8 @@ public class MainUserView implements Initializable {
     }
 
     @FXML
-    private void sceneShowMovies() {
+    private void sceneShowMovies() throws IOException {
+        Main.setRoot("obtainAll-movies");
     }
 
     @FXML
@@ -34,18 +32,13 @@ public class MainUserView implements Initializable {
     }
 
     @FXML
-    private void sceneCostomList() {
+    private void sceneCostomList() throws IOException {
+        Main.setRoot("list-reproduce");
 
     }
 
     @FXML
     private void sceneExit() {
-
-    }
-
-    @Override
-    public void initialize(URL arg0, ResourceBundle arg1) {
-        rightPane.setVvalue(0.0);
 
     }
 
