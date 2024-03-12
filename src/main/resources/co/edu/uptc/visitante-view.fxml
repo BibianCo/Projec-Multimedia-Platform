@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.text.Font?>
+
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="-1" prefWidth="-1" stylesheets="@css/style.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="co.edu.uptc.view.user.Visitante">
+   <children>
+      <ImageView fitHeight="495.0" fitWidth="740.0" opacity="0.52" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@images/Free%20Vector%20_%20Gradient%20liquid%20abstract%20background.jpeg" />
+         </image>
+      </ImageView>
+      <Label layoutX="158.0" layoutY="22.0" prefHeight="68.0" prefWidth="425.0" text="Multimedia Platform">
+         <font>
+            <Font name="Bookman Old Style" size="40.0" />
+         </font>
+      </Label>
+      <ImageView fitHeight="192.0" fitWidth="136.0" layoutX="75.0" layoutY="105.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@images/imag3.jpg" />
+         </image>
+      </ImageView>
+      <ImageView fitHeight="192.0" fitWidth="148.0" layoutX="526.0" layoutY="105.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@images/movie1.jpg" />
+         </image>
+      </ImageView>
+      <ImageView fitHeight="200.0" fitWidth="148.0" layoutX="290.0" layoutY="106.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@images/movie2.jpg" />
+         </image>
+      </ImageView>
+      <Button fx:id="registrarbutton" layoutX="45.0" layoutY="361.0" mnemonicParsing="false" onAction="#singIn" prefHeight="22.0" prefWidth="178.0" text="Sing In " >
+         <font>
+            <Font name="Arial" size="12.0" />
+         </font>
+      </Button>
+      <Button fx:id="salirButton" layoutX="441.0" layoutY="361.0" mnemonicParsing="false" onAction="#goOut" prefHeight="30.0" prefWidth="164.0" text="Go Out"  />
+      <Button fx:id="LoginButton" layoutX="245.0" layoutY="424.0" mnemonicParsing="false" onAction="#logIn" prefHeight="68.0" prefWidth="136.0" text="Log In " />
+   </children>
+</Pane>
