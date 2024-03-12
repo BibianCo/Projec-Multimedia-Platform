@@ -7,7 +7,9 @@ module co.edu.uptc {
     opens co.edu.uptc.view.movies to javafx.fxml;
     opens co.edu.uptc.view.serie.episode to javafx.fxml;
     opens co.edu.uptc.view.categories to javafx.fxml;
+    opens co.edu.uptc.view.users to javafx.fxml;
     opens co.edu.uptc.model to com.google.gson;
+    opens co.edu.uptc.view.series to javafx.fxml;
 
     exports co.edu.uptc;
     exports co.edu.uptc.controller;
@@ -16,4 +18,6 @@ module co.edu.uptc {
     exports co.edu.uptc.view.movies;
     exports co.edu.uptc.view.serie.episode;
     exports co.edu.uptc.view.categories;
+    exports co.edu.uptc.view.users;
+    exports co.edu.uptc.view.series;
 }
