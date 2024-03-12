@@ -13,8 +13,8 @@ public class Main extends Application {
 
     @Override
     public void start(Stage stage) throws IOException {
+      
         scene = new Scene(loadFXML("administrador-view"));
-
         stage.setScene(scene);
         stage.setTitle("Plataforma Multimedia");
         stage.show();
