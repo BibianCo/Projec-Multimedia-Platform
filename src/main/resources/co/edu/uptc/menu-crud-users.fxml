@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Button?>
+<?import javafx.geometry.Insets?>
+
+<StackPane id="pane" prefHeight="500" prefWidth="500" stylesheets="@css/style.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="co.edu.uptc.view.users.MenuUsersView">
+    <children>
+        <VBox id="vbox" spacing="10" alignment="CENTER">
+            <Label id="title" text=" USER MENU "/>
+            <Button fx:id="createButton" text="Create Users" onAction="#sceneCreate" />
+            <Button fx:id="deleteButton" text="Delete Users" onAction="#sceneDelete"/>
+            <Button fx:id="updateButton" text="Update Users" onAction ="#sceneUpdate"/>
+        </VBox>
+    </children>
+</StackPane>
