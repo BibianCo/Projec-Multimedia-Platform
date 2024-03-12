@@ -1,5 +1,6 @@
 package co.edu.uptc.view.users;
 
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.ComboBox;
@@ -8,14 +9,17 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
+import co.edu.uptc.Main;
 import co.edu.uptc.controller.PlanController;
 import co.edu.uptc.controller.SubscriptionController;
 import co.edu.uptc.controller.UserController;
 import co.edu.uptc.model.Role;
+import co.edu.uptc.model.Subscription;
 import co.edu.uptc.model.User;
 import co.edu.uptc.persistence.FilePersistence;
 import com.google.gson.reflect.TypeToken;
 
+import java.io.IOException;
 import java.lang.reflect.Type;
 import java.net.URL;
 import java.util.ArrayList;
@@ -24,7 +28,6 @@ import java.util.ResourceBundle;
 
 import co.edu.uptc.model.Plan;
 import co.edu.uptc.persistence.Persistence;
-
 
 public class CreateUsersView implements Initializable {
     @FXML
@@ -40,48 +43,21 @@ public class CreateUsersView implements Initializable {
     private TextField password;
 
     @FXML
-    private TableView<User> tableView;
-
-    @FXML
-    private TableColumn<User, Integer> idColumn;
-
-    @FXML
-    private TableColumn<User, String> firstNameColumn;
-
-    @FXML
-    private TableColumn<User, String> lastNameColumn;
-
-    @FXML
-    private TableColumn<User, String> emailColumn;
-
-    @FXML
-    private TableColumn<User, String> passwordColumn;
-
-    @FXML
     private Label messageError;
 
-
     @FXML
-    private ComboBox<String> planComboBox;
+    private ComboBox<Plan> planComboBox;
 
     private UserController controller;
     private FilePersistence<User> filePersistence;
-    private Persistence <Plan> persistence;
+    private Persistence<Plan> persistence;
     private Type type;
     private PlanController planController;
-
+    private Plan plan;
 
     @Override
     public void initialize(URL arg0, ResourceBundle arg1) {
-        firstNameColumn.setCellValueFactory(new PropertyValueFactory<>("firstName"));
-        lastNameColumn.setCellValueFactory(new PropertyValueFactory<>("lastName"));
-        emailColumn.setCellValueFactory(new PropertyValueFactory<>("email"));
 
-        passwordColumn.setCellValueFactory(new PropertyValueFactory<>("password"));
-        planComboBox = new ComboBox<>();
-
-
-        tableView.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
         type = new TypeToken<ArrayList<User>>() {
         }.getType();
 
@@ -90,42 +66,54 @@ public class CreateUsersView implements Initializable {
         controller = new UserController(filePersistence, subscriptionController);
         filePersistence.createFile();
 
-        persistence = new FilePersistence<>(new TypeToken<ArrayList<Plan>>() {}.getType(), "plans");
+        persistence = new FilePersistence<>(new TypeToken<ArrayList<Plan>>() {
+        }.getType(), "plans");
         planController = new PlanController(persistence);
-        
-        loadItems();
-        addPlanComponents();
+
+        planComboBox.getItems().addAll(planController.getAll());
+        planComboBox.setOnAction(this::handleComboBoxAction);
+
     }
 
     @FXML
     private void createUser() {
-        if (firstName.getText().isEmpty() || lastName.getText().isEmpty() || email.getText().isEmpty() || password.getText().isEmpty()) {
+        if (firstName.getText().isEmpty() || lastName.getText().isEmpty() || email.getText().isEmpty()
+                || password.getText().isEmpty()) {
             messageError.setText("Error: Fields cannot be empty");
             return;
         }
-
-
-        Role role = new Role(1, "usuario");
-        User user = new User(setId(), firstName.getText(), lastName.getText(), email.getText(), password.getText(), role);
 
         if (firstName.getText().isEmpty() || lastName.getText().isEmpty() || email.getText().isEmpty()) {
             messageError.setText("Error: Fields cannot be empty");
             return;
         }
 
-        Role role = new Role(1, "usuario");
-        User user = new User(setId(), firstName.getText(), lastName.getText(), email.getText(), generatedPassword,
-                role);
+        if (plan != null) {
+            Role role = new Role(setId(), "user");
+            Subscription subscription = new Subscription(setId(), plan);
+            User user2 = new User(setId(), firstName.getText(), lastName.getText(), email.getText(), password.getText(),
+                    role, subscription, new ArrayList<>());
+            System.out.println(user2);
+            if (controller.add(user2)) {
+                clearFields();
+                try {
+                    Main.setRoot("users-main");
+                } catch (IOException e) {
+                    // TODO Auto-generated catch block
+                    e.printStackTrace();
+                }
 
+            }
 
-        if (controller.add(user)) {
-            clearFields();
-            messageError.setText("");
-            loadItems();
         } else {
             messageError.setText("Error: Unable to create user");
         }
 
+    }
+
+    @FXML
+    private void menu() throws IOException {
+        Main.setRoot("visitante-view");
     }
 
     public static boolean emailValidation(String email) {
@@ -150,11 +138,8 @@ public class CreateUsersView implements Initializable {
         return false;
     }
 
-    private void addPlanComponents() {
-        List<Plan> plans = planController.getAll();
-        for (Plan plan : plans) {
-            planComboBox.getItems().add(plan.getNamePlan());
-        }
+    public void handleComboBoxAction(ActionEvent event) {
+        plan = planComboBox.getValue();
 
     }
 
@@ -163,10 +148,6 @@ public class CreateUsersView implements Initializable {
         lastName.clear();
         email.clear();
         password.clear();
-    }
-
-    private void loadItems() {
-        tableView.getItems().setAll(controller.getAll());
     }
 
     public int setId() {

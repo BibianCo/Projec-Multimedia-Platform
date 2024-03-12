@@ -39,7 +39,8 @@ public class MainUserView {
     }
 
     @FXML
-    private void sceneExit() {
+    private void sceneExit() throws IOException {
+        Main.setRoot("visitante-view");
 
     }
 

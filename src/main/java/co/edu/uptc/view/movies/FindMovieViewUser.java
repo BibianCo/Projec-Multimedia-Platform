@@ -34,6 +34,7 @@ public class FindMovieViewUser implements Initializable {
     private FilePersistence<Movie> filePersistence;
     private CategoryController categoryController;
     private FilePersistence<Category> persistenceCategory;
+    private Movie movie;
 
     @FXML
     private void sceneMenu() throws IOException {
@@ -42,7 +43,12 @@ public class FindMovieViewUser implements Initializable {
 
     @FXML
     private void reproduce() throws IOException {
-        Main.setRoot("reproduce");
+        if (movie != null) {
+            Main.setRoot("reproduce");
+        } else {
+            messageError.setText("The movie does not exist");
+        }
+
     }
 
     public void initialize(URL arg0, ResourceBundle arg1) {
@@ -66,7 +72,7 @@ public class FindMovieViewUser implements Initializable {
             messageError.setText("Only words are accepted.");
             movieName.clear();
         } else {
-            Movie movie = movieController.get(existeMovie(movieName.getText()));
+            movie = movieController.get(existeMovie(movieName.getText()));
             if (movie != null) {
                 showMovie.setWrapText(true);
                 showMovie.setText("Movie Information:\n" +
@@ -74,6 +80,7 @@ public class FindMovieViewUser implements Initializable {
                         "Duration: " + movie.getDuration() + " minutes");
                 movieName.clear();
                 messageError.setText("");
+
             } else {
                 showMovie.setWrapText(true);
                 showMovie.setText("The movie does not exist");

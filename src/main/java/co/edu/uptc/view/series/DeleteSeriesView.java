@@ -64,11 +64,13 @@ public class DeleteSeriesView implements Initializable {
 
     @Override
     public void initialize(URL arg0, ResourceBundle arg1) {
-        Type type = new TypeToken<ArrayList<Serie>>() {}.getType();
-        Type type2 = new TypeToken<ArrayList<Category>>() {}.getType();
-    
+        Type type = new TypeToken<ArrayList<Serie>>() {
+        }.getType();
+        Type type2 = new TypeToken<ArrayList<Category>>() {
+        }.getType();
+
         this.filePersistence = new FilePersistence<>(type, "series");
-        persistenceCategory = new FilePersistence<>(type2, "categories"); 
+        persistenceCategory = new FilePersistence<>(type2, "categories");
         categoryController = new CategoryController(persistenceCategory);
         this.serieController = new SerieController(filePersistence, categoryController);
 
@@ -89,7 +91,7 @@ public class DeleteSeriesView implements Initializable {
 
     @FXML
     private void loadItems() {
-        tableView.getItems().clear();
+        tableView.getItems().setAll(new ArrayList<>());
         tableView.getItems().addAll(serieController.getAll());
     }
 
@@ -97,21 +99,23 @@ public class DeleteSeriesView implements Initializable {
     private void deleteSerie() {
 
         if (serie == null) {
-            messageError.setText("Seleccione una serie");
+            messageError.setText("Select a series");
         } else {
             messageError.setText("");
             int selectedId = serie.getId();
 
             if (serieController.delete(selectedId)) {
-            comboBoxSeries.getItems().remove(selectedId); // Aquí estás utilizando selectedId como índice
-            comboBoxSeries.getSelectionModel().clearSelection();
-            loadItems();
-        } else {
-            messageError.setText("Error: no se pudo eliminar la serie");
-        }
-                }
+
+                comboBoxSeries.getItems().clear();
+                comboBoxSeries.getItems().addAll(serieController.getAll());
+                comboBoxSeries.getSelectionModel().clearSelection();
+                loadItems();
+            } else {
+                messageError.setText("Error: Could not delete series");
             }
-    
+        }
+    }
+
     @FXML
     private void handleComboBoxAction(ActionEvent event) {
         serie = comboBoxSeries.getValue();
