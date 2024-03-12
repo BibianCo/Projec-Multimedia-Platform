@@ -21,8 +21,10 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
+
 import co.edu.uptc.model.Plan;
 import co.edu.uptc.persistence.Persistence;
+
 
 public class CreateUsersView implements Initializable {
     @FXML
@@ -58,6 +60,7 @@ public class CreateUsersView implements Initializable {
     @FXML
     private Label messageError;
 
+
     @FXML
     private ComboBox<String> planComboBox;
 
@@ -67,16 +70,20 @@ public class CreateUsersView implements Initializable {
     private Type type;
     private PlanController planController;
 
+
     @Override
     public void initialize(URL arg0, ResourceBundle arg1) {
         firstNameColumn.setCellValueFactory(new PropertyValueFactory<>("firstName"));
         lastNameColumn.setCellValueFactory(new PropertyValueFactory<>("lastName"));
         emailColumn.setCellValueFactory(new PropertyValueFactory<>("email"));
+
         passwordColumn.setCellValueFactory(new PropertyValueFactory<>("password"));
         planComboBox = new ComboBox<>();
 
+
         tableView.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
-        type = new TypeToken<ArrayList<User>>() {}.getType();
+        type = new TypeToken<ArrayList<User>>() {
+        }.getType();
 
         filePersistence = new FilePersistence<>(type, "users");
         SubscriptionController subscriptionController = new SubscriptionController();
@@ -97,8 +104,20 @@ public class CreateUsersView implements Initializable {
             return;
         }
 
+
         Role role = new Role(1, "usuario");
         User user = new User(setId(), firstName.getText(), lastName.getText(), email.getText(), password.getText(), role);
+
+        if (firstName.getText().isEmpty() || lastName.getText().isEmpty() || email.getText().isEmpty()) {
+            messageError.setText("Error: Fields cannot be empty");
+            return;
+        }
+
+        Role role = new Role(1, "usuario");
+        User user = new User(setId(), firstName.getText(), lastName.getText(), email.getText(), generatedPassword,
+                role);
+
+
         if (controller.add(user)) {
             clearFields();
             messageError.setText("");
@@ -106,6 +125,7 @@ public class CreateUsersView implements Initializable {
         } else {
             messageError.setText("Error: Unable to create user");
         }
+
     }
 
     public static boolean emailValidation(String email) {
@@ -135,6 +155,7 @@ public class CreateUsersView implements Initializable {
         for (Plan plan : plans) {
             planComboBox.getItems().add(plan.getNamePlan());
         }
+
     }
 
     private void clearFields() {

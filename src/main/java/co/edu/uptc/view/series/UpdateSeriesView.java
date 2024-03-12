@@ -85,9 +85,11 @@ public class UpdateSeriesView implements Initializable {
     @Override
     public void initialize(URL arg0, ResourceBundle arg1) {
 
-        type = new TypeToken<ArrayList<Serie>>() {}.getType();
+        type = new TypeToken<ArrayList<Serie>>() {
+        }.getType();
 
-        type2 = new TypeToken<ArrayList<Category>>() {}.getType();
+        type2 = new TypeToken<ArrayList<Category>>() {
+        }.getType();
 
         filePersistence = new FilePersistence<>(type, "series");
         persistenceCategory = new FilePersistence<>(type2, "categories");
@@ -98,9 +100,9 @@ public class UpdateSeriesView implements Initializable {
         idColumn.setCellValueFactory(new PropertyValueFactory<>("id"));
         titleColumn.setCellValueFactory(new PropertyValueFactory<>("title"));
         synopsisColumn.setCellValueFactory(new PropertyValueFactory<>("synopsis"));
-        // seasonsColumn.setCellValueFactory(new PropertyValueFactory<>("seasons"));
         categoryColumn.setCellValueFactory(new PropertyValueFactory<>("categories"));
         dateColumn.setCellValueFactory(new PropertyValueFactory<>("releaseDate"));
+
         date.setEditable(false);
         tableView.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
 
@@ -137,7 +139,7 @@ public class UpdateSeriesView implements Initializable {
 
     @FXML
     private void updateSeries() throws IOException {
-    
+
         if (currentSeries == null) {
             messageSeries.setText("Error, select series to update\"");
             clearMessage();
@@ -161,15 +163,15 @@ public class UpdateSeriesView implements Initializable {
             messageDate.setText("");
         } else {
             clearMessage();
-    
+
             Serie serie = new Serie(currentSeries.getId(), seriesName.getText(), synopsis.getText(), date.getValue());
-    
+
             if (controller.update(currentSeries.getId(), serie)) {
                 comoboBox.getItems().clear();
                 comoboBox.getItems().addAll(controller.getAll());
                 comboBoxCategories.getItems().clear();
                 comboBoxCategories.getItems().addAll(categoryController.getAll());
-    
+
                 clearFields();
                 clearMessage();
                 loadItems();
@@ -201,4 +203,3 @@ public class UpdateSeriesView implements Initializable {
 
     }
 }
-

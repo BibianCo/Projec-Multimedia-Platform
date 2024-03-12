@@ -10,12 +10,14 @@
 <StackPane id="pane" prefHeight="500" prefWidth="500" stylesheets="@css/style.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="co.edu.uptc.view.movies.MenuMovieView">
     <children>
             <VBox id="vbox" spacing="10" alignment="CENTER">
-                <Label id="title" text=" CATEGORIES "/>
+                <Label id="title" text=" MOVIES "/>
+                <Label styleClass="title" text= "Click on the action you want to perform" style="-fx-font-size: 18px"/>
                 <Button fx:id="createButton" text="Create Movie" onAction="#sceneCreate" />
                 <Button fx:id="deleteButton" text="Delete Movie" onAction="#sceneDelete"/>
                 <Button fx:id="updateButton" text="Update Movie" onAction="#sceneUpdate"/>
-                <Button fx:id="findButton" text="Find Movie" onAction="#sceneFind"/>
+                <Button fx:id="findButtonMain" text="Find Movie" onAction="#sceneFind"/>
                 <Button fx:id="obtainAllButton" text="Obtain All Movies" onAction="#sceneObtainAll"/>
+                <Button fx:id="Button" text="Back" onAction="#salir"/>
             </VBox>
     </children>
 </StackPane>

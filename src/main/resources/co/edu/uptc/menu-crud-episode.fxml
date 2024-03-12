@@ -17,6 +17,7 @@
                 <Button fx:id="deleteButton" text="Delete Episode" onAction="#sceneDelete"/>
                 <Button fx:id="findButtonMain" text="Find Episode" onAction="#sceneFind"/>
                 <Button fx:id="obtainAllButton" text="Obtain All Episode" onAction="#sceneObtainAll"/>
+                <Button fx:id="backButton" text=" Back " onAction="#sceneMenuSeries"/>
             </VBox>
     </children>
 </StackPane>

@@ -24,7 +24,7 @@
                         </HBox>
                 <Label fx:id="messageError"/>
                 <Button fx:id="createButton" text="Back" onAction="#sceneMenu"/>
-                s
+                
                 
             </VBox>
            

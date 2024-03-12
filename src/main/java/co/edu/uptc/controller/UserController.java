@@ -2,6 +2,7 @@ package co.edu.uptc.controller;
 
 import java.util.ArrayList;
 
+import co.edu.uptc.model.Role;
 import co.edu.uptc.model.Subscription;
 import co.edu.uptc.model.User;
 import co.edu.uptc.persistence.Persistence;
@@ -84,6 +85,19 @@ public class UserController {
             }
         }
         return false;
+    }
+
+    public Role validarRol(String email, String password) {
+        ArrayList<User> users = getAll();
+        for (User user : users) {
+            if (user.getEmail().equals(email) && user.getPassword().equals(password)) {
+                return user.getRole();
+            } else {
+                return null;
+            }
+        }
+        return null;
+
     }
 
     public boolean renewSuscription(Subscription newSuscription, int id) {

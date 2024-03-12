@@ -20,16 +20,16 @@
                 <children>
                     <TableView fx:id="tableView"  styleClass="table-view">
                         <columns>
-                          <TableColumn text="id" fx:id="idColumn" />
-                            <TableColumn text="Name " fx:id="titleColumn" />
+                            <TableColumn text="ID" fx:id="idColumn" />
+                            <TableColumn text="Title" fx:id="titleColumn" />
                             <TableColumn text="Synopsis" fx:id="synopsisColumn" />
-                            <TableColumn text="Categories" fx:id="categoryColum" />
-                            <TableColumn text="Date" fx:id="dateColumn" />
+                            <TableColumn text ="Category" fx:id="categoryColumn"/>
+                            <TableColumn text ="Release Date" fx:id="dateColumn"/>
                         </columns>
                     </TableView>
-
                      <Button fx:id="backButton" text="Back" onAction="#sceneMenu"/>
                 </children>
-            </VBox>
+               
+            </VBox>        
     </children>
 </StackPane>

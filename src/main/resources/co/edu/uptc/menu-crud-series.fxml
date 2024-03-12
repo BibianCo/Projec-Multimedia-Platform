@@ -6,15 +6,16 @@
 <?import javafx.scene.control.Button?>
 <?import javafx.geometry.Insets?>
 
-<StackPane id="pane" prefHeight="500" prefWidth="500" stylesheets="@css/style.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="co.edu.uptc.view.users.MenuUsersView">
+<StackPane id="pane" prefHeight="500" prefWidth="500" stylesheets="@css/style.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="co.edu.uptc.view.series.MenuSeriesView">
     <children>
             <VBox id="vbox" spacing="10" alignment="CENTER">
                 <Label id="title" text=" SERIES "/>
                 <Button fx:id="createButton" text="Create Serie" onAction="#sceneCreate" />
                 <Button fx:id="deleteButton" text="Delete Serie" onAction="#sceneDelete"/>
-                <Button fx:id="updateButton" text="Update Serie" onAction ="#sceneUpdate"/>
-                <Button fx:id="findButton" text="Find Serie" onAction="#sceneFind"/>
-                <Button fx:id="obtainAllButton" text="Obtain All Serie" onAction="#sceneObtainAll"/>
+                <Button fx:id="findButtonMain" text="Find Serie" onAction="#sceneFind"/>
+                 <Button fx:id="createSeason" text="Create Season" onAction="#createSeason"/>
+                <Button fx:id="createEpisode" text="Create Episode" onAction="#createEpisode"/>
+                  <Button fx:id="salir" text="Back" onAction="#atras"/>
             </VBox>
     </children>
 </StackPane>

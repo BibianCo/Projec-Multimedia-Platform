@@ -81,7 +81,6 @@ public class SeasonController {
             if (seasons == null) {
                 seasons = new ArrayList<>();
             }
-            System.out.println(season);
             seasons.add(season);
             serie.setSeasons(seasons);
             serieController.update(idSerie, serie);

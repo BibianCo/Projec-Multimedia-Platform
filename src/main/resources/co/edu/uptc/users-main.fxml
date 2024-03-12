@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.MenuButton?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.Pane?>
+
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" opacity="0.77" prefHeight="341.0" prefWidth="600.0" stylesheets="@css/style.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="co.edu.uptc.view.users.MainUserView">
+   <children>
+      <Button fx:id="playlists" layoutX="32.0" layoutY="156.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="117.0" text="Playlists" onAction="#sceneCostomList" />
+      <Button fx:id="profile" layoutX="32.0" layoutY="209.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="117.0" text="Profeile" />
+      <MenuButton fx:id="playlists" layoutX="33.0" layoutY="101.0" mnemonicParsing="false" text="Search by category">
+        <items>
+          <MenuItem mnemonicParsing="false" onAction="#sceneSearchMovies" text="Movies" />
+          <MenuItem mnemonicParsing="false" onAction="#sceneSearchSerie" text="Serie" />
+        </items>
+      </MenuButton>
+      <MenuButton fx:id="playlists" layoutX="33.0" layoutY="45.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="133.0" text="Search">
+        <items>
+          <MenuItem mnemonicParsing="false" onAction="#sceneShowMovies" text="Movies" />
+          <MenuItem mnemonicParsing="false" text="Serie" onAction="#sceneShowSerie" />
+        </items>
+      </MenuButton>
+      <ImageView fitHeight="293.0" fitWidth="309.0" layoutX="217.0" layoutY="9.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@images/imag4.jpg" />
+         </image>
+      </ImageView>
+   </children>
+</Pane>

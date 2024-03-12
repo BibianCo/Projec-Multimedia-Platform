@@ -31,4 +31,9 @@ public class MenuCategoryView {
     private void sceneObtainAll() throws IOException {
         Main.setRoot("obtainall-categories");
     }
+
+    @FXML
+    private void salir() throws IOException {
+        Main.setRoot("menuadmi-view");
+    }
 }

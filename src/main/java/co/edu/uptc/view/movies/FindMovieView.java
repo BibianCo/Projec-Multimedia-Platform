@@ -57,7 +57,7 @@ public class FindMovieView implements Initializable {
         if (movieName.getText().isEmpty() || movieName.getText().trim().isEmpty()) {
             messageError.setText("Error empty string, enter name");
             movieName.clear();
-        } else if (!movieName.getText().matches("\\b[a-zA-Z]+(\\s+[a-zA-Z]+)*\\b")) {
+        } else if (!movieName.getText().matches("[a-zA-Z]+")) {
             messageError.setText("Only words are accepted.");
             movieName.clear();
         } else {
@@ -71,7 +71,7 @@ public class FindMovieView implements Initializable {
                 messageError.setText("");
             } else {
                 showMovie.setWrapText(true);
-                showMovie.setText("The category does not exist");
+                showMovie.setText("The movie does not exist");
                 movieName.clear();
                 messageError.setText("");
             }
