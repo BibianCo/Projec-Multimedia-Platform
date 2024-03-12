@@ -13,10 +13,7 @@ public class Main extends Application {
 
     @Override
     public void start(Stage stage) throws IOException {
-        Parent root = loadFXML("login-user");
-
-
-
+        Parent root = loadFXML("reproduce");
 
         double width = root.prefWidth(-1);
         double height = root.prefHeight(-1);
