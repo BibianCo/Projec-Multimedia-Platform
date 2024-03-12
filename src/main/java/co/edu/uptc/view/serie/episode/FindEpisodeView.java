@@ -38,7 +38,7 @@ public class FindEpisodeView implements Initializable {
     private TextField episodeNumber;
 
     @FXML
-    private Label showSerie, showSeason, messageError, showEpisode;
+    private Label showSerie, showSeason, messageError1, messageError2, messageError3, showEpisode;
 
     private EpisodeController episodeController;
     private SeasonController seasonController;
@@ -88,17 +88,18 @@ public class FindEpisodeView implements Initializable {
 
         if (findSerie == null || findSeason == null) {
             viewSerie();
+            showSeason();
             return;
         }
         if (episodeNumber.getText().length() > 6) {
-            messageError.setText(
+            messageError3.setText(
                     "Please enter a valid episode number. Episode numbers must be numeric and can have up to 6 digits.");
             episodeNumber.clear();
         } else if (episodeNumber.getText().isEmpty() || episodeNumber.getText().trim().isEmpty()) {
-            messageError.setText("Error empty string, enter name");
+            messageError3.setText("Error empty string, enter name");
             episodeNumber.clear();
         } else if (!episodeNumber.getText().matches("[0-9]+")) {
-            messageError.setText("Only number are accepted.");
+            messageError3.setText("Only number are accepted.");
             episodeNumber.clear();
         } else {
             Episode findEpisode = episodeController.get(getId(Integer.valueOf(episodeNumber.getText())),
@@ -107,12 +108,12 @@ public class FindEpisodeView implements Initializable {
                 showEpisode.setWrapText(true);
                 showEpisode.setText(" The episode existing " + findEpisode.getNumber());
                 episodeNumber.clear();
-                messageError.setText("");
+                messageError3.setText("");
             } else {
                 showEpisode.setWrapText(true);
                 showEpisode.setText("The episode does not exist");
                 episodeNumber.clear();
-                messageError.setText("");
+                messageError3.setText("");
             }
         }
 
@@ -127,6 +128,7 @@ public class FindEpisodeView implements Initializable {
         if (findSerie != null || findSeason != null) {
             findSeason = comboBoxSeason.getValue();
             findSerie = comboBox.getValue();
+            viewSerie();
             showSeason();
             return;
         }
@@ -143,15 +145,12 @@ public class FindEpisodeView implements Initializable {
 
     private void viewSerie() {
         if (findSerie == null) {
-            messageError.setText("Error, select series to add episode");
+            messageError1.setText("Error, select series to add episode");
 
-        } else if (serieController.get(findSerie.getId()) == null) {
-            messageError.setText(" The serie does not exisy");
         } else {
             showSerie.setWrapText(true);
             showSerie.setText("The serie " + findSerie.getTitle());
-            messageError.setText("");
-            showSeason();
+            messageError1.setText("");
         }
 
     }
@@ -159,13 +158,11 @@ public class FindEpisodeView implements Initializable {
     private void showSeason() {
 
         if (findSeason == null) {
-            messageError.setText("Error, select season to add episode");
-        } else if (serieController.get(findSerie.getId()) == null) {
-            messageError.setText(" The season does not exisy");
+            messageError2.setText("Error, select season to add episode");
         } else {
             showSeason.setWrapText(true);
             showSeason.setText("Season " + String.valueOf(findSeason.getNumber()));
-            messageError.setText("");
+            messageError2.setText("");
         }
     }
 

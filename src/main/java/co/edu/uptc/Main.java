@@ -15,6 +15,9 @@ public class Main extends Application {
     public void start(Stage stage) throws IOException {
         Parent root = loadFXML("login-user");
 
+
+
+
         double width = root.prefWidth(-1);
         double height = root.prefHeight(-1);
 

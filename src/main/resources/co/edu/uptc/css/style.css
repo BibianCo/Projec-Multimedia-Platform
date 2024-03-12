@@ -16,23 +16,20 @@
 
 }
 
-#messageError {
+#messageError,
+#messageError1,
+#messageError2,
+#messageError3 {
     -fx-text-fill: #db0000;
-    -fx-tab-size: 25px;
+    -fx-font-size: 16px;
+    -fx-alignment: "center";
+    -fx-text-fill: #db0000;
+    -fx-wrap-text: "true"
 }
 
 .message {
     -fx-text-fill: #db0000;
     -fx-tab-size: 25px;
-}
-
-#messageError,
-#messageError1 {
-    -fx-alignment: "center";
-    -fx-text-fill: #db0000;
-    -fx-font-size: 15px;
-    -fx-wrap-text: "true"
-
 }
 
 .button {
