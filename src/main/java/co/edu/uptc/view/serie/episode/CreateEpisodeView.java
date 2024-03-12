@@ -151,7 +151,6 @@ public class CreateEpisodeView implements Initializable {
             messageError3.setText("There are no episode");
         } else {
             tableView.getItems().setAll(new ArrayList<>());
-            System.out.println(seasonController.get(findSeason.getId()).getEpisodes());
             tableView.getItems().addAll(seasonController.get(findSeason.getId()).getEpisodes());
         }
 

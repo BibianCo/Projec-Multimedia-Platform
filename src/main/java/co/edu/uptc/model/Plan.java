@@ -47,4 +47,10 @@ public class Plan extends Entity {
         this.duration = duration;
     }
 
+    @Override
+    public String toString() {
+        return "Plan [namePlan=" + namePlan + ", description=" + description + ", price=" + price + ", duration="
+                + duration + "]";
+    }
+
 }

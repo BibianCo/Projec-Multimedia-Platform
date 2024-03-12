@@ -126,7 +126,6 @@ public class ListReproduceView implements Initializable {
         selectedMovie = tableView.getSelectionModel().getSelectedItem();
         if (selectedMovie != null) {
             // Aquí implementa la lógica para guardar la película seleccionada
-            System.out.println("Película guardada: " + selectedMovie.getTitle());
         }
     }
 

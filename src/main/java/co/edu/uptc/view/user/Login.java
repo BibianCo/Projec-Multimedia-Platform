@@ -69,7 +69,6 @@ public class Login implements Initializable {
             messageLabel.setText("Empty password, enter a password.");
         } else {
             Role userRole = userController.validarRol(userNameField.getText(), passwordField.getText());
-            System.out.println(userRole);
             if (userRole != null && userRole.getName().equals("admin")) {
                 Main.setRoot("menuadmi-view");
             } else if (userController.logIn(userNameField.getText(), passwordField.getText())) {

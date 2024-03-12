@@ -41,8 +41,10 @@ public class FindSerieView implements Initializable {
 
     @Override
     public void initialize(URL arg0, ResourceBundle arg1) {
-        Type serieType = new TypeToken<ArrayList<Serie>>() {}.getType();
-        Type categoryType = new TypeToken<ArrayList<Category>>() {}.getType();
+        Type serieType = new TypeToken<ArrayList<Serie>>() {
+        }.getType();
+        Type categoryType = new TypeToken<ArrayList<Category>>() {
+        }.getType();
 
         this.filePersistence = new FilePersistence<>(serieType, "series");
         this.categoryPersistence = new FilePersistence<>(categoryType, "categories");
@@ -83,4 +85,3 @@ public class FindSerieView implements Initializable {
         return -1;
     }
 }
-

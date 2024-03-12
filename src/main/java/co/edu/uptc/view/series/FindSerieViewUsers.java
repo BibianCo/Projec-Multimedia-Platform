@@ -34,6 +34,8 @@ public class FindSerieViewUsers implements Initializable {
     private CategoryController categoryController;
     private FilePersistence<Category> categoryPersistence;
 
+    private Serie serie;
+
     @FXML
     private void sceneMenu() throws IOException {
         Main.setRoot("users-main");
@@ -41,7 +43,11 @@ public class FindSerieViewUsers implements Initializable {
 
     @FXML
     private void reproduce() throws IOException {
-        Main.setRoot("reproduce");
+        if (serie != null) {
+            Main.setRoot("reproduce-serie");
+        } else {
+            messageError.setText("The serie does not exist");
+        }
     }
 
     @Override
@@ -51,7 +57,7 @@ public class FindSerieViewUsers implements Initializable {
         Type categoryType = new TypeToken<ArrayList<Category>>() {
         }.getType();
 
-        this.filePersistence = new FilePersistence<>(serieType, "series");
+        this.filePersistence = new FilePersistence<>(serieType, "serie");
         this.categoryPersistence = new FilePersistence<>(categoryType, "categories");
 
         this.categoryController = new CategoryController(categoryPersistence);
@@ -64,7 +70,7 @@ public class FindSerieViewUsers implements Initializable {
             messageError.setText("Error: el campo está vacío, ingrese un título");
             serieTitle.clear();
         } else {
-            Serie serie = serieController.get(existsSerie(serieTitle.getText()));
+            serie = serieController.get(existsSerie(serieTitle.getText()));
             if (serie != null) {
                 showSerie.setWrapText(true);
                 showSerie.setText("Información de la serie:\n" +

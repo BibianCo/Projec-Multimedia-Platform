@@ -9,8 +9,7 @@
 
 <Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" opacity="0.77" prefHeight="341.0" prefWidth="600.0" stylesheets="@css/style.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="co.edu.uptc.view.users.MainUserView">
    <children>
-      <Button fx:id="playlists" layoutX="32.0" layoutY="156.0" mnemonicParsing="false" onAction="#sceneCostomList" prefHeight="25.0" prefWidth="117.0" text="Playlists" />
-      <Button fx:id="profile" layoutX="32.0" layoutY="209.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="117.0" text="Profeile" />
+  
       <MenuButton fx:id="playlists" layoutX="33.0" layoutY="101.0" mnemonicParsing="false" text="Search by category">
         <items>
           <MenuItem mnemonicParsing="false" onAction="#sceneSearchMovies" text="Movies" />
