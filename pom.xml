@@ -16,6 +16,9 @@
     
  
     <dependencies>
+
+     <dependencies>
+
         <dependency>
             <groupId>org.openjfx</groupId>
             <artifactId>javafx-media</artifactId>
@@ -45,7 +48,6 @@
         </dependency>
 
     </dependencies>
-
     <build>
         <plugins>
             <plugin>

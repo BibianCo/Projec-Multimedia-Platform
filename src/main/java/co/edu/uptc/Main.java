@@ -13,13 +13,12 @@ public class Main extends Application {
 
     @Override
     public void start(Stage stage) throws IOException {
-        Parent root = loadFXML("reproduce");
 
-        double width = root.prefWidth(-1);
-        double height = root.prefHeight(-1);
+      
+        scene = new Scene(loadFXML("administrador-view"));
 
-        scene = new Scene(root, width, height);
         stage.setScene(scene);
+        stage.setTitle("Plataforma Multimedia");
         stage.show();
     }
 

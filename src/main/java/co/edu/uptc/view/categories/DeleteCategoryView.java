@@ -83,14 +83,17 @@ public class DeleteCategoryView implements Initializable {
         filePersistence = new FilePersistence<>(type, "categories");
         controller = new CategoryController(filePersistence);
         comboBox.getItems().addAll(controller.getAll());
-
         comboBox.setOnAction(this::comboBoxCategoryAction);
+
         loadItems();
     }
 
     public void comboBoxCategoryAction(ActionEvent event) {
         deleteCategory = comboBox.getValue();
         comboBox.getEditor().clear();
+        if (deleteCategory != null) {
+
+        }
 
     }
 }
