@@ -36,34 +36,9 @@ public class CreateCategoryView implements Initializable {
     @FXML
     private Label messageError;
 
-    public CategoryController controller;
-    public FilePersistence<Category> filePersistence;
+    private CategoryController controller;
+    private FilePersistence<Category> filePersistence;
     private Type type;
-
-    @FXML
-    private void createCategory() throws IOException {
-        if (categoryName.getText().isEmpty() || !categoryName.getText().matches("[a-zA-Z]+")) {
-            messageError.setText("error empty string or only letters accepted");
-
-        } else {
-            Category category = new Category(setId(), categoryName.getText());
-            if (controller.add(category)) {
-                categoryName.clear();
-                messageError.setText("");
-                loadItems();
-            }
-        }
-    }
-
-    @FXML
-    private void sceneMenu() throws IOException {
-        Main.setRoot("menu-crud-categories");
-    }
-
-    private void loadItems() {
-        tableView.getItems().setAll(new ArrayList<>());
-        tableView.getItems().addAll(controller.getAll());
-    }
 
     @Override
     public void initialize(URL arg0, ResourceBundle arg1) {
@@ -80,8 +55,42 @@ public class CreateCategoryView implements Initializable {
 
     }
 
+    @FXML
+    private void createCategory() throws IOException {
+        if (categoryName.getText().isEmpty() || categoryName.getText().trim().isEmpty()) {
+            messageError.setText("Error empty string, enter name");
+        } else if (!categoryName.getText().matches("\\b[a-zA-Z]+(\\s+[a-zA-Z]+)*\\b")) {
+            messageError.setText("Only words are accepted.");
+        } else {
+            Category category = new Category(setId(), categoryName.getText());
+            if (controller.add(category)) {
+                categoryName.clear();
+                messageError.setText("");
+                loadItems();
+            } else {
+                messageError.setText("The category does exist");
+                categoryName.clear();
+            }
+        }
+    }
+
+    @FXML
+    private void sceneMenu() throws IOException {
+        Main.setRoot("menu-crud-categories");
+    }
+
+    private void loadItems() {
+        tableView.getItems().setAll(new ArrayList<>());
+        tableView.getItems().addAll(controller.getAll());
+    }
+
     public int setId() {
-        return controller.getAll().get(controller.getAll().size() - 1).getId() + 1;
+        if (controller.getAll().isEmpty()) {
+            return 1;
+        } else {
+            return controller.getAll().get(controller.getAll().size() - 1).getId() + 1;
+        }
+
     }
 
 }

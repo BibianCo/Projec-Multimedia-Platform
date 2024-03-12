@@ -10,11 +10,13 @@
 <StackPane id="pane" prefHeight="500" prefWidth="500" stylesheets="@css/style.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="co.edu.uptc.view.categories.MenuCategoryView">
     <children>
             <VBox id="vbox" spacing="10" alignment="CENTER">
-                <Label id="title" text=" CATEGORIES "/>
+                <Label styleClass="title" text=" CATEGORIES " style="-fx-font-size: 24px; -fx-font-weight: bold;"/>
+
+                <Label styleClass="title" text= "Click on the action you want to perform" style="-fx-font-size: 18px"/>
                 <Button fx:id="createButton" text="Create Category" onAction="#sceneCreate" />
                 <Button fx:id="deleteButton" text="Delete Category" onAction="#sceneDelete"/>
                 <Button fx:id="updateButton" text="Update Category" onAction ="#sceneUpdate"/>
-                <Button fx:id="findButton" text="Find Category" onAction="#sceneFind"/>
+                <Button fx:id="findButtonMain" text="Find Category" onAction="#sceneFind"/>
                 <Button fx:id="obtainAllButton" text="Obtain All Category" onAction="#sceneObtainAll"/>
             </VBox>
     </children>

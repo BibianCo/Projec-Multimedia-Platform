@@ -13,25 +13,8 @@
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.image.Image?>
 
-<StackPane id="pane" prefHeight="400" prefWidth="700" stylesheets="@css/style.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="co.edu.uptc.view.categories.CreateCategoryView">
+<StackPane id="pane" prefHeight="500" prefWidth="500" stylesheets="@css/style.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="co.edu.uptc.view.categories.ObtainAllCategoryView">
     <children>
-        <HBox spacing="20">
-          <VBox id="vbox" spacing="10" HBox.hgrow="ALWAYS" alignment="CENTER">
-                <ImageView fitWidth="250" fitHeight="250">
-                    <image>
-                        <Image url="@images/imagenCategorias.png" />
-                    </image>
-                </ImageView>
-                <Label id="title" text="Enter the name of the category you want to create" />
-                <TextField fx:id="categoryName" promptText="Name Category" />
-                <Label fx:id="messageError"/>
-                <Button fx:id="createButton" text="Create" onAction="#createCategory"/>
-                <Button fx:id="backButton" text="Back" onAction="#sceneMenu"/>
-                
-            </VBox>
-           
-            <Separator styleClass="line" orientation="VERTICAL"/>
-
              <VBox id="vbox" spacing="10" HBox.hgrow="ALWAYS" alignment="CENTER">
                 <Label id="title" alignment="CENTER" text="Existing Categories"/>
                 <children>
@@ -41,10 +24,9 @@
                             <TableColumn text="Name" fx:id="nameColumn" />
                         </columns>
                     </TableView>
+
+                     <Button fx:id="backButton" text="Back" onAction="#sceneMenu"/>
                 </children>
-                
             </VBox>
-           
-        </HBox>
     </children>
 </StackPane>

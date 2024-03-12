@@ -4,10 +4,11 @@
 }
 
 #title {
-    -fx-font-size: 15px;
+    -fx-font-size: 17px;
     -fx-font-family: sans-serif;
     -fx-text-fill: #000000;
-    -fx-alignment: CENTER;
+    -fx-text-alignment: CENTER;
+    -fx-wrap-text: "true";
 }
 
 #vbox {
@@ -15,18 +16,26 @@
 
 }
 
-#categoryName {
-    -fx-padding: 10px;
+#messageError,
+#messageError1,
+#messageError2,
+#messageError3 {
+    -fx-text-fill: #db0000;
+    -fx-font-size: 16px;
+    -fx-alignment: "center";
+    -fx-text-fill: #db0000;
+    -fx-wrap-text: "true"
 }
 
-#messageError {
-    -fx-text-fill: #831010;
-    -fx-tab-size: 20px;
+.message {
+    -fx-text-fill: #db0000;
+    -fx-tab-size: 25px;
 }
 
 .button {
-    -fx-font-size: 16px;
-    -fx-pref-width: 130px;
+    -fx-font-size: 15px;
+
+    -fx-pref-width: 250px;
     -fx-pref-height: 10px;
     -fx-background-color: #db0000;
     -fx-text-fill: #cccccc;
@@ -40,11 +49,12 @@
     -fx-background-color: #cccccc;
 }
 
+
 .table-view .column-header .label,
 .table-view .filler {
     -fx-background-color: #db0000;
     -fx-size: 30px;
-    -fx-text-fill: #cccccc;
+    -fx-text-fill: #ffffff;
     -fx-border-color: -fx-box-border;
     -fx-border-width: 0 1 0 0;
     -fx-border-insets: 0;
@@ -66,4 +76,100 @@
 
 .table-row-cell:odd {
     -fx-background-color: #F4F4F4F4;
+}
+
+
+.chosseCategory {
+    -fx-background-color: white;
+    -fx-border-color: #c0c0c0;
+    -fx-border-width: 1px;
+    -fx-pref-width: 250px;
+}
+
+#showCategory,
+#showSerie,
+#showSeason,
+#showEpisode {
+    -fx-font-size: 17px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #db0000;
+    -fx-background-color: #f0f0f0;
+    -fx-padding: 10px;
+    -fx-border-color: #db0000;
+    -fx-border-width: 2px;
+    -fx-border-radius: 5px;
+
+    -fx-text-alignment: center;
+}
+
+
+
+#comboBoxSeason,
+#comboBoxEpisode,
+#comboBox {
+    -fx-alignment: center;
+    -fx-pref-width: 200px;
+    -fx-font-size: 14px;
+    -fx-background-color: white;
+    -fx-border-color: #db0000;
+    -fx-border-radius: 0px;
+}
+
+#comboBoxSeason .arrow,
+#comboBoxEpisode .arrow,
+#comboBox .arrow {
+    -fx-background-color: #564d4d;
+}
+
+#comboBoxSeason .arrow-button,
+#comboBoxEpisode .arrow-button,
+#comboBox .arrow-button {
+    -fx-padding: 1px;
+
+}
+
+#findButton {
+    -fx-pref-width: 100px;
+    -fx-max-height: 100px;
+    -fx-background-radius: 0px;
+    -fx-border-radius: 0px;
+}
+
+#categoryName,
+#episodeDuration,
+#episodeNumber {
+    -fx-padding: 10px;
+    -fx-pref-width: 250px;
+    -fx-max-height: 100px;
+    -fx-border-color: #db0000;
+    -fx-background-radius: 0px;
+    -fx-border-radius: 0px;
+
+}
+
+#showSerie,
+#showSeason,
+#showEpisode {
+    -fx-font-size: 17px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #db0000;
+    -fx-background-color: #f0f0f0;
+    -fx-padding: 10px;
+    -fx-border-color: #db0000;
+    -fx-border-width: 2px;
+    -fx-border-radius: 5px;
+
+    -fx-text-alignment: center;
+}
+
+#episodeDuration {
+    -fx-background-color: #f0f0f0;
+    -fx-text-inner-color: #333333;
+    -fx-prompt-text-fill: #999999;
+    -fx-font-size: 14px;
+    -fx-padding: 6px;
+    -fx-border-color: #db0000;
+    -fx-border-width: 1px;
+    -fx-border-radius: 3px;
+
 }

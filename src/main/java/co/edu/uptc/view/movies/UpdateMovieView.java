@@ -5,7 +5,6 @@ import java.lang.reflect.Type;
 import java.net.URL;
 import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.List;
 import java.util.ResourceBundle;
 
 import com.google.gson.reflect.TypeToken;
@@ -27,9 +26,8 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.control.ListView;
 
-public class CreateMovieView implements Initializable {
+public class UpdateMovieView implements Initializable {
     @FXML
     private TextField movieName;
 
@@ -49,7 +47,7 @@ public class CreateMovieView implements Initializable {
     private TableView<Movie> tableView;
 
     @FXML
-    private Label messageName, messageSynopsis, messageDuration, messageDate, messageCategory;
+    private Label messageName, messageSynopsis, messageDuration, messageDate, messageCategory, messageMovies;
 
     @FXML
     private TableColumn<Movie, Integer> idColumn;
@@ -67,77 +65,22 @@ public class CreateMovieView implements Initializable {
     private TableColumn<Movie, LocalDate> dateColumn;
 
     @FXML
-    private ComboBox<Category> comoboBoxMovies;
+    private TableColumn<Movie, Category> categoryColum;
 
     @FXML
-    private TableColumn<Movie, Category> categoryColum;
+    private ComboBox<Category> comboBoxCategories;
+
+    @FXML
+    private ComboBox<Movie> comoboBox;
 
     private MovieController controller;
     private CategoryController categoryController;
     private FilePersistence<Category> persistenceCategory;
     private FilePersistence<Movie> filePersistence;
     private Type type, type2;
-
+    private Movie currentMovie;
     private Category category;
     ArrayList<Category> categories = new ArrayList<>();
-
-    @FXML
-    private void sceneMenu() throws IOException {
-        Main.setRoot("menu-crud-movies");
-    }
-
-    @FXML
-    private void createMovie() throws IOException {
-
-        if (movieName.getText().isEmpty() || synopsisp.getText().isEmpty() || duration.getText().isEmpty()
-                || date.getValue() == null) {
-            if (movieName.getText().isEmpty()) {
-                messageName.setText("Movie name is required");
-            } else {
-                messageName.setText("");
-            }
-            if (synopsisp.getText().isEmpty()) {
-                messageSynopsis.setText("Synopsis is required");
-            } else {
-                messageSynopsis.setText("");
-            }
-            messageDuration.setText(duration.getText().isEmpty() ? "Duration is required" : "");
-            messageDate.setText(date.getValue() == null ? "Date is required" : "");
-        } else if (!duration.getText().matches("\\d+")) {
-            messageDuration.setText("Only numbers are accepted");
-            messageSynopsis.setText("");
-            messageName.setText("");
-            messageDate.setText("");
-        } else if (!synopsisp.getText().matches("^[a-zA-Z ]+$")) {
-            messageSynopsis.setText("Only letters are accepted");
-            messageName.setText("");
-            messageDate.setText("");
-            messageDuration.setText("");
-
-        } else if (categories.size() == 0) {
-            messageCategory.setText("enter another category");
-            return;
-
-        } else {
-            clearMessage();
-
-            Movie movie = new Movie(setId(), movieName.getText(), synopsisp.getText(), date.getValue(),
-                    Integer.parseInt(duration.getText()), categories);
-
-            if (controller.add(movie)) {
-                comoboBoxMovies.getItems().clear();
-                comoboBoxMovies.getItems().addAll(categoryController.getAll());
-                clearFields();
-                loadItems();
-
-            }
-        }
-    }
-
-    private void loadItems() {
-        tableView.getItems().setAll(new ArrayList<>());
-        tableView.getItems().addAll(controller.getAll());
-    }
 
     @Override
     public void initialize(URL arg0, ResourceBundle arg1) {
@@ -162,21 +105,87 @@ public class CreateMovieView implements Initializable {
         date.setEditable(false);
         tableView.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
 
-        comoboBoxMovies.getItems().addAll(categoryController.getAll());
+        comboBoxCategories.getItems().addAll(categoryController.getAll());
+        comoboBox.getItems().addAll(controller.getAll());
         loadItems();
-        comoboBoxMovies.setOnAction(this::handleComboBoxAction);
 
+        comboBoxCategories.setOnAction(this::handleComboBoxAction);
+        comoboBox.setOnAction(this::handleComboBoxActionMovie);
     }
 
     public void handleComboBoxAction(ActionEvent event) {
-        category = comoboBoxMovies.getValue();
+        category = comboBoxCategories.getValue();
 
-        if (category != null && !categories.contains(category)) {
+        if (category != null) {
             categories.add(category);
-        } else {
-            messageCategory.setText("enter another category");
         }
 
+    }
+
+    public void handleComboBoxActionMovie(ActionEvent event) {
+        currentMovie = comoboBox.getValue();
+    }
+
+    private void loadItems() {
+        tableView.getItems().setAll(new ArrayList<>());
+        tableView.getItems().addAll(controller.getAll());
+    }
+
+    @FXML
+    private void sceneMenu() throws IOException {
+        Main.setRoot("menu-crud-movies");
+    }
+
+    @FXML
+    private void updateMovie() throws IOException {
+
+        if (currentMovie == null) {
+            messageMovies.setText("Error, select movie to update\"");
+            clearMessage();
+        }
+        if (movieName.getText().trim().isEmpty() || synopsisp.getText().trim().isEmpty()
+                || duration.getText().trim().isEmpty()
+                || date.getValue() == null) {
+            if (movieName.getText().isEmpty()) {
+                messageName.setText("Movie name is required");
+            } else {
+                messageName.setText("");
+            }
+            if (synopsisp.getText().isEmpty()) {
+                messageSynopsis.setText("Synopsis is required");
+            } else {
+                messageSynopsis.setText("");
+            }
+            messageDuration.setText(duration.getText().isEmpty() ? "Duration is required" : "");
+            messageDate.setText(date.getValue() == null ? "Date is required" : "");
+        } else if (!duration.getText().trim().matches("\\d+")) {
+            messageDuration.setText("Only numbers are accepted");
+            messageSynopsis.setText("");
+            messageName.setText("");
+            messageDate.setText("");
+        } else if (!synopsisp.getText().matches("^[a-zA-Z ]+$")) {
+            messageSynopsis.setText("Only letters are accepted");
+            messageName.setText("");
+            messageDate.setText("");
+            messageDuration.setText("");
+
+        } else {
+            clearMessage();
+
+            Movie movie = new Movie(currentMovie.getId(), movieName.getText(), synopsisp.getText(), date.getValue(),
+                    Integer.parseInt(duration.getText()), categories);
+
+            if (controller.update(currentMovie.getId(), movie)) {
+                comoboBox.getItems().clear();
+                comoboBox.getItems().addAll(controller.getAll());
+                comboBoxCategories.getItems().clear();
+                comboBoxCategories.getItems().addAll(categoryController.getAll());
+
+                clearFields();
+                clearMessage();
+                loadItems();
+            }
+        }
     }
 
     public int setId() {
