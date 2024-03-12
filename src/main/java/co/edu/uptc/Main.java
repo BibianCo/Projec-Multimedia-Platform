@@ -13,11 +13,16 @@ public class Main extends Application {
 
     @Override
     public void start(Stage stage) throws IOException {
+        Parent root = loadFXML("login-user");
 
-        scene = new Scene(loadFXML("menu-crud-episode"), 700, 600);
 
+
+
+        double width = root.prefWidth(-1);
+        double height = root.prefHeight(-1);
+
+        scene = new Scene(root, width, height);
         stage.setScene(scene);
-        stage.setTitle("Menu de categorias");
         stage.show();
     }
 
