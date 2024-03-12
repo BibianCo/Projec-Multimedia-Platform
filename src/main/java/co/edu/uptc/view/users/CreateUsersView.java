@@ -18,8 +18,6 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
 
-
-
 public class CreateUsersView implements Initializable {
     @FXML
     private TextField firstName;
@@ -50,7 +48,7 @@ public class CreateUsersView implements Initializable {
 
     public UserController controller;
     public FilePersistence<User> filePersistence;
-     private Type type;
+    private Type type;
 
     @Override
     public void initialize(URL arg0, ResourceBundle arg1) {
@@ -59,10 +57,10 @@ public class CreateUsersView implements Initializable {
         firstNameColumn.setCellValueFactory(new PropertyValueFactory<>("firstName"));
         lastNameColumn.setCellValueFactory(new PropertyValueFactory<>("lastName"));
         emailColumn.setCellValueFactory(new PropertyValueFactory<>("email"));
-        
 
         tableView.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
-        type = new TypeToken<ArrayList<User>>() {}.getType();
+        type = new TypeToken<ArrayList<User>>() {
+        }.getType();
 
         // Inicializar el controlador de usuarios y la persistencia de archivos
         filePersistence = new FilePersistence<>(type, "users");
@@ -75,24 +73,25 @@ public class CreateUsersView implements Initializable {
     @FXML
     private void createUser() {
 
-            if (firstName.getText().isEmpty() || lastName.getText().isEmpty() || email.getText().isEmpty()) {
-                messageError.setText("Error: Fields cannot be empty");
-                return;
-            }
+        if (firstName.getText().isEmpty() || lastName.getText().isEmpty() || email.getText().isEmpty()) {
+            messageError.setText("Error: Fields cannot be empty");
+            return;
+        }
 
-            String generatedPassword = lastName.getText().substring(0, 1) + firstName.getText().substring(0, 1) + "1234";
+        String generatedPassword = lastName.getText().substring(0, 1) + firstName.getText().substring(0, 1) + "1234";
 
-            Role role = new Role(1, "usuario");
-            User user = new User(setId(), firstName.getText(), lastName.getText(), email.getText(), generatedPassword, role);
+        Role role = new Role(1, "usuario");
+        User user = new User(setId(), firstName.getText(), lastName.getText(), email.getText(), generatedPassword,
+                role);
 
-            if (controller.add(user)) {
-                clearFields();
-                messageError.setText("");
-                loadItems();
-            } else {
-                messageError.setText("Error: Unable to create user");
-            }
-        
+        if (controller.add(user)) {
+            clearFields();
+            messageError.setText("");
+            loadItems();
+        } else {
+            messageError.setText("Error: Unable to create user");
+        }
+
     }
 
     private void clearFields() {

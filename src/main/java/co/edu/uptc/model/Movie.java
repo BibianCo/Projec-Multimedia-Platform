@@ -7,6 +7,7 @@ import java.util.Arrays;
 public class Movie extends Multimedia {
     private int duration;
     private ArrayList<Category> categories;
+    private String fileMovie;
 
     public Movie() {
 
@@ -43,4 +44,13 @@ public class Movie extends Multimedia {
     public void setCategories(ArrayList<Category> categories) {
         this.categories = categories;
     }
+
+    public String getFileMovie() {
+        return fileMovie;
+    }
+
+    public void setFileMovie(String fileMovie) {
+        this.fileMovie = fileMovie;
+    }
+
 }
